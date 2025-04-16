@@ -1,0 +1,12 @@
+<div
+  *ngIf="toast.message$ | async as msg"
+  class="fixed top-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-xl shadow-xl z-50 transition-all duration-300 animate-fade-in-out text-white font-medium"
+  [ngClass]="{
+    'bg-green-600': msg.type === 'success',
+    'bg-blue-600': msg.type === 'info',
+    'bg-yellow-500 text-black': msg.type === 'warning',
+    'bg-red-600': msg.type === 'danger',
+  }"
+>
+  {{ msg.text }}
+</div>
