@@ -44,7 +44,7 @@ export class WaitingRoomComponent {
 
     try {
       await this.authService.startEvent()
-      this.router.navigate(['/organizer/live'])
+      this.router.navigate(['/organizer/event'])
     } catch (err) {
       console.error('Error starting event:', err)
     } finally {

@@ -14,9 +14,14 @@ export const participantRoutes: Routes = [
           import('./waiting-room/waiting-room.component').then((m) => m.WaitingRoomComponent),
       },
       {
-        path: 'question',
+        path: 'event',
+        data: {
+          organizer: false,
+        },
         loadComponent: () =>
-          import('./question/question.component').then((m) => m.QuestionComponent),
+          import('../organizer/event-editor/event-editor.component').then(
+            (m) => m.EventEditorComponent
+          ),
       },
       {
         path: 'thanks',

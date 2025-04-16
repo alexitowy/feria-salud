@@ -19,7 +19,7 @@ export class WaitingRoomComponent {
   ngOnInit(): void {
     this.authService.canContinue$.pipe(filter(Boolean)).subscribe((canContinue) => {
       if (canContinue) {
-        this.router.navigate(['/participant/question'])
+        this.router.navigate(['/participant/event'])
       }
     })
   }

@@ -9,13 +9,11 @@ const organizerRoutes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
       {
         path: 'event',
+        data: {
+          organizer: true,
+        },
         loadComponent: () =>
           import('./event-editor/event-editor.component').then((m) => m.EventEditorComponent),
-      },
-      {
-        path: 'live',
-        loadComponent: () =>
-          import('./live-event/live-event.component').then((m) => m.LiveEventComponent),
       },
       {
         path: 'await',
