@@ -1,0 +1,13 @@
+@keyframes grow-shrink {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.pulse {
+  animation: grow-shrink 1s ease-in-out infinite;
+}

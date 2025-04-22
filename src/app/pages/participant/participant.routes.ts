@@ -15,13 +15,8 @@ export const participantRoutes: Routes = [
       },
       {
         path: 'event',
-        data: {
-          organizer: false,
-        },
         loadComponent: () =>
-          import('../organizer/event-editor/event-editor.component').then(
-            (m) => m.EventEditorComponent
-          ),
+          import('./event-editor/event-editor.component').then((m) => m.EventEditorComponent),
       },
       {
         path: 'thanks',

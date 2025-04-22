@@ -5,6 +5,8 @@ import { BehaviorSubject } from 'rxjs'
 import { Participant } from './interfaces/participants.interface'
 import { AuthService } from '../../../core/services/auth.service'
 import { Router } from '@angular/router'
+import { StorageService } from '../../../core/services/storage.service'
+import { StorageEnum } from '../../../core/models/emuns/storage.emun'
 
 @Component({
   selector: 'app-waiting-room',
@@ -19,7 +21,8 @@ export class WaitingRoomComponent {
   constructor(
     private firestore: Firestore,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +47,12 @@ export class WaitingRoomComponent {
 
     try {
       await this.authService.startEvent()
-      this.router.navigate(['/organizer/event'])
+      const organizerData = {
+        username: 'Organizador',
+        organizer: true,
+      }
+      this.storageService.setData(StorageEnum.USER_DATA, organizerData)
+      this.router.navigate(['/organizer/dashboard'])
     } catch (err) {
       console.error('Error starting event:', err)
     } finally {

@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { Router, RouterModule } from '@angular/router'
+import { Component, OnInit } from '@angular/core'
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
+import { Router, RouterModule } from '@angular/router'
+import { StorageEnum } from '../../../core/models/emuns/storage.emun'
 import { AuthService } from '../../../core/services/auth.service'
-import { ToastService } from '../../../core/services/toast.service'
+import { StorageService } from '../../../core/services/storage.service'
+import { UtilsService } from '../../../core/services/utils.service'
+import { or } from 'firebase/firestore'
 
 @Component({
   selector: 'app-join-event',
@@ -18,47 +22,60 @@ import { ToastService } from '../../../core/services/toast.service'
   styleUrl: './join-event.component.scss',
 })
 export class JoinEventComponent implements OnInit {
-  form!: FormGroup
+  form = new FormGroup({
+    name: new FormControl(null, Validators.required),
+    eventCode: new FormControl(null, Validators.required),
+  })
 
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
-    private toast: ToastService
+    private storageService: StorageService,
+    private utilsService: UtilsService
   ) {}
 
   ngOnInit() {
-    this.form = this.fb.group({
-      eventCode: [null, [Validators.required]],
-      name: [null, [Validators.required]],
-    })
+    const userData = this.storageService.getData(StorageEnum.USER_DATA)
+    if (userData) {
+      this.router.navigate(['/participant/event'])
+      return
+    }
   }
 
   async joinEvent() {
     if (this.form.valid) {
       const { eventCode, name } = this.form.value
-
+      if (!eventCode || !name) {
+        this.utilsService.showToast('Por favor, completa todos los campos.', 'danger')
+        return
+      }
       const result = await this.authService.checkCode(eventCode)
-      console.log(result)
 
       if (!result.valid) {
-        this.showToast('El código es incorrecto.', 'danger')
+        this.utilsService.showToast('El código es incorrecto.', 'danger')
         return
       }
 
       if (result.started) {
-        this.showToast('El evento ya comenzó. No puedes unirte ahora.', 'danger')
+        this.utilsService.showToast('El evento ya comenzó. No puedes unirte ahora.', 'danger')
         return
       }
 
-      await this.authService.saveUser(name)
+      const userExist = await this.authService.checkUser(name)
+      if (userExist) {
+        this.utilsService.showToast('El nombre ya está en uso. Por favor, elige otro.', 'danger')
+        return
+      }
+      const userData = {
+        username: name,
+        organizer: false,
+      }
+      await this.authService.saveUser(userData)
+      this.storageService.setData(StorageEnum.USER_DATA, userData)
       this.router.navigate(['/participant/await'])
     } else {
       this.form.markAllAsTouched()
     }
-  }
-
-  showToast(message: string, type: 'success' | 'info' | 'warning' | 'danger' = 'info') {
-    this.toast.show(message, type)
   }
 }

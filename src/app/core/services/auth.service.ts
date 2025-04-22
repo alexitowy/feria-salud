@@ -6,22 +6,25 @@ import {
   doc,
   Firestore,
   getDoc,
+  getDocs,
   onSnapshot,
   updateDoc,
 } from '@angular/fire/firestore'
-import { environment } from '../../../enviroments/environment'
 import { BehaviorSubject } from 'rxjs'
+import { environment } from '../../../enviroments/environment'
+import { User } from '../models/user.model'
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private canContinueSubject = new BehaviorSubject<boolean>(false)
   canContinue$ = this.canContinueSubject.asObservable()
+  eventListener$ = new BehaviorSubject<any>(null)
   constructor(
     private auth: Auth,
     private firestore: Firestore
   ) {
     this.login(environment.email, environment.password)
-    this.listenForEventStart()
+    this.listenForEvent()
   }
 
   async login(email: string, password: string): Promise<void> {
@@ -29,15 +32,15 @@ export class AuthService {
   }
 
   async checkCode(code: number): Promise<{ valid: boolean; started: boolean }> {
-    const codeRef = doc(this.firestore, 'Config', 'code')
-    const codeSnap = await getDoc(codeRef)
+    const codeRef = doc(this.firestore, 'event', 'feriaSalud')
+    const eventSnasp = await getDoc(codeRef)
 
-    if (!codeSnap.exists()) {
+    if (!eventSnasp.exists()) {
       return { valid: false, started: false }
     }
 
-    const data = codeSnap.data()
-    const isValidCode = data['value'] === +code
+    const data = eventSnasp.data()
+    const isValidCode = data['code'] === +code
     const hasStarted = data['active'] === true
 
     return {
@@ -46,18 +49,49 @@ export class AuthService {
     }
   }
 
-  async saveUser(name: string): Promise<void> {
+  async checkUser(name: string): Promise<boolean> {
+    const participantsRef = collection(this.firestore, 'participantes')
+    const querySnapshot = await getDocs(participantsRef)
+
+    if (!querySnapshot.empty) {
+      const users = querySnapshot.docs.map((doc) => doc.data())
+      const userExists = users.some((user) => user['name'] === name)
+      return userExists
+    }
+
+    return false
+  }
+
+  async saveUser(user: User): Promise<void> {
     const participantsRef = collection(this.firestore, 'participantes')
     await addDoc(participantsRef, {
-      name,
+      name: user.username,
+      organizer: user.organizer,
     })
   }
 
-  private listenForEventStart(): void {
-    const eventRef = doc(this.firestore, 'Config', 'code')
+  async getEvent(): Promise<any> {
+    const eventRef = doc(this.firestore, 'event', 'feriaSalud')
+    const eventSnap = await getDoc(eventRef)
+    if (eventSnap.exists()) {
+      const data = eventSnap.data()
+      this.eventListener$.next(data)
+    }
+  }
+
+  async completedIntro(): Promise<void> {
+    const eventRef = doc(this.firestore, 'event', 'feriaSalud')
+    await updateDoc(eventRef, {
+      introCompleted: true,
+    })
+  }
+
+  private listenForEvent(): void {
+    const eventRef = doc(this.firestore, 'event', 'feriaSalud')
 
     onSnapshot(eventRef, (snapshot) => {
       const data = snapshot.data()
+      this.eventListener$.next(data)
       if (data?.['active'] === true) {
         this.canContinueSubject.next(true)
       } else {
@@ -67,7 +101,7 @@ export class AuthService {
   }
 
   async startEvent(): Promise<void> {
-    const eventRef = doc(this.firestore, 'Config', 'code')
+    const eventRef = doc(this.firestore, 'event', 'feriaSalud')
 
     await updateDoc(eventRef, {
       active: true,

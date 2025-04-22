@@ -14,6 +14,6 @@ export class ToastService {
 
   show(text: string, type: ToastType = 'info') {
     this.message$.next({ text, type })
-    setTimeout(() => this.message$.next(null), 3000)
+    setTimeout(() => this.message$.next(null), 7000)
   }
 }

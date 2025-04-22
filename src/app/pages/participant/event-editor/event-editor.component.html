@@ -1,0 +1,92 @@
+<div class="min-h-screen flex items-center bg-[#130d00]" *ngIf="event">
+  @if (!event.introCompleted) {
+    <div class="container mx-auto">
+      <div class="max-w-3xl mx-auto rounded-lg overflow-hidden shadow-lg">
+        <div class="w-full h-[360px] bg-[#130d00] flex items-center justify-center">
+          <p class="text-xl text-white">Organizador presentando</p>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="relative w-full h-full mx-auto">
+      <!-- Imagen de fondo -->
+      <img
+        src="assets/images/fondo_enigma.png"
+        alt="Imagen de fondo"
+        class="w-full h-auto rounded-lg shadow-lg z-10"
+      />
+      <!-- Imagen superpuesta encima -->
+      <img
+        src="assets/images/cofre.png"
+        alt="Imagen encima"
+        (click)="showModal()"
+        class="absolute left-[55%] bottom-[12%] w-1/2 -translate-x-1/2 cursor-pointer animate-pulse z-30 brightness-150"
+      />
+      <div class="absolute inset-0 flex items-baseline justify-center p-4 text-center z-20">
+        <p
+          class="text-white text-sm md:text-base backdrop-blur-sm bg-black/40 p-4 rounded max-w-xl leading-relaxed"
+        >
+          Mientras inspeccionáis la consulta del curandero, descubrís una estantería inclinada con
+          libros desordenados, frascos rotos y un cofre sellado con un mensaje grabado: <br />
+          <span class="italic"
+            >«Solo quienes conozcan los secretos del cuerpo podrán abrirlo.»</span
+          >
+        </p>
+      </div>
+    </div>
+  }
+  <!-- Fondo del modal -->
+  <div class="fixed inset-0 bg-black/85 flex items-center justify-center z-50" *ngIf="isOpen">
+    <!-- Contenido del modal -->
+    <div
+      class="rounded-lg shadow-lg w-full p-6 relative bg-transparent bg-[url('/assets/images/pergamino.png')] bg-contain bg-center bg-no-repeat h-screen md:h-[90vh]"
+    >
+      <!--       <button
+        (click)="close()"
+        class="absolute top-[10%] right-[17%] md:right-[15%] text-white text-2xl font-bold"
+      >
+        &times;
+      </button> -->
+      <div
+        class="flex flex-col items-center justify-center h-full w-[60%] md:w-[50%] mx-auto space-y-6"
+      >
+        <p
+          class="text-xs md:text-lg text-white text-center leading-relaxed font-medieval drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]"
+        >
+          En el interior del cuerpo humano, más allá de huesos y sangre, mora un vasto reino sin
+          reyes ni castillos, pero lleno de vida diminuta, invisible al ojo del monje. No es uno,
+          sino miles, y no están solos: interactúan entre sí, y contigo también. Te ayudan a
+          digerir, a defenderte y a sanar, como un consejo secreto que mantiene el equilibrio del
+          reino interior. No son enfermedad, sino parte de ti. Dime, sabio viajero, ¿Cómo se llama
+          este conjunto de seres microscópicos que residen e interactúan en tu cuerpo como aliados
+          silenciosos?
+        </p>
+        <div class="flex items-center gap-2">
+          <input
+            type="text"
+            class="w-64 p-2 border-b-2 border-white bg-transparent text-white text-center placeholder-white/50 focus:outline-none focus:border-white"
+            [(ngModel)]="answer"
+            (keyup.enter)="checkAnswer()"
+            placeholder="Tu respuesta aquí"
+          />
+          <button
+            (click)="checkAnswer()"
+            class="bg-green-900/70 p-2 rounded-md hover:bg-green-900 border-2 border-gray-400/50"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="white"
+              class="size-6"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+            </svg>
+          </button>
+        </div>
+        <app-count-down [seconds]="120"></app-count-down>
+      </div>
+    </div>
+  </div>
+</div>
