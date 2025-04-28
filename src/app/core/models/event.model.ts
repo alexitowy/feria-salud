@@ -1,3 +1,6 @@
 export interface Event {
-  introCompleted: boolean
+  introVideoCompleted?: boolean
+  code?: number
+  active?: boolean
+  introCompleted?: boolean
 }

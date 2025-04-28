@@ -1,5 +1,5 @@
 <div class="min-h-screen flex items-center bg-[#130d00]" *ngIf="event">
-  @if (!event.introCompleted) {
+  @if (!event.introVideoCompleted) {
     <div class="container mx-auto">
       <div class="max-w-3xl mx-auto rounded-lg overflow-hidden shadow-lg">
         <div class="w-full h-[360px] bg-[#130d00] flex items-center justify-center">
@@ -7,7 +7,7 @@
         </div>
       </div>
     </div>
-  } @else {
+  } @else if (!event.introCompleted) {
     <div class="relative w-full h-full mx-auto">
       <!-- Imagen de fondo -->
       <img
@@ -41,12 +41,6 @@
     <div
       class="rounded-lg shadow-lg w-full p-6 relative bg-transparent bg-[url('/assets/images/pergamino.png')] bg-contain bg-center bg-no-repeat h-screen md:h-[90vh]"
     >
-      <!--       <button
-        (click)="close()"
-        class="absolute top-[10%] right-[17%] md:right-[15%] text-white text-2xl font-bold"
-      >
-        &times;
-      </button> -->
       <div
         class="flex flex-col items-center justify-center h-full w-[60%] md:w-[50%] mx-auto space-y-6"
       >

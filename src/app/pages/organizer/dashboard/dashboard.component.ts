@@ -5,11 +5,11 @@ import { StorageEnum } from '../../../core/models/emuns/storage.emun'
 import { AuthService } from '../../../core/services/auth.service'
 import { StorageService } from '../../../core/services/storage.service'
 import { Event } from '../../../core/models/event.model'
-import { NgIf } from '@angular/common'
+import { NgFor, NgIf } from '@angular/common'
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NgIf],
+  imports: [NgIf, NgFor],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -17,8 +17,10 @@ export class DashboardComponent implements AfterViewInit {
   private video!: HTMLVideoElement
   user!: User
   event!: Event
+  participants: any[] = []
   isOpen = false
   answer = ''
+  math = Math
   constructor(
     private storageService: StorageService,
     private router: Router,
@@ -32,7 +34,11 @@ export class DashboardComponent implements AfterViewInit {
     this.authService.eventListener$.subscribe((event) => {
       this.event = event
     })
+    this.authService.participantsListener$.subscribe((event) => {
+      this.participants = event
+    })
     this.authService.getEvent()
+    this.authService.getParticipants()
   }
 
   ngAfterViewInit() {
@@ -54,6 +60,6 @@ export class DashboardComponent implements AfterViewInit {
   }
 
   async continue() {
-    await this.authService.completedIntro()
+    await this.authService.completedVideoIntro()
   }
 }

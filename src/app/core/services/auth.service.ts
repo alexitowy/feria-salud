@@ -19,12 +19,14 @@ export class AuthService {
   private canContinueSubject = new BehaviorSubject<boolean>(false)
   canContinue$ = this.canContinueSubject.asObservable()
   eventListener$ = new BehaviorSubject<any>(null)
+  participantsListener$ = new BehaviorSubject<any>(null)
   constructor(
     private auth: Auth,
     private firestore: Firestore
   ) {
     this.login(environment.email, environment.password)
     this.listenForEvent()
+    this.listenForParticipants()
   }
 
   async login(email: string, password: string): Promise<void> {
@@ -79,10 +81,22 @@ export class AuthService {
     }
   }
 
-  async completedIntro(): Promise<void> {
+  async getParticipants(): Promise<any> {
+    const participantsRef = collection(this.firestore, 'participantes')
+    const querySnapshot = await getDocs(participantsRef)
+    if (!querySnapshot.empty) {
+      const list = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as Omit<any, 'id'>),
+      }))
+      this.participantsListener$.next(list)
+    }
+  }
+
+  async completedVideoIntro(): Promise<void> {
     const eventRef = doc(this.firestore, 'event', 'feriaSalud')
     await updateDoc(eventRef, {
-      introCompleted: true,
+      introVideoCompleted: true,
     })
   }
 
@@ -97,6 +111,20 @@ export class AuthService {
       } else {
         this.canContinueSubject.next(false)
       }
+    })
+  }
+
+  private listenForParticipants(): void {
+    const participantsRef = collection(this.firestore, 'participantes')
+
+    onSnapshot(participantsRef, (snapshot) => {
+      const data = snapshot.docs
+      console.log(data)
+      const list = data.map((doc) => ({
+        id: doc.id,
+        ...(doc.data() as Omit<any, 'id'>),
+      }))
+      this.participantsListener$.next(list)
     })
   }
 
