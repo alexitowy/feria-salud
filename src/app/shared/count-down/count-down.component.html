@@ -5,12 +5,12 @@
       <svg class="w-16 h-16" viewBox="0 0 100 100">
         <circle class="fill-none stroke-gray-200 stroke-2" cx="50" cy="50" r="45"></circle>
         <circle
-          class="fill-none stroke-blue-500 stroke-2 transition-all duration-300 ease-in-out"
+          [attr.class]="'fill-none stroke-2 transition-all duration-300 ease-in-out ' + circleColor"
           cx="50"
           cy="50"
           r="45"
-          [style.strokeDasharray]="283"
-          [style.strokeDashoffset]="283 - (283 * countdown) / 100"
+          [style.strokeDasharray]="circleLength"
+          [style.strokeDashoffset]="circleLength - (circleLength * countdown) / seconds"
         ></circle>
         <text
           x="50"

@@ -16,6 +16,8 @@ export class CountDownComponent implements OnInit {
   timeLeft: string = '00:00'
   private timer: any
   public countdown: number = 0
+  public circleLength = 2 * Math.PI * 45
+  public circleColor: string = 'stroke-green-500'
 
   constructor() {}
 
@@ -55,5 +57,14 @@ export class CountDownComponent implements OnInit {
     const minutes = Math.floor(this.countdown / 60)
     const seconds = this.countdown % 60
     this.timeLeft = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+
+    const percentage = (this.countdown / this.seconds) * 100
+    if (percentage > 50) {
+      this.circleColor = 'stroke-green-500'
+    } else if (percentage > 25) {
+      this.circleColor = 'stroke-amber-600'
+    } else {
+      this.circleColor = 'stroke-red-500'
+    }
   }
 }
