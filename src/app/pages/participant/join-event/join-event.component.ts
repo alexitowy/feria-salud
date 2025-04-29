@@ -70,6 +70,7 @@ export class JoinEventComponent implements OnInit {
       const userData = {
         username: name,
         organizer: false,
+        currentStage: 1,
       }
       await this.authService.saveUser(userData)
       this.storageService.setData(StorageEnum.USER_DATA, userData)

@@ -11,13 +11,13 @@
     <div class="relative w-full h-full mx-auto">
       <!-- Imagen de fondo -->
       <img
-        src="assets/images/fondo_enigma.png"
+        [src]="stageData?.background"
         alt="Imagen de fondo"
         class="w-full h-auto rounded-lg shadow-lg z-10"
       />
       <!-- Imagen superpuesta encima -->
       <img
-        src="assets/images/cofre.png"
+        [src]="stageData?.image"
         alt="Imagen encima"
         (click)="showModal()"
         class="absolute left-[55%] bottom-[12%] w-1/2 -translate-x-1/2 cursor-pointer animate-pulse z-30 brightness-150"
@@ -25,13 +25,8 @@
       <div class="absolute inset-0 flex items-baseline justify-center p-4 text-center z-20">
         <p
           class="text-white text-sm md:text-base backdrop-blur-sm bg-black/40 p-4 rounded max-w-xl leading-relaxed"
-        >
-          Mientras inspeccionáis la consulta del curandero, descubrís una estantería inclinada con
-          libros desordenados, frascos rotos y un cofre sellado con un mensaje grabado: <br />
-          <span class="italic"
-            >«Solo quienes conozcan los secretos del cuerpo podrán abrirlo.»</span
-          >
-        </p>
+          [innerHTML]="stageData?.description"
+        ></p>
       </div>
     </div>
   }
@@ -46,15 +41,8 @@
       >
         <p
           class="text-xs md:text-lg text-white text-center leading-relaxed font-medieval drop-shadow-[0_4px_4px_rgba(0,0,0,1)]"
-        >
-          En el interior del cuerpo humano, más allá de huesos y sangre, mora un vasto reino sin
-          reyes ni castillos, pero lleno de vida diminuta, invisible al ojo del monje. No es uno,
-          sino miles, y no están solos: interactúan entre sí, y contigo también. Te ayudan a
-          digerir, a defenderte y a sanar, como un consejo secreto que mantiene el equilibrio del
-          reino interior. No son enfermedad, sino parte de ti. Dime, sabio viajero, ¿Cómo se llama
-          este conjunto de seres microscópicos que residen e interactúan en tu cuerpo como aliados
-          silenciosos?
-        </p>
+          [innerHTML]="stageData?.riddle"
+        ></p>
         <div class="flex items-center gap-2">
           <input
             type="text"

@@ -9,6 +9,7 @@ import { AuthService } from '../../../core/services/auth.service'
 import { StorageService } from '../../../core/services/storage.service'
 import { CountDownComponent } from '../../../shared/count-down/count-down.component'
 import { UtilsService } from '../../../core/services/utils.service'
+import { StagesData } from './constants/stages'
 
 @Component({
   selector: 'app-event-editor',
@@ -27,6 +28,10 @@ export class EventEditorComponent {
   points: number = 0
   hasAnswered: boolean = false
 
+  currentStage = 1
+  stageData: any = null
+  stagesData = StagesData
+
   constructor(
     private storageService: StorageService,
     private router: Router,
@@ -43,6 +48,12 @@ export class EventEditorComponent {
       console.log(event)
     })
     this.authService.getEvent()
+  }
+
+  async ngOnInit(): Promise<void> {
+    const stage = await this.authService.getCurrentStage()
+    this.currentStage = stage
+    this.stageData = StagesData[this.currentStage]
   }
 
   async close() {
@@ -68,15 +79,16 @@ export class EventEditorComponent {
 
     this.countDownComponent.stop()
 
-    if (normalizedAnswer === 'microbiota') {
+    if (normalizedAnswer === this.stageData.answer.toLowerCase()) {
       this.calculateScore()
       this.utils.showToast(
-        `¡Correcto! Has descubierto el reino invisible. Puntos: ${this.points}`,
+        `¡Correcto! Has superado la etapa ${this.currentStage}. Puntos: ${this.points}`,
         'success'
       )
+
       this.close()
     } else {
-      this.utils.showToast('Respuesta incorrecta. No has podido abrir el cofre.', 'danger')
+      this.utils.showToast('Respuesta incorrecta. No has podido superar la etapa.', 'danger')
       this.points = 0
       this.close()
     }

@@ -171,7 +171,7 @@ export class AuthService {
         updateData.points = currentPoints + newPoints
       }
 
-      updateData.currentStage = Number(stage)
+      updateData.currentStage = Number(stage) + 1
 
       await updateDoc(participantRef, updateData)
       console.log(`Etapa ${stage} y puntos actualizados para ${username}`)
@@ -190,6 +190,36 @@ export class AuthService {
       console.log('Siguiente etapa lanzada')
     } catch (error) {
       console.error('Error lanzando la siguiente etapa', error)
+    }
+  }
+
+  async getCurrentStage(): Promise<number> {
+    const userData = this.storageService.getData(StorageEnum.USER_DATA)
+    const username = userData?.username
+
+    if (!username) return 1
+
+    const participantsRef = collection(this.firestore, 'participantes')
+    const q = query(participantsRef, where('name', '==', username))
+    const snapshot = await getDocs(q)
+
+    if (!snapshot.empty) {
+      const doc = snapshot.docs[0]
+      return doc.data()['currentStage'] || 1
+    }
+
+    return 1
+  }
+
+  async resetNextStageReady(): Promise<void> {
+    const eventRef = doc(this.firestore, 'event', 'feriaSalud')
+    try {
+      await updateDoc(eventRef, {
+        nextStageReady: false,
+      })
+      console.log('nextStageReady reseteado a false')
+    } catch (error) {
+      console.error('Error reseteando nextStageReady', error)
     }
   }
 }
