@@ -222,4 +222,35 @@ export class AuthService {
       console.error('Error reseteando nextStageReady', error)
     }
   }
+
+  async finishStageForAll(stage: string): Promise<void> {
+    const participantsRef = collection(this.firestore, 'participantes')
+    const querySnapshot = await getDocs(participantsRef)
+
+    if (querySnapshot.empty) {
+      console.error('No hay participantes para actualizar.')
+      return
+    }
+
+    const promises: Promise<void>[] = []
+
+    querySnapshot.docs.forEach((docSnap) => {
+      const participantData = docSnap.data()
+      const participantRef = doc(this.firestore, `participantes/${docSnap.id}`)
+
+      if (!participantData[stage]) {
+        const updateData: any = { [stage]: true }
+        updateData.currentStage = Number(stage) + 1
+
+        promises.push(updateDoc(participantRef, updateData))
+      }
+    })
+
+    try {
+      await Promise.all(promises)
+      console.log(`Todos los participantes actualizados para la etapa ${stage}`)
+    } catch (error) {
+      console.error('Error actualizando múltiples participantes:', error)
+    }
+  }
 }

@@ -6,6 +6,7 @@ import { ToastService } from '../../../../../core/services/toast.service'
 import { AuthService } from '../../../../../core/services/auth.service'
 import { StorageService } from '../../../../../core/services/storage.service'
 import { StorageEnum } from '../../../../../core/models/emuns/storage.emun'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-stage-balance',
@@ -33,11 +34,12 @@ export class StageBalanceComponent {
   constructor(
     private toast: ToastService,
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.authService.participantsListener$.subscribe((participants: any[]) => {
+    this.authService.participantsListener$.subscribe(async (participants: any[]) => {
       const userData = this.storageService.getData(StorageEnum.USER_DATA)
       const currentUserName = userData?.username
 
@@ -54,7 +56,7 @@ export class StageBalanceComponent {
             'success'
           )
         }
-
+        await this.authService.finishStageForAll('2')
         this.options = []
       }
     })
@@ -103,6 +105,9 @@ export class StageBalanceComponent {
       }
 
       this.options = []
+      setTimeout(() => {
+        this.router.navigate(['/participant/stage-waiting'])
+      }, 2500)
     }
   }
 
