@@ -57,6 +57,9 @@ export class StageBalanceComponent {
           )
         }
         await this.authService.finishStageForAll('2')
+        setTimeout(() => {
+          this.router.navigate(['/participant/stage-waiting'])
+        }, 2500)
         this.options = []
       }
     })
@@ -105,9 +108,6 @@ export class StageBalanceComponent {
       }
 
       this.options = []
-      setTimeout(() => {
-        this.router.navigate(['/participant/stage-waiting'])
-      }, 2500)
     }
   }
 
