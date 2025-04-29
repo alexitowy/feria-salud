@@ -141,7 +141,7 @@ export class AuthService {
     })
   }
 
-  async finishStage(stage: string): Promise<void> {
+  async finishStage(stage: string, newPoints?: number): Promise<void> {
     const userData = this.storageService.getData(StorageEnum.USER_DATA)
     const username = userData?.username
 
@@ -163,10 +163,18 @@ export class AuthService {
     const participantRef = doc(this.firestore, `participantes/${participantDoc.id}`)
 
     try {
-      await updateDoc(participantRef, {
-        [stage]: true,
-      })
-      console.log(`Etapa ${stage} marcada como completada para ${username}`)
+      const updateData: any = { [stage]: true }
+
+      if (newPoints !== undefined) {
+        const participantSnap = await getDoc(participantRef)
+        const currentPoints = participantSnap.data()?.['points'] || 0
+        updateData.points = currentPoints + newPoints
+      }
+
+      updateData.currentStage = Number(stage)
+
+      await updateDoc(participantRef, updateData)
+      console.log(`Etapa ${stage} y puntos actualizados para ${username}`)
     } catch (error) {
       console.error('Error actualizando la etapa:', error)
     }
