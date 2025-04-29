@@ -23,6 +23,11 @@ export const participantRoutes: Routes = [
         loadComponent: () =>
           import('./thank-you/thank-you.component').then((m) => m.ThankYouComponent),
       },
+      {
+        path: 'stage-waiting',
+        loadComponent: () =>
+          import('./stage-waiting/stage-waiting.component').then((m) => m.StageWaitingComponent),
+      },
       { path: '**', redirectTo: 'join', pathMatch: 'full' },
     ],
   },

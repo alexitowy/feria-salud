@@ -8,11 +8,15 @@ import {
   getDoc,
   getDocs,
   onSnapshot,
+  query,
   updateDoc,
+  where,
 } from '@angular/fire/firestore'
 import { BehaviorSubject } from 'rxjs'
 import { environment } from '../../../enviroments/environment'
 import { User } from '../models/user.model'
+import { StorageService } from './storage.service'
+import { StorageEnum } from '../models/emuns/storage.emun'
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -22,7 +26,8 @@ export class AuthService {
   participantsListener$ = new BehaviorSubject<any>(null)
   constructor(
     private auth: Auth,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private storageService: StorageService
   ) {
     this.login(environment.email, environment.password)
     this.listenForEvent()
@@ -134,5 +139,49 @@ export class AuthService {
     await updateDoc(eventRef, {
       active: true,
     })
+  }
+
+  async finishStage(stage: string): Promise<void> {
+    const userData = this.storageService.getData(StorageEnum.USER_DATA)
+    const username = userData?.username
+
+    if (!username) {
+      console.error('No se encontró nombre de usuario.')
+      return
+    }
+
+    const participantsRef = collection(this.firestore, 'participantes')
+    const q = query(participantsRef, where('name', '==', username))
+    const querySnapshot = await getDocs(q)
+
+    if (querySnapshot.empty) {
+      console.error('No se encontró al participante con ese nombre.')
+      return
+    }
+
+    const participantDoc = querySnapshot.docs[0]
+    const participantRef = doc(this.firestore, `participantes/${participantDoc.id}`)
+
+    try {
+      await updateDoc(participantRef, {
+        [stage]: true,
+      })
+      console.log(`Etapa ${stage} marcada como completada para ${username}`)
+    } catch (error) {
+      console.error('Error actualizando la etapa:', error)
+    }
+  }
+
+  async launchNextStage(): Promise<void> {
+    const eventRef = doc(this.firestore, 'event', 'feriaSalud')
+
+    try {
+      await updateDoc(eventRef, {
+        nextStageReady: true,
+      })
+      console.log('Siguiente etapa lanzada')
+    } catch (error) {
+      console.error('Error lanzando la siguiente etapa', error)
+    }
   }
 }

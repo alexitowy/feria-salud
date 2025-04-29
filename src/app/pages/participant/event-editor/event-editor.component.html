@@ -42,7 +42,7 @@
       class="rounded-lg shadow-lg w-full p-6 relative bg-transparent bg-[url('/assets/images/pergamino.png')] bg-cover bg-center bg-no-repeat h-screen md:h-[90vh]"
     >
       <div
-        class="flex flex-col items-center justify-center h-full w-[75%] md:w-[50%] mx-auto space-y-2"
+        class="flex flex-col items-center justify-center h-full w-[75%] md:w-[50%] mx-auto space-y-4"
       >
         <p
           class="text-xs md:text-lg text-white text-center leading-relaxed font-medieval drop-shadow-[0_4px_4px_rgba(0,0,0,1)]"
@@ -79,7 +79,7 @@
             </svg>
           </button>
         </div>
-        <app-count-down [seconds]="120"></app-count-down>
+        <app-count-down [seconds]="30" (timeUp)="onTimeUp()"></app-count-down>
       </div>
     </div>
   </div>

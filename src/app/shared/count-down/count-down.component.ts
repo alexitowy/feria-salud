@@ -26,16 +26,12 @@ export class CountDownComponent implements OnInit {
   }
 
   start(): void {
-    console.log(this.timer)
-
     if (!this.timer) {
-      console.log('start', this.seconds)
       this.countdown = this.seconds
       this.updateDisplay()
       this.started.emit()
       this.timer = setInterval(() => {
         this.countdown--
-        console.log('countdown', this.countdown)
         this.updateDisplay()
         if (this.countdown <= 0) {
           this.stop()

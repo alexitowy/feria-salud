@@ -3,9 +3,16 @@
   @if (mode === 'circle') {
     <div class="flex items-center justify-center w-full h-full">
       <svg class="w-16 h-16" viewBox="0 0 100 100">
-        <circle class="fill-none stroke-gray-200 stroke-2" cx="50" cy="50" r="45"></circle>
         <circle
-          [attr.class]="'fill-none stroke-2 transition-all duration-300 ease-in-out ' + circleColor"
+          class="fill-gray-200 stroke-white"
+          [attr.stroke-width]="7"
+          cx="50"
+          cy="50"
+          r="45"
+        ></circle>
+        <circle
+          [attr.stroke-width]="7"
+          [attr.class]="'fill-none transition-all duration-300 ease-in-out ' + circleColor"
           cx="50"
           cy="50"
           r="45"

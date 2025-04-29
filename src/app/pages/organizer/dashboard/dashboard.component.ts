@@ -6,6 +6,7 @@ import { AuthService } from '../../../core/services/auth.service'
 import { StorageService } from '../../../core/services/storage.service'
 import { Event } from '../../../core/models/event.model'
 import { NgFor, NgIf } from '@angular/common'
+import { filter } from 'rxjs'
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +22,9 @@ export class DashboardComponent implements AfterViewInit {
   isOpen = false
   answer = ''
   math = Math
+  allPlayersReady = false
+  playersRemaining = 0
+
   constructor(
     private storageService: StorageService,
     private router: Router,
@@ -34,9 +38,19 @@ export class DashboardComponent implements AfterViewInit {
     this.authService.eventListener$.subscribe((event) => {
       this.event = event
     })
-    this.authService.participantsListener$.subscribe((event) => {
-      this.participants = event
+    this.authService.participantsListener$.pipe(filter(Boolean)).subscribe((participants) => {
+      this.participants = participants.map((p: any) => ({
+        ...p,
+        avatar: `assets/images/avatars_${Math.floor(Math.random() * 9) + 1}.png`,
+      }))
+
+      const totalPlayers = participants.filter((p: any) => !p.organizer).length
+      const finishedPlayers = participants.filter((p: any) => !p.organizer && p['1']).length
+
+      this.allPlayersReady = totalPlayers > 0 && finishedPlayers === totalPlayers
+      this.playersRemaining = totalPlayers - finishedPlayers
     })
+
     this.authService.getEvent()
     this.authService.getParticipants()
   }
@@ -61,5 +75,9 @@ export class DashboardComponent implements AfterViewInit {
 
   async continue() {
     await this.authService.completedVideoIntro()
+  }
+
+  continueToNextStage(): void {
+    this.authService.launchNextStage()
   }
 }
