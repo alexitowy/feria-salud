@@ -24,6 +24,8 @@ export class DashboardComponent implements AfterViewInit {
   math = Math
   allPlayersReady = false
   playersRemaining = 0
+  loadingNextStage = false
+  currentStage = 1
 
   constructor(
     private storageService: StorageService,
@@ -44,8 +46,16 @@ export class DashboardComponent implements AfterViewInit {
         avatar: `assets/images/avatars_${Math.floor(Math.random() * 9) + 1}.png`,
       }))
 
+      const stages = participants
+        .filter((p: any) => !p.organizer && p.currentStage)
+        .map((p: any) => p.currentStage)
+
+      this.currentStage = stages.length > 0 ? Math.max(...stages) : 1 // 🚀
+
       const totalPlayers = participants.filter((p: any) => !p.organizer).length
-      const finishedPlayers = participants.filter((p: any) => !p.organizer && p['1']).length
+      const finishedPlayers = participants.filter(
+        (p: any) => !p.organizer && p[this.currentStage - 1]
+      ).length
 
       this.allPlayersReady = totalPlayers > 0 && finishedPlayers === totalPlayers
       this.playersRemaining = totalPlayers - finishedPlayers
@@ -77,7 +87,10 @@ export class DashboardComponent implements AfterViewInit {
     await this.authService.completedVideoIntro()
   }
 
-  continueToNextStage(): void {
-    this.authService.launchNextStage()
+  async continueToNextStage(): Promise<void> {
+    this.loadingNextStage = true
+    await this.authService.launchNextStage()
+    await this.authService.resetNextStageReady()
+    this.loadingNextStage = false
   }
 }

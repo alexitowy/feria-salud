@@ -3,4 +3,5 @@ export interface Event {
   code?: number
   active?: boolean
   introCompleted?: boolean
+  nextStageReady?: boolean
 }

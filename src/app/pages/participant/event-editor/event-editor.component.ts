@@ -58,7 +58,7 @@ export class EventEditorComponent {
 
   async close() {
     this.isOpen = false
-    await this.authService.finishStage('1', this.points)
+    await this.authService.finishStage(this.currentStage.toString(), this.points)
     this.router.navigate(['/participant/stage-waiting'])
   }
 
