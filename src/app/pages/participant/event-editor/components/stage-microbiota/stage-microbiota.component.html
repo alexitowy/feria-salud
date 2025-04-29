@@ -1,0 +1,67 @@
+<div class="relative w-full h-full mx-auto">
+  <!-- Imagen de fondo -->
+  <img
+    [src]="stageData?.background"
+    alt="Imagen de fondo"
+    class="w-full h-auto rounded-lg shadow-lg z-10"
+  />
+
+  <!-- Imagen superpuesta encima -->
+  <img
+    [src]="stageData?.image"
+    alt="Imagen encima"
+    (click)="showModal()"
+    class="absolute left-[55%] bottom-[12%] w-1/2 -translate-x-1/2 cursor-pointer animate-pulse z-30 brightness-150"
+  />
+
+  <!-- Texto descriptivo -->
+  <div class="absolute inset-0 flex items-baseline justify-center p-4 text-center z-20">
+    <p
+      class="text-white text-sm md:text-base backdrop-blur-sm bg-black/40 p-4 rounded max-w-xl leading-relaxed"
+      [innerHTML]="stageData?.description"
+    ></p>
+  </div>
+
+  <!-- Modal -->
+  <div class="fixed inset-0 bg-black/85 flex items-center justify-center z-50" *ngIf="isOpen">
+    <div
+      class="rounded-lg shadow-lg w-full p-6 relative bg-transparent bg-[url('/assets/images/pergamino.png')] bg-cover bg-center bg-no-repeat h-screen md:h-[90vh]"
+    >
+      <div
+        class="flex flex-col items-center justify-center h-full w-[75%] md:w-[50%] mx-auto space-y-4"
+      >
+        <p
+          class="text-xs md:text-lg text-white text-center leading-relaxed font-medieval drop-shadow-[0_4px_4px_rgba(0,0,0,1)]"
+          [innerHTML]="stageData?.riddle"
+        ></p>
+
+        <div class="flex items-center gap-2">
+          <input
+            type="text"
+            class="w-64 p-2 border-b-2 border-white bg-transparent text-white text-center placeholder-white/80 focus:outline-none focus:border-white"
+            [(ngModel)]="answer"
+            (keyup.enter)="checkAnswer()"
+            placeholder="Tu respuesta aquí"
+          />
+          <button
+            (click)="checkAnswer()"
+            class="bg-green-900/70 p-2 rounded-md hover:bg-green-900 border-2 border-gray-400/50"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="white"
+              class="size-6"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+            </svg>
+          </button>
+        </div>
+
+        <app-count-down [seconds]="30" (timeUp)="onTimeUp()"></app-count-down>
+      </div>
+    </div>
+  </div>
+</div>

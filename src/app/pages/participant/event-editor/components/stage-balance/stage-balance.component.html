@@ -1,0 +1,48 @@
+<div class="w-full h-full mx-auto" cdkDropListGroup>
+  <img
+    [src]="stageData.background"
+    alt="Fondo de consulta medieval"
+    class="w-full h-full object-cover absolute inset-0 opacity-30"
+  />
+  <div
+    cdkDropList
+    id="sourceList"
+    class="absolute top-0 w-full p-4 flex flex-wrap justify-center gap-4 z-30"
+    [cdkDropListConnectedTo]="['balanceDropZone']"
+    (cdkDropListDropped)="preventDrop($event)"
+  >
+    <div
+      *ngFor="let option of options"
+      class="w-16 h-16 cursor-move"
+      cdkDrag
+      [cdkDragData]="option"
+    >
+      <img [src]="option.image" [alt]="option.name" class="w-full h-full object-contain" />
+    </div>
+  </div>
+  <div class="absolute bottom-0 inset-x-0 flex items-end justify-center z-20 pb-6">
+    <div
+      cdkDropList
+      id="balanceDropZone"
+      [cdkDropListConnectedTo]="['sourceList']"
+      (cdkDropListDropped)="onItemDropped($event)"
+      class="relative w-64 h-64 bg-[url('/assets/images/balanza.webp')] bg-contain bg-no-repeat"
+    >
+      <div
+        *ngFor="let item of droppedItems"
+        class="absolute w-12 h-12"
+        [style.top.px]="item.y"
+        [style.left.px]="item.x"
+      >
+        <img [src]="item.image" alt="Elemento colocado" class="w-full h-full object-contain" />
+      </div>
+    </div>
+  </div>
+
+  <div
+    *ngIf="feedbackMessage"
+    class="absolute top-28 left-1/2 transform -translate-x-1/2 bg-white/90 p-4 rounded-lg shadow-lg text-center z-40 max-w-xs text-black font-semibold"
+  >
+    {{ feedbackMessage }}
+  </div>
+</div>

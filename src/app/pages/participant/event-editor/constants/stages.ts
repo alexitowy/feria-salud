@@ -21,8 +21,8 @@ export const StagesData: Record<number, StageData> = {
     answer: 'microbiota',
   },
   2: {
-    background: 'assets/images/fondo_balanza.png',
-    image: 'assets/images/balanza.png',
+    background: 'assets/images/fondo_enigma.png',
+    image: 'assets/images/balanza.webp',
     description: `
         Dentro del cofre encontráis una vieja balanza y varios objetos dispersos. Una nota reza:
         <span class="italic">«Alimenta el cuerpo, fortalece la vida.»</span>
