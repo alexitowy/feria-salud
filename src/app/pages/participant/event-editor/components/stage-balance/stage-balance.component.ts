@@ -66,8 +66,6 @@ export class StageBalanceComponent {
   }
 
   onItemDropped(event: CdkDragDrop<any>) {
-    console.log('Dropped:', event)
-
     const option = event.item.data
 
     const containerRect = (
