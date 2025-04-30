@@ -32,7 +32,7 @@ export const StagesData: Record<number, StageData> = {
         frutas, verduras, legumbres y alimentos fermentados.
         ¡Cuidado con los objetos engañosos!
       `,
-    answer: 'balanza', // En esta etapa la validación será diferente (selección de objetos correctos)
+    answer: 'balanza',
   },
   3: {
     background: 'assets/images/fondo_casos.png',
