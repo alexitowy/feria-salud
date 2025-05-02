@@ -18,11 +18,13 @@ export class StageBalanceComponent {
   @Input() stageData!: StageData
 
   options = [
-    { name: 'Frutas', image: '/assets/images/fruits.png', type: 'fruta' },
+    { name: 'Frutas', image: '/assets/images/frutas.png', type: 'fruta' },
     { name: 'Verduras', image: '/assets/images/verduras.png', type: 'verdura' },
     { name: 'Legumbres', image: '/assets/images/legumbres.png', type: 'legumbre' },
     { name: 'Fermentados', image: '/assets/images/fermentados.png', type: 'fermentado' },
-    { name: 'Antidotus Universalis', image: '/assets/images/distraction.png', type: 'distractor' },
+    { name: 'Carnes', image: '/assets/images/carne.png', type: 'carne' },
+    { name: 'Pescados', image: '/assets/images/pescado.png', type: 'pescado' },
+    { name: 'Antidotus Universalis', image: '/assets/images/distractor.png', type: 'distractor' },
   ]
 
   droppedItems: { image: string; x: number; y: number; type: string }[] = []
@@ -77,7 +79,7 @@ export class StageBalanceComponent {
     if (option.type === 'distractor') {
       this.feedbackMessage =
         '¿Eliminarías a todos los habitantes de una aldea para traer la paz? No todo lo que limpia... sana..'
-      setTimeout(() => (this.feedbackMessage = ''), 3000)
+      setTimeout(() => (this.feedbackMessage = ''), 6000)
       return
     }
 
@@ -89,7 +91,7 @@ export class StageBalanceComponent {
 
   async validateBalance() {
     const typesPlaced = this.droppedItems.map((item) => item.type)
-    const requiredTypes = ['fruta', 'verdura', 'legumbre', 'fermentado']
+    const requiredTypes = ['fruta', 'verdura', 'legumbre', 'fermentado', 'carne', 'pescado']
     const isComplete = requiredTypes.every((type) => typesPlaced.includes(type))
 
     if (isComplete && !this.winner) {
@@ -100,7 +102,6 @@ export class StageBalanceComponent {
 
       try {
         await this.authService.finishStage('2', 10)
-        this.toast.show(`¡${playerName} ha desbloqueado el cajón de los casos clínicos!`, 'success')
       } catch (err) {
         console.error('Error al finalizar la etapa 2', err)
       }

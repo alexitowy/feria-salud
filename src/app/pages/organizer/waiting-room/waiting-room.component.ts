@@ -59,4 +59,10 @@ export class WaitingRoomComponent {
       this.isStarting = false
     }
   }
+
+  deleteParticipant(participantId: string): void {
+    this.authService.deleteParticipant(participantId).then(() => {
+      console.log('Participant deleted successfully')
+    })
+  }
 }

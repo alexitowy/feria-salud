@@ -31,8 +31,6 @@ export class StageMicrobiotaComponent {
   private startTime = 0
 
   constructor(
-    private toastService: ToastService,
-    private storageService: StorageService,
     private router: Router,
     private authService: AuthService,
     private utils: UtilsService
@@ -64,7 +62,7 @@ export class StageMicrobiotaComponent {
     if (normalizedAnswer === this.stageData.answer.toLowerCase()) {
       this.calculateScore()
       this.utils.showToast(
-        `¡Correcto! Has superado la etapa ${this.currentStage}. Puntos: ${this.points}`,
+        `¡Correcto! Has descubierto el reino invisible. Puntos: ${this.points}`,
         'success'
       )
 

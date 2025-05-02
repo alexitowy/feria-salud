@@ -19,7 +19,7 @@
         <app-stage-balance [stageData]="stageData"></app-stage-balance>
       }
       @case (3) {
-        <app-stage-clinical-cases></app-stage-clinical-cases>
+        <app-stage-clinical-cases [stageData]="stageData"></app-stage-clinical-cases>
       }
       @default {
         <div class="text-center text-white p-10">Cargando etapa...</div>

@@ -7,7 +7,11 @@ import { ToastService } from './toast.service'
 export class UtilsService {
   constructor(private toast: ToastService) {}
 
-  showToast(message: string, type: 'success' | 'info' | 'warning' | 'danger' = 'info') {
+  showToast(
+    message: string,
+    type: 'success' | 'info' | 'warning' | 'danger' = 'info',
+    timeLeft: number = 7000
+  ) {
     this.toast.show(message, type)
   }
 }

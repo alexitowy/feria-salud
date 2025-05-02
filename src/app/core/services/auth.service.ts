@@ -3,6 +3,7 @@ import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth'
 import {
   addDoc,
   collection,
+  deleteDoc,
   doc,
   Firestore,
   getDoc,
@@ -96,6 +97,11 @@ export class AuthService {
       }))
       this.participantsListener$.next(list)
     }
+  }
+
+  async deleteParticipant(participantId: string): Promise<void> {
+    const participantRef = doc(this.firestore, `participantes/${participantId}`)
+    await deleteDoc(participantRef)
   }
 
   async completedVideoIntro(): Promise<void> {
@@ -205,6 +211,8 @@ export class AuthService {
 
     if (!snapshot.empty) {
       const doc = snapshot.docs[0]
+      console.log(doc.data())
+
       return doc.data()['currentStage'] || 1
     }
 

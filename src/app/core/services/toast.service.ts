@@ -12,8 +12,8 @@ export interface ToastMessage {
 export class ToastService {
   message$ = new BehaviorSubject<ToastMessage | null>(null)
 
-  show(text: string, type: ToastType = 'info') {
+  show(text: string, type: ToastType = 'info', timeLeft: number = 7000) {
     this.message$.next({ text, type })
-    setTimeout(() => this.message$.next(null), 7000)
+    setTimeout(() => this.message$.next(null), timeLeft)
   }
 }

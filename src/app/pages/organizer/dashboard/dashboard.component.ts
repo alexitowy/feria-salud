@@ -51,14 +51,6 @@ export class DashboardComponent implements AfterViewInit {
         .map((p: any) => p.currentStage)
 
       this.currentStage = stages.length > 0 ? Math.max(...stages) : 1 // 🚀
-
-      const totalPlayers = participants.filter((p: any) => !p.organizer).length
-      const finishedPlayers = participants.filter(
-        (p: any) => !p.organizer && p[this.currentStage - 1]
-      ).length
-
-      this.allPlayersReady = totalPlayers > 0 && finishedPlayers === totalPlayers
-      this.playersRemaining = totalPlayers - finishedPlayers
     })
 
     this.authService.getEvent()

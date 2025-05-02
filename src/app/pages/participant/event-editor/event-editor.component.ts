@@ -54,7 +54,9 @@ export class EventEditorComponent {
 
   async ngOnInit(): Promise<void> {
     const stage = await this.authService.getCurrentStage()
+    console.log(stage)
     this.currentStage = stage
     this.stageData = StagesData[this.currentStage]
+    console.log(this.stageData)
   }
 }

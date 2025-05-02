@@ -1,1 +1,36 @@
-<p>stage-clinical-cases works!</p>
+<div
+  class="w-full h-screen flex items-center justify-center bg-cover bg-no-repeat bg-[url('/assets/images/fondo_enigma.png')] bg-center"
+>
+  <!-- Overlay -->
+  <div class="inset-0 bg-black bg-opacity-40 p-[16px]">
+    <!-- Content Container -->
+    <div
+      class="relative z-10 max-w-2xl mx-auto p-6 text-white shadow-[1px_1px_31px_-6px_rgba(255,255,255,1)] rounded-[25px]"
+    >
+      @switch (currentQuestion.type) {
+        @case ('multiple-select') {
+          <app-multiple-choice [question]="currentQuestion"></app-multiple-choice>
+        }
+        @case ('single-select') {
+          <app-single-selection [question]="currentQuestion"></app-single-selection>
+        }
+        @case ('text') {
+          <p>text</p>
+        }
+        @case ('image') {
+          <p>imagen</p>
+        }
+        @default {
+          <p class="text-lg font-bold text-center">Tipo de pregunta no soportado</p>
+        }
+      }
+    </div>
+    <!-- Check Button -->
+    <button
+      class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+      (click)="nextQuestion()"
+    >
+      {{ isEnd ? 'Terminar' : 'Comprobar Respuesta' }}
+    </button>
+  </div>
+</div>

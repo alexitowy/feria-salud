@@ -9,6 +9,12 @@
         class="p-4 border rounded-xl bg-gray-100 flex justify-between items-center"
       >
         <span class="font-medium">{{ p.name }}</span>
+        <button
+          class="p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+          (click)="deleteParticipant(p.id)"
+        >
+          Eliminar
+        </button>
       </li>
     </ul>
 

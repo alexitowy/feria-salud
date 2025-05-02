@@ -14,7 +14,7 @@ import { filter } from 'rxjs'
   styleUrl: './stage-waiting.component.scss',
 })
 export class StageWaitingComponent {
-  waitingMessage = ''
+  waitingMessage = '¡Todos listos! Espera que el organizador continúe.'
   eventData: any = null
 
   constructor(
@@ -39,28 +39,5 @@ export class StageWaitingComponent {
         this.router.navigate(['/participant/event'])
       }
     })
-
-    // Escuchar participantes
-    this.authService.participantsListener$.pipe(filter(Boolean)).subscribe((participants) => {
-      this.updateWaitingMessage(participants)
-    })
-  }
-
-  updateWaitingMessage(participants: any[]): void {
-    if (!this.eventData) {
-      this.waitingMessage = 'Por favor espera...'
-      return
-    }
-
-    const totalPlayers = participants.filter((p) => !p.organizer).length
-    const finishedPlayers = participants.filter((p) => !p.organizer && p['1']).length
-
-    const playersRemaining = totalPlayers - finishedPlayers
-
-    if (playersRemaining > 0) {
-      this.waitingMessage = `Esperando a ${playersRemaining} jugador${playersRemaining > 1 ? 'es' : ''} más...`
-    } else {
-      this.waitingMessage = '¡Todos listos! Espera que el organizador continúe.'
-    }
   }
 }
