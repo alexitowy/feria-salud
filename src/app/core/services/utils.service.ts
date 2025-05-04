@@ -12,6 +12,22 @@ export class UtilsService {
     type: 'success' | 'info' | 'warning' | 'danger' = 'info',
     timeLeft: number = 7000
   ) {
-    this.toast.show(message, type)
+    this.toast.show(message, type, timeLeft)
+  }
+
+  calculateScore(
+    minPoints: number,
+    maxPoints: number,
+    totalTime: number,
+    timeLeft: number
+  ): number {
+    let penalty = 1 - (totalTime - timeLeft) / totalTime
+    let pointsEarned = maxPoints * (1 - penalty)
+
+    if (pointsEarned < minPoints) {
+      pointsEarned = minPoints
+    }
+
+    return Math.round(pointsEarned)
   }
 }

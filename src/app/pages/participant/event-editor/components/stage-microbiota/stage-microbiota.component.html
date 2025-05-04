@@ -60,7 +60,11 @@
           </button>
         </div>
 
-        <app-count-down [seconds]="60" (timeUp)="onTimeUp()"></app-count-down>
+        <app-count-down
+          [seconds]="60"
+          (timeUp)="onTimeUp()"
+          (timeUpdate)="updateTime($event)"
+        ></app-count-down>
       </div>
     </div>
   </div>

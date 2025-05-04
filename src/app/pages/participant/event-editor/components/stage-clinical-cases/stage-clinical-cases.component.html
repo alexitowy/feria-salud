@@ -5,32 +5,53 @@
   <div class="inset-0 bg-black bg-opacity-40 p-[16px]">
     <!-- Content Container -->
     <div
-      class="relative z-10 max-w-2xl mx-auto p-6 text-white shadow-[1px_1px_31px_-6px_rgba(255,255,255,1)] rounded-[25px]"
+      class="relative z-10 max-w-2xl mx-auto p-6 text-white shadow-sm shadow-white rounded-[25px]"
     >
-      @switch (currentQuestion.type) {
-        @case ('multiple-select') {
-          <app-multiple-choice [question]="currentQuestion"></app-multiple-choice>
+      @if (!isEnd) {
+        @switch (currentQuestion.type) {
+          @case ('multiple-select') {
+            <app-multiple-choice
+              [question]="currentQuestion"
+              (timeUp$)="timeUp()"
+              (correctSelected$)="nextQuestion()"
+            ></app-multiple-choice>
+          }
+          @case ('single-select') {
+            <app-single-selection
+              [question]="currentQuestion"
+              (timeUp$)="timeUp()"
+              (correctSelected$)="nextQuestion()"
+            ></app-single-selection>
+          }
+          @case ('text') {
+            <app-text
+              [question]="currentQuestion"
+              (timeUp$)="timeUp()"
+              (correctSelected$)="nextQuestion()"
+            ></app-text>
+          }
+          @case ('image') {
+            <app-image
+              [question]="currentQuestion"
+              (timeUp$)="timeUp()"
+              (correctSelected$)="nextQuestion()"
+            ></app-image>
+          }
+          @default {
+            <p class="text-lg font-bold text-center">Tipo de pregunta no soportado</p>
+          }
         }
-        @case ('single-select') {
-          <app-single-selection [question]="currentQuestion"></app-single-selection>
-        }
-        @case ('text') {
-          <p>text</p>
-        }
-        @case ('image') {
-          <p>imagen</p>
-        }
-        @default {
-          <p class="text-lg font-bold text-center">Tipo de pregunta no soportado</p>
-        }
+      } @else {
+        <p class="text-lg font-bold text-center">¡Has completado todas las preguntas!</p>
+        <p class="text-lg font-bold text-center">¡Felicidades!</p>
+        <button
+          class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 block mx-auto"
+          (click)="submit()"
+        >
+          Terminar
+        </button>
       }
+      <!-- Check Button -->
     </div>
-    <!-- Check Button -->
-    <button
-      class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-      (click)="nextQuestion()"
-    >
-      {{ isEnd ? 'Terminar' : 'Comprobar Respuesta' }}
-    </button>
   </div>
 </div>

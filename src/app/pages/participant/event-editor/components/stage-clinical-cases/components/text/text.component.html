@@ -1,0 +1,24 @@
+<app-count-down [seconds]="100" (timeUp)="timeUp()"></app-count-down>
+<!-- Question Title -->
+<h2 class="text-2xl font-bold mb-6">{{ question.question }}</h2>
+
+<!-- Radio Options -->
+<div class="space-y-4">
+  <div class="mb-4">
+    <div class="mb-2"></div>
+    <h3 class="text-white text-lg">{{ question.question }}</h3>
+  </div>
+  <input
+    type="text"
+    placeholder="Aquí tu respuesta"
+    class="w-full bg-transparent border-b border-white text-white px-2 py-1 focus:outline-none"
+    [(ngModel)]="response"
+  />
+</div>
+
+<button
+  class="mt-6 px-6 py-4 shadow-sm shadow-white bg-[url('/assets/images/boton.png')] bg-cover text-stone-100 block mx-auto"
+  (click)="checkAnswer()"
+>
+  Comprobar Respuesta
+</button>

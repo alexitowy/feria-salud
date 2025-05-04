@@ -7,11 +7,11 @@ import { Event } from '../../../core/models/event.model'
 import { User } from '../../../core/models/user.model'
 import { AuthService } from '../../../core/services/auth.service'
 import { StorageService } from '../../../core/services/storage.service'
-import { UtilsService } from '../../../core/services/utils.service'
-import { StageMicrobiotaComponent } from './components/stage-microbiota/stage-microbiota.component'
-import { StagesData } from './constants/stages'
+import { StageBadFootComponent } from './components/stage-bad-foot/stage-bad-foot.component'
 import { StageBalanceComponent } from './components/stage-balance/stage-balance.component'
 import { StageClinicalCasesComponent } from './components/stage-clinical-cases/stage-clinical-cases.component'
+import { StageMicrobiotaComponent } from './components/stage-microbiota/stage-microbiota.component'
+import { StagesData } from './constants/stages'
 
 @Component({
   selector: 'app-event-editor',
@@ -21,12 +21,12 @@ import { StageClinicalCasesComponent } from './components/stage-clinical-cases/s
     StageMicrobiotaComponent,
     StageBalanceComponent,
     StageClinicalCasesComponent,
+    StageBadFootComponent,
   ],
   templateUrl: './event-editor.component.html',
   styleUrl: './event-editor.component.scss',
 })
 export class EventEditorComponent {
-  private video!: HTMLVideoElement
   user!: User
   event!: Event
 
@@ -37,8 +37,7 @@ export class EventEditorComponent {
   constructor(
     private storageService: StorageService,
     private router: Router,
-    private authService: AuthService,
-    private utils: UtilsService
+    private authService: AuthService
   ) {
     this.user = this.storageService.getData(StorageEnum.USER_DATA) as User
     if (!this.user) {

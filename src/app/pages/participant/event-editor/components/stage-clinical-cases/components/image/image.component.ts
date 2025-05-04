@@ -1,15 +1,13 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core'
-import { CountDownComponent } from '../../../../../../../shared/count-down/count-down.component'
-import { ToastService } from '../../../../../../../core/services/toast.service'
 import { UtilsService } from '../../../../../../../core/services/utils.service'
 
 @Component({
-  selector: 'app-single-selection',
-  imports: [CountDownComponent],
-  templateUrl: './single-selection.component.html',
-  styleUrl: './single-selection.component.scss',
+  selector: 'app-image',
+  imports: [],
+  templateUrl: './image.component.html',
+  styleUrl: './image.component.scss',
 })
-export class SingleSelectionComponent {
+export class ImageComponent {
   @Input() question: any
 
   @Output() timeUp$ = new EventEmitter<boolean>()
@@ -40,7 +38,7 @@ export class SingleSelectionComponent {
       return
     }
     if (this.selectedAnswer.correct) {
-      this.utilsService.showToast(`Respuesta correcta. ${this.question.feedback}`, 'success')
+      this.utilsService.showToast('Respuesta correcta.', 'success')
       this.correctSelected$.emit(true)
     } else {
       this.utilsService.showToast('Respuesta incorrecta, intentalo de nuevo', 'danger')

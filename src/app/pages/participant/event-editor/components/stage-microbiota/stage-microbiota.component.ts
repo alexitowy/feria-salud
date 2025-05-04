@@ -1,12 +1,10 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core'
 import { NgIf } from '@angular/common'
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { CountDownComponent } from '../../../../../shared/count-down/count-down.component'
-import { ToastService } from '../../../../../core/services/toast.service'
-import { StorageService } from '../../../../../core/services/storage.service'
 import { Router } from '@angular/router'
 import { AuthService } from '../../../../../core/services/auth.service'
 import { UtilsService } from '../../../../../core/services/utils.service'
+import { CountDownComponent } from '../../../../../shared/count-down/count-down.component'
 
 @Component({
   selector: 'app-stage-microbiota',
@@ -27,8 +25,7 @@ export class StageMicrobiotaComponent {
   answer = ''
   hasAnswered: boolean = false
   points: number = 0
-
-  private startTime = 0
+  totalTimeLeft: number = 0
 
   constructor(
     private router: Router,
@@ -44,7 +41,6 @@ export class StageMicrobiotaComponent {
 
   showModal() {
     this.isOpen = true
-    this.startTime = Date.now()
     this.hasAnswered = false
     this.answer = ''
   }
@@ -57,15 +53,13 @@ export class StageMicrobiotaComponent {
 
     const normalizedAnswer = this.answer.trim().toLowerCase()
 
-    this.countDownComponent.stop()
-
     if (normalizedAnswer === this.stageData.answer.toLowerCase()) {
-      this.calculateScore()
+      this.countDownComponent.stop()
+      this.points = this.utils.calculateScore(2, 10, 60, this.totalTimeLeft)
       this.utils.showToast(
         `¡Correcto! Has descubierto el reino invisible. Puntos: ${this.points}`,
         'success'
       )
-
       this.close()
     } else {
       this.utils.showToast('Respuesta incorrecta. No has podido superar la etapa.', 'danger')
@@ -83,14 +77,7 @@ export class StageMicrobiotaComponent {
     }
   }
 
-  calculateScore() {
-    const elapsedTime = (Date.now() - this.startTime) / 1000
-    if (elapsedTime <= 15) {
-      this.points = 10
-    } else if (elapsedTime <= 30) {
-      this.points = Math.max(2, 10 - Math.floor((elapsedTime - 15) / 1.5))
-    } else {
-      this.points = 0
-    }
+  updateTime(totalTime: any) {
+    this.totalTimeLeft = totalTime
   }
 }

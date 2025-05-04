@@ -10,8 +10,7 @@ export class CountDownComponent implements OnInit {
   @Input() seconds: number = 0
   @Input() mode: 'circle' | 'linear' = 'circle'
   @Output() timeUp = new EventEmitter<void>()
-  @Output() started = new EventEmitter<void>()
-  @Output() stopped = new EventEmitter<void>()
+  @Output() timeUpdate = new EventEmitter<number>()
 
   timeLeft: string = '00:00'
   private timer: any
@@ -29,9 +28,9 @@ export class CountDownComponent implements OnInit {
     if (!this.timer) {
       this.countdown = this.seconds
       this.updateDisplay()
-      this.started.emit()
       this.timer = setInterval(() => {
         this.countdown--
+        this.timeUpdate.emit(this.seconds - this.countdown)
         this.updateDisplay()
         if (this.countdown <= 0) {
           this.stop()
@@ -45,7 +44,6 @@ export class CountDownComponent implements OnInit {
     if (this.timer) {
       clearInterval(this.timer)
       this.timer = null
-      this.stopped.emit()
     }
   }
 
