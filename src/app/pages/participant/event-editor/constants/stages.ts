@@ -144,7 +144,7 @@ export const StagesData: Record<number, StageData> = {
           {
             id: 3,
             text: 'Edema',
-            correct: false,
+            correct: true,
           },
           {
             id: 4,
