@@ -39,12 +39,15 @@ export class StageClinicalCasesComponent implements OnInit {
   nextQuestion(totalTimeLeft: number): void {
     this.updatePoints(totalTimeLeft)
     const currentIndex = this.stageData.questions.indexOf(this.currentQuestion)
-    this.isLastQuestion = currentIndex === this.stageData.questions.length - 1
-    if (currentIndex < this.stageData.questions.length - 1) {
-      this.currentQuestion = this.stageData.questions[currentIndex + 1]
-    } else if (this.isLastQuestion) {
-      this.isEnd = true
-    }
+    this.currentQuestion = null
+    setTimeout(() => {
+      this.isLastQuestion = currentIndex === this.stageData.questions.length - 1
+      if (currentIndex < this.stageData.questions.length - 1) {
+        this.currentQuestion = this.stageData.questions[currentIndex + 1]
+      } else if (this.isLastQuestion) {
+        this.isEnd = true
+      }
+    }, 1000)
   }
 
   submit(): void {
@@ -52,6 +55,8 @@ export class StageClinicalCasesComponent implements OnInit {
 
     if (award) {
       this.showAwardModal = true
+      const awards = this.localStorageService.getData('award') || []
+      awards.push(award)
       this.localStorageService.setData('award', award)
     }
   }

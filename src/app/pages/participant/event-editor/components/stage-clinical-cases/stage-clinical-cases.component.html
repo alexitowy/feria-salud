@@ -2,44 +2,52 @@
   class="w-full h-screen flex items-center justify-center bg-cover bg-no-repeat bg-[url('/assets/images/fondo_enigma.png')] bg-center"
 >
   <!-- Overlay -->
-  <div class="inset-0 bg-black bg-opacity-40 p-[16px]">
+  <div class="inset-0 p-[16px]">
     <!-- Content Container -->
     <div
       class="relative z-10 max-w-2xl mx-auto p-6 text-white shadow-sm shadow-white rounded-[25px]"
     >
       @if (!isEnd) {
-        @switch (currentQuestion.type) {
-          @case ('multiple-select') {
-            <app-multiple-choice
-              [question]="currentQuestion"
-              (timeUp$)="timeUp()"
-              (correctSelected$)="nextQuestion($event)"
-            ></app-multiple-choice>
+        @if (currentQuestion) {
+          @switch (currentQuestion.type) {
+            @case ('multiple-select') {
+              <app-multiple-choice
+                [question]="currentQuestion"
+                (timeUp$)="timeUp()"
+                (correctSelected$)="nextQuestion($event)"
+              ></app-multiple-choice>
+            }
+            @case ('single-select') {
+              <app-single-selection
+                [question]="currentQuestion"
+                (timeUp$)="timeUp()"
+                (correctSelected$)="nextQuestion($event)"
+              ></app-single-selection>
+            }
+            @case ('text') {
+              <app-text
+                [question]="currentQuestion"
+                (timeUp$)="timeUp()"
+                (correctSelected$)="nextQuestion($event)"
+              ></app-text>
+            }
+            @case ('image') {
+              <app-image
+                [question]="currentQuestion"
+                (timeUp$)="timeUp()"
+                (selected$)="nextQuestion($event)"
+              ></app-image>
+            }
+            @default {
+              <p class="text-lg font-bold text-center">Tipo de pregunta no soportado</p>
+            }
           }
-          @case ('single-select') {
-            <app-single-selection
-              [question]="currentQuestion"
-              (timeUp$)="timeUp()"
-              (correctSelected$)="nextQuestion($event)"
-            ></app-single-selection>
-          }
-          @case ('text') {
-            <app-text
-              [question]="currentQuestion"
-              (timeUp$)="timeUp()"
-              (correctSelected$)="nextQuestion($event)"
-            ></app-text>
-          }
-          @case ('image') {
-            <app-image
-              [question]="currentQuestion"
-              (timeUp$)="timeUp()"
-              (selected$)="nextQuestion($event)"
-            ></app-image>
-          }
-          @default {
-            <p class="text-lg font-bold text-center">Tipo de pregunta no soportado</p>
-          }
+        } @else {
+          <div class="w-full flex items-center justify-center z-40">
+            <div class="text-white text-lg font-semibold px-6 py-3 rounded-xl shadow-md">
+              Cargando pregunta...
+            </div>
+          </div>
         }
       } @else if (isEnd && stageData.viewResults) {
         <p class="text-lg font-bold text-center">{{ stageData.viewResults.title }}</p>

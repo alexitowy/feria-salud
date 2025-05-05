@@ -1,7 +1,6 @@
 import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core'
-import { CountDownComponent } from '../../../../../../../shared/count-down/count-down.component'
-import { ToastService } from '../../../../../../../core/services/toast.service'
 import { UtilsService } from '../../../../../../../core/services/utils.service'
+import { CountDownComponent } from '../../../../../../../shared/count-down/count-down.component'
 
 @Component({
   selector: 'app-single-selection',
@@ -48,6 +47,7 @@ export class SingleSelectionComponent {
       this.countDownComponent.stop()
       setTimeout(() => {
         this.correctSelected$.emit(this.totalTimeLeft)
+        this.showFeedback = false
       }, 3000)
     } else {
       this.utilsService.showToast('Respuesta incorrecta, intentalo de nuevo', 'danger')

@@ -198,6 +198,145 @@ export const StagesData: Record<number, StageData> = {
         points: 30,
         timeLeft: 120,
       },
+      {
+        type: 'single-select',
+        question: '¿Cómo deberéis conservarla y transportarla Si llegan en menos de 2 horas?',
+        description:
+          'La muestra ha sido recolectada con destreza. Ahora debe llegar al alquimista del castillo. Pero cuidado… si el modo de envío no es el adecuado, el enemigo podría escapar antes de ser revelado.',
+        answers: [
+          {
+            id: 1,
+            text: 'Refrigerar',
+            correct: false,
+          },
+          {
+            id: 2,
+            text: 'No refrigerar',
+            correct: true,
+          },
+        ],
+        points: 30,
+        timeLeft: 120,
+        feedback:
+          'No refrigerar, pues los gérmenes si llegan al laboratorio en menos de 2h no necesitan ser transportados en frio',
+      },
+      {
+        type: 'single-select',
+        question: '¿Cómo deberéis conservarla y transportarla si llegan en más de 2 horas?',
+        description:
+          'La muestra ha sido recolectada con destreza. Ahora debe llegar al alquimista del castillo. Pero cuidado… si el modo de envío no es el adecuado, el enemigo podría escapar antes de ser revelado.',
+        answers: [
+          {
+            id: 1,
+            text: 'Refrigerar',
+            correct: true,
+          },
+          {
+            id: 2,
+            text: 'No refrigerar',
+            correct: false,
+          },
+        ],
+        points: 30,
+        timeLeft: 120,
+        feedback:
+          'Refrigerar si el tiempo de traslado al laboratorio es mayor a 2h, pues los gérmenes no toleran el calor y el frío los mantiene en su prisión',
+      },
+      {
+        type: 'single-select',
+        question: '¿Cómo deberéis conservarla y transportarla protegidas de la luz?',
+        description:
+          'La muestra ha sido recolectada con destreza. Ahora debe llegar al alquimista del castillo. Pero cuidado… si el modo de envío no es el adecuado, el enemigo podría escapar antes de ser revelado.',
+        answers: [
+          {
+            id: 1,
+            text: 'Protegidas de la luz',
+            correct: true,
+          },
+          {
+            id: 2,
+            text: 'No protegidas de la luz',
+            correct: false,
+          },
+        ],
+        points: 30,
+        timeLeft: 120,
+        feedback: 'Sabio habéis sido, pues los gérmenes no toleran la luz',
+      },
+      {
+        type: 'single-select',
+        question:
+          '¿Además de en infección intensa, ¿Cuándo se desaconseja el tratamiento con terapia presión negativa en una UPD?',
+        description:
+          'El alquimista ha oído hablar de una terapia moderna que succiona el mal y acelera la curación (terapia de presión negativa). Pero también ha sido advertido: usada en el momento equivocado, puede empeorar el daño.',
+        answers: [
+          {
+            id: 1,
+            text: 'Osteomielitis no tratada',
+            correct: true,
+          },
+          {
+            id: 2,
+            text: 'UPD en resolución',
+            correct: false,
+          },
+          {
+            id: 3,
+            text: 'Insuficiencia cardiaca',
+            correct: false,
+          },
+          {
+            id: 4,
+            text: 'Alergia al yodo',
+            correct: false,
+          },
+        ],
+        points: 30,
+        timeLeft: 120,
+      },
+      {
+        type: 'single-select',
+        question: '¿Es adecuado administrar Piperacilina/Tazobactam mediante PICC/Midline?',
+        description:
+          'El clérigo farmacéutico señala que para administrar el elixir Piperacilina/Tazobactam, debe usarse una vía segura, que no dañe al portador ni se extravíe en la piel del peregrino.',
+        answers: [
+          {
+            id: 1,
+            text: 'Si',
+            correct: true,
+          },
+          {
+            id: 2,
+            text: 'No',
+            correct: false,
+          },
+        ],
+        points: 30,
+        timeLeft: 120,
+      },
+      {
+        type: 'text',
+        question:
+          'Según la estabilidad de este antibiótico, una vez diluido, es posible administrarlo mediante bomba de infusión intermitente en el domicilio durante periodos de',
+        description:
+          'El alquimista de la torre os pregunta: ‘¿Este antibiótico puede resistir la jornada completa sin corromperse?',
+        answers: [
+          {
+            id: 1,
+            text: '24',
+            correct: true,
+          },
+        ],
+        points: 30,
+        timeLeft: 120,
+      },
     ],
+    viewResults: {
+      award: 'assets/images/D.png',
+      title: 'Felicidades, has completado la etapa 2',
+      description:
+        'Antes de caer preso del dolor, el curandero del bosque me entregó este pergamino, diciendo que sería de utilidad para quien lograse devolverme el paso. No comprendí sus palabras… hasta hoy.” Con manos aún débiles, extiende un papel arrugado. Al desplegarlo, brillando con luz propia, aparece escrita en tinta seca una sola letra:',
+      buttonText: 'Obtener pista',
+    },
   },
 }
