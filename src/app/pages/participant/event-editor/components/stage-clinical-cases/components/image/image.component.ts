@@ -1,20 +1,26 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core'
+import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core'
 import { UtilsService } from '../../../../../../../core/services/utils.service'
+import { CountDownComponent } from '../../../../../../../shared/count-down/count-down.component'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-image',
-  imports: [],
+  imports: [CountDownComponent, CommonModule],
   templateUrl: './image.component.html',
   styleUrl: './image.component.scss',
 })
 export class ImageComponent {
+  @ViewChild(CountDownComponent) countDownComponent!: CountDownComponent
   @Input() question: any
+  @Input() timer = true
+  @Input() automaticResponse: boolean = false
 
   @Output() timeUp$ = new EventEmitter<boolean>()
-  @Output() correctSelected$ = new EventEmitter<number>()
+  @Output() selected$ = new EventEmitter<number>()
 
   selectedAnswer: any = null
   utilsService = inject(UtilsService)
+  showFeedback = false
   totalTimeLeft: number = 0
 
   timeUp(): void {
@@ -22,6 +28,8 @@ export class ImageComponent {
   }
 
   setSelectedAnswer(answer: any): void {
+    console.log('answer', answer)
+
     this.question.answers.forEach((ans: any) => {
       if (ans.id === answer.id) {
         ans.selected = true
@@ -31,16 +39,20 @@ export class ImageComponent {
     })
     this.selectedAnswer = answer
     this.selectedAnswer.selected = true
+    if (this.automaticResponse) {
+      this.checkAnswer()
+    }
   }
 
   checkAnswer(): void {
-    if (!this.selectedAnswer) {
-      this.utilsService.showToast('Debes seleccionar una respuesta', 'danger')
-      return
-    }
     if (this.selectedAnswer.correct) {
-      this.utilsService.showToast('Respuesta correcta.', 'success')
-      this.correctSelected$.emit(this.totalTimeLeft)
+      this.showFeedback = true
+      if (this.timer) {
+        this.countDownComponent.stop()
+      }
+      setTimeout(() => {
+        this.selected$.emit(this.totalTimeLeft)
+      }, 3000)
     } else {
       this.utilsService.showToast('Respuesta incorrecta, intentalo de nuevo', 'danger')
     }

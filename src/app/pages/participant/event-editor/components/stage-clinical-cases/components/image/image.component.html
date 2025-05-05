@@ -1,1 +1,52 @@
-<p>image works!</p>
+@if (timer) {
+  <app-count-down
+    [seconds]="100"
+    (timeUp)="timeUp()"
+    (timeUpdate)="updateTime($event)"
+  ></app-count-down>
+}
+<!-- Question Title -->
+<h2 class="text-1xl font-bold mb-6 text-center">{{ question.question }}</h2>
+
+<!-- Radio Options -->
+<div class="grid grid-cols-2 gap-4">
+  @for (answer of question.answers; track $index) {
+    <label
+      class="flex flex-col cursor-pointer rounded-xl overflow-hidden shadow-md hover:shadow-lg transition duration-200 border-2 border-transparent w-full h-full"
+      [ngClass]="{
+        'border-green-500 ring-2 ring-green-400': selectedAnswer?.id === answer.id,
+      }"
+      (click)="setSelectedAnswer(answer)"
+    >
+      <input type="radio" [value]="answer" name="answer" class="hidden" />
+
+      <!-- Imagen -->
+      <img [src]="answer.img" alt="Opción" class="w-full h-28 object-cover" />
+
+      <!-- Texto fijo abajo -->
+      <div class="bg-yellow-200 text-center flex items-center justify-center px-2 py-1 h-full">
+        <span class="text-sm font-semibold text-orange-800 leading-tight line-clamp-2 break-words">
+          {{ answer.label }}
+        </span>
+      </div>
+    </label>
+  }
+</div>
+
+@if (!automaticResponse) {
+  <button
+    class="mt-6 px-6 py-4 shadow-sm shadow-white bg-[url('/assets/images/boton.png')] bg-cover text-stone-100 block mx-auto"
+    (click)="checkAnswer()"
+  >
+    Comprobar Respuesta
+  </button>
+}
+
+@if (showFeedback) {
+  <div
+    class="absolute top-28 left-1/2 transform -translate-x-1/2 bg-white/90 p-4 rounded-lg shadow-lg text-center z-40 max-w-xs text-black font-semibold"
+  >
+    <p>Respuesta correcta.</p>
+    {{ question.feedback }}
+  </div>
+}

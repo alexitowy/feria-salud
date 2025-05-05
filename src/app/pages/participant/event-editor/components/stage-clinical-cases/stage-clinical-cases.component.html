@@ -34,7 +34,7 @@
             <app-image
               [question]="currentQuestion"
               (timeUp$)="timeUp()"
-              (correctSelected$)="nextQuestion($event)"
+              (selected$)="nextQuestion($event)"
             ></app-image>
           }
           @default {
