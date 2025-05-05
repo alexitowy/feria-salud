@@ -339,4 +339,85 @@ export const StagesData: Record<number, StageData> = {
       buttonText: 'Obtener pista',
     },
   },
+  6: {
+    background: 'assets/images/fondo_enigma.png',
+    description: 'Junto a cada uno, tres casillas vacías que exigen ser llenadas con sabiduría.',
+    antibioticChallenge: {
+      antibiotics: [
+        {
+          name: 'Ceftriaxona',
+          correct: {
+            stability: 'Estable 24h',
+            administration: 'Acceso venoso periférico',
+            note: 'Puede usarse en bolo lento',
+          },
+        },
+        {
+          name: 'Meropenem',
+          correct: {
+            stability: 'Inestable, debe refrigerarse',
+            administration: 'PICC o Midline',
+            note: 'Necesita reconstitución inmediata antes de usar',
+          },
+        },
+        {
+          name: 'Ertapenem',
+          correct: {
+            stability: 'Estable 24h',
+            administration: 'PICC o Midline',
+            note: 'No mezclar con bicarbonato',
+          },
+        },
+        {
+          name: 'Vancomicina',
+          correct: {
+            stability: 'Estable 24h',
+            administration: 'PICC o Midline',
+            note: 'No estable en perfusión continua',
+          },
+        },
+        {
+          name: 'Daptomicina',
+          correct: {
+            stability: 'Estable 12h',
+            administration: 'PICC o Midline',
+            note: 'Riesgo de miopatía, diluir bien',
+          },
+        },
+        {
+          name: 'Amoxicilina clavulanico',
+          correct: {
+            stability: 'Estable 6-8 horas',
+            administration: 'Vía oral',
+            note: 'Compatible con administración oral',
+          },
+        },
+      ],
+      // Opcional si quieres hacerlo configurable desde aquí también
+      options: {
+        stability: [
+          'Estable 24h',
+          'Inestable, debe refrigerarse',
+          'Estable 12h',
+          'Estable 6-8 horas',
+        ],
+        administration: ['Acceso venoso periférico', 'PICC o Midline', 'Vía oral'],
+        note: [
+          'Puede usarse en bolo lento',
+          'Necesita reconstitución inmediata antes de usar',
+          'No mezclar con bicarbonato',
+          'No estable en perfusión continua',
+          'Riesgo de miopatía, diluir bien',
+          'Compatible con administración oral',
+          'No mezclar con otros antibióticos',
+        ],
+      },
+    },
+    viewResults: {
+      award: 'assets/images/scroll4.png',
+      title: 'Felicidades, has logrado identificar correctamente los secretos de cada elixir.',
+      description: 'La sabiduría os guía, y el pergamino revela su próximo misterio...',
+      buttonText: 'Continuar',
+    },
+  },
 }

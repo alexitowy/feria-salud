@@ -7,4 +7,5 @@ export interface StageData {
   questions?: any[]
   award?: string
   viewResults?: any
+  antibioticChallenge?: any
 }

@@ -12,6 +12,7 @@ import { StageBalanceComponent } from './components/stage-balance/stage-balance.
 import { StageClinicalCasesComponent } from './components/stage-clinical-cases/stage-clinical-cases.component'
 import { StageMicrobiotaComponent } from './components/stage-microbiota/stage-microbiota.component'
 import { StagesData } from './constants/stages'
+import { AntibioticSelectorComponent } from './components/antibiotic-selector/antibiotic-selector.component'
 
 @Component({
   selector: 'app-event-editor',
@@ -22,6 +23,7 @@ import { StagesData } from './constants/stages'
     StageBalanceComponent,
     StageClinicalCasesComponent,
     StageBadFootComponent,
+    AntibioticSelectorComponent,
   ],
   templateUrl: './event-editor.component.html',
   styleUrl: './event-editor.component.scss',
