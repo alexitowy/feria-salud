@@ -41,6 +41,15 @@
             <p class="text-lg font-bold text-center">Tipo de pregunta no soportado</p>
           }
         }
+      } @else if (isEnd && stageData.viewResults) {
+        <p class="text-lg font-bold text-center">{{ stageData.viewResults.title }}</p>
+        <p class="text-lg font-bold text-center">{{ stageData.viewResults.description }}</p>
+        <button
+          class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 block mx-auto"
+          (click)="submit()"
+        >
+          {{ stageData.viewResults.buttonText }}
+        </button>
       } @else {
         <p class="text-lg font-bold text-center">¡Has completado todas las preguntas!</p>
         <p class="text-lg font-bold text-center">¡Felicidades!</p>
@@ -55,3 +64,25 @@
     </div>
   </div>
 </div>
+<!-- Modal de premio -->
+@if (showAwardModal) {
+  <div class="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+    <div class="relative w-full max-w-md rounded-xl shadow-xl overflow-hidden">
+      <button
+        (click)="closeAwardModal()"
+        class="absolute top-3 right-3 text-gray-100 text-3xl leading-none hover:text-red-400 z-10"
+        aria-label="Cerrar"
+      >
+        &times;
+      </button>
+
+      <div class="bg-white rounded-xl p-2">
+        <img
+          [src]="stageData.viewResults.award"
+          alt="Premio"
+          class="w-full h-auto object-contain max-h-[80vh] mx-auto"
+        />
+      </div>
+    </div>
+  </div>
+}

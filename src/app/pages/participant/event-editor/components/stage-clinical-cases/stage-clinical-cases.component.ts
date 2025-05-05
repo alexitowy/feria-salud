@@ -3,6 +3,9 @@ import { MultipleChoiceComponent } from './components/multiple-choice/multiple-c
 import { SingleSelectionComponent } from './components/single-selection/single-selection.component'
 import { TextComponent } from './components/text/text.component'
 import { ImageComponent } from './components/image/image.component'
+import { StorageService } from '../../../../../core/services/storage.service'
+import { AuthService } from '../../../../../core/services/auth.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-stage-clinical-cases',
@@ -16,8 +19,13 @@ export class StageClinicalCasesComponent implements OnInit {
   currentQuestion: any
   isLastQuestion: boolean = false
   isEnd: boolean = false
+  showAwardModal = false
 
-  constructor() {
+  constructor(
+    private localStorageService: StorageService,
+    private authService: AuthService,
+    private router: Router
+  ) {
     console.log(this.stageData)
   }
   ngOnInit(): void {
@@ -29,14 +37,24 @@ export class StageClinicalCasesComponent implements OnInit {
     this.isLastQuestion = currentIndex === this.stageData.questions.length - 1
     if (currentIndex < this.stageData.questions.length - 1) {
       this.currentQuestion = this.stageData.questions[currentIndex + 1]
-    } else if (currentIndex === this.stageData.questions.length - 1) {
+    } else if (this.isLastQuestion) {
       this.isEnd = true
     }
   }
 
   submit(): void {
-    console.log('Submit clicked')
-    // Handle the submission logic here
+    const award = this.stageData?.viewResults?.award
+
+    if (award) {
+      this.showAwardModal = true
+      this.localStorageService.setData('award', award)
+    }
+  }
+
+  async closeAwardModal(): Promise<void> {
+    this.showAwardModal = false
+    await this.authService.finishStageForAll('3')
+    this.router.navigate(['/participant/stage-waiting'])
   }
 
   timeUp(): void {
