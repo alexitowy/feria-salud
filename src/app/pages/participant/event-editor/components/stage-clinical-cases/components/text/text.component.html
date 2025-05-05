@@ -1,4 +1,8 @@
-<app-count-down [seconds]="100" (timeUp)="timeUp()"></app-count-down>
+<app-count-down
+  [seconds]="100"
+  (timeUp)="timeUp()"
+  (timeUpdate)="updateTime($event)"
+></app-count-down>
 <!-- Question Title -->
 <h2 class="text-2xl font-bold mb-6">{{ question.question }}</h2>
 
@@ -22,3 +26,12 @@
 >
   Comprobar Respuesta
 </button>
+
+@if (showFeedback) {
+  <div
+    class="absolute top-28 left-1/2 transform -translate-x-1/2 bg-white/90 p-4 rounded-lg shadow-lg text-center z-40 max-w-xs text-black font-semibold"
+  >
+    <p>Respuesta correcta.</p>
+    {{ question.feedback }}
+  </div>
+}

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core'
+import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core'
 import { CountDownComponent } from '../../../../../../../shared/count-down/count-down.component'
 import { ToastService } from '../../../../../../../core/services/toast.service'
 import { UtilsService } from '../../../../../../../core/services/utils.service'
@@ -10,13 +10,16 @@ import { UtilsService } from '../../../../../../../core/services/utils.service'
   styleUrl: './single-selection.component.scss',
 })
 export class SingleSelectionComponent {
+  @ViewChild(CountDownComponent) countDownComponent!: CountDownComponent
   @Input() question: any
 
   @Output() timeUp$ = new EventEmitter<boolean>()
-  @Output() correctSelected$ = new EventEmitter<boolean>()
+  @Output() correctSelected$ = new EventEmitter<number>()
 
   selectedAnswer: any = null
   utilsService = inject(UtilsService)
+  showFeedback = false
+  totalTimeLeft: number = 0
 
   timeUp(): void {
     this.timeUp$.emit(true)
@@ -40,10 +43,18 @@ export class SingleSelectionComponent {
       return
     }
     if (this.selectedAnswer.correct) {
-      this.utilsService.showToast(`Respuesta correcta. ${this.question.feedback}`, 'success')
-      this.correctSelected$.emit(true)
+      // this.utilsService.showToast(`Respuesta correcta. ${this.question.feedback}`, 'success')
+      this.showFeedback = true
+      this.countDownComponent.stop()
+      setTimeout(() => {
+        this.correctSelected$.emit(this.totalTimeLeft)
+      }, 3000)
     } else {
       this.utilsService.showToast('Respuesta incorrecta, intentalo de nuevo', 'danger')
     }
+  }
+
+  updateTime(time: number): void {
+    this.totalTimeLeft = time
   }
 }

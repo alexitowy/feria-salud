@@ -6,6 +6,7 @@ import { ImageComponent } from './components/image/image.component'
 import { StorageService } from '../../../../../core/services/storage.service'
 import { AuthService } from '../../../../../core/services/auth.service'
 import { Router } from '@angular/router'
+import { UtilsService } from '../../../../../core/services/utils.service'
 
 @Component({
   selector: 'app-stage-clinical-cases',
@@ -15,16 +16,19 @@ import { Router } from '@angular/router'
 })
 export class StageClinicalCasesComponent implements OnInit {
   @Input() stageData: any = null
+  @Input() currentStage!: number
 
   currentQuestion: any
   isLastQuestion: boolean = false
   isEnd: boolean = false
   showAwardModal = false
+  points: number = 0
 
   constructor(
     private localStorageService: StorageService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private utils: UtilsService
   ) {
     console.log(this.stageData)
   }
@@ -32,7 +36,8 @@ export class StageClinicalCasesComponent implements OnInit {
     this.currentQuestion = this.stageData.questions[0]
   }
 
-  nextQuestion(): void {
+  nextQuestion(totalTimeLeft: number): void {
+    this.updatePoints(totalTimeLeft)
     const currentIndex = this.stageData.questions.indexOf(this.currentQuestion)
     this.isLastQuestion = currentIndex === this.stageData.questions.length - 1
     if (currentIndex < this.stageData.questions.length - 1) {
@@ -53,11 +58,28 @@ export class StageClinicalCasesComponent implements OnInit {
 
   async closeAwardModal(): Promise<void> {
     this.showAwardModal = false
-    await this.authService.finishStageForAll('3')
+    console.log('currentStage', this.currentStage)
+    console.log('points', this.points)
+
+    await this.authService.finishStage(this.currentStage.toString(), this.points)
     this.router.navigate(['/participant/stage-waiting'])
   }
 
   timeUp(): void {
-    this.nextQuestion()
+    this.nextQuestion(-1)
+  }
+
+  updatePoints(totalTimeLeft: number): void {
+    if (totalTimeLeft === -1) {
+      this.points += 0
+      return
+    }
+
+    this.points += this.utils.calculateScore(
+      2,
+      this.currentQuestion.points,
+      this.currentQuestion.timeLeft,
+      totalTimeLeft
+    )
   }
 }

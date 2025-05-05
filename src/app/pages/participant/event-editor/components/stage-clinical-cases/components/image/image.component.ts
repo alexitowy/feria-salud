@@ -11,10 +11,11 @@ export class ImageComponent {
   @Input() question: any
 
   @Output() timeUp$ = new EventEmitter<boolean>()
-  @Output() correctSelected$ = new EventEmitter<boolean>()
+  @Output() correctSelected$ = new EventEmitter<number>()
 
   selectedAnswer: any = null
   utilsService = inject(UtilsService)
+  totalTimeLeft: number = 0
 
   timeUp(): void {
     this.timeUp$.emit(true)
@@ -39,9 +40,13 @@ export class ImageComponent {
     }
     if (this.selectedAnswer.correct) {
       this.utilsService.showToast('Respuesta correcta.', 'success')
-      this.correctSelected$.emit(true)
+      this.correctSelected$.emit(this.totalTimeLeft)
     } else {
       this.utilsService.showToast('Respuesta incorrecta, intentalo de nuevo', 'danger')
     }
+  }
+
+  updateTime(time: number): void {
+    this.totalTimeLeft = time
   }
 }

@@ -19,7 +19,10 @@
         <app-stage-balance [stageData]="stageData"></app-stage-balance>
       }
       @case (3) {
-        <app-stage-clinical-cases [stageData]="stageData"></app-stage-clinical-cases>
+        <app-stage-clinical-cases
+          [stageData]="stageData"
+          [currentStage]="currentStage"
+        ></app-stage-clinical-cases>
       }
       @case (4) {
         <app-stage-bad-foot [stageData]="stageData"></app-stage-bad-foot>

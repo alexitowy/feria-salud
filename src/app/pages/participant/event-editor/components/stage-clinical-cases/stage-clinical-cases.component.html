@@ -13,28 +13,28 @@
             <app-multiple-choice
               [question]="currentQuestion"
               (timeUp$)="timeUp()"
-              (correctSelected$)="nextQuestion()"
+              (correctSelected$)="nextQuestion($event)"
             ></app-multiple-choice>
           }
           @case ('single-select') {
             <app-single-selection
               [question]="currentQuestion"
               (timeUp$)="timeUp()"
-              (correctSelected$)="nextQuestion()"
+              (correctSelected$)="nextQuestion($event)"
             ></app-single-selection>
           }
           @case ('text') {
             <app-text
               [question]="currentQuestion"
               (timeUp$)="timeUp()"
-              (correctSelected$)="nextQuestion()"
+              (correctSelected$)="nextQuestion($event)"
             ></app-text>
           }
           @case ('image') {
             <app-image
               [question]="currentQuestion"
               (timeUp$)="timeUp()"
-              (correctSelected$)="nextQuestion()"
+              (correctSelected$)="nextQuestion($event)"
             ></app-image>
           }
           @default {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core'
+import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core'
 import { CountDownComponent } from '../../../../../../../shared/count-down/count-down.component'
 import { UtilsService } from '../../../../../../../core/services/utils.service'
 
@@ -9,12 +9,16 @@ import { UtilsService } from '../../../../../../../core/services/utils.service'
   styleUrl: './multiple-choice.component.scss',
 })
 export class MultipleChoiceComponent {
+  @ViewChild(CountDownComponent) countDownComponent!: CountDownComponent
+
   @Input() question: any
 
   @Output() timeUp$ = new EventEmitter<boolean>()
-  @Output() correctSelected$ = new EventEmitter<boolean>()
+  @Output() correctSelected$ = new EventEmitter<number>()
   answersSelect: any[] = []
   utilsService = inject(UtilsService)
+  totalTimeLeft: number = 0
+  showFeedback = false
 
   timeUp(): void {
     this.timeUp$.emit(true)
@@ -41,13 +45,21 @@ export class MultipleChoiceComponent {
     ) {
       const allCorrect = this.answersSelect.every((ans: any) => ans.correct)
       if (allCorrect) {
-        this.utilsService.showToast('¡Correcto!', 'success')
-        this.correctSelected$.emit(true)
+        // this.utilsService.showToast('¡Correcto!', 'success')
+        this.showFeedback = true
+        this.countDownComponent.stop()
+        setTimeout(() => {
+          this.correctSelected$.emit(this.totalTimeLeft)
+        }, 3000)
       } else {
         this.utilsService.showToast('Respuestas incorrectas, intentalo de nuevo', 'danger')
       }
     } else {
       this.utilsService.showToast('Respuestas incorrectas, intentalo de nuevo', 'danger')
     }
+  }
+
+  updateTime(time: number): void {
+    this.totalTimeLeft = time
   }
 }
