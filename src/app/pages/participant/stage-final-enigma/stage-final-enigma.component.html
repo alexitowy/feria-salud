@@ -34,14 +34,14 @@
 
   <!-- Pistas -->
   <div class="mt-8 w-full max-w-3xl mx-auto px-4">
-    <h2 class="text-2xl font-bold text-center text-[#3e2f1c] mb-6">Pistas recolectadas</h2>
+    <h2 class="text-2xl font-bold text-center text-[#3e2f1c]">Pistas recolectadas</h2>
     <div class="grid grid-cols-2 gap-6">
       @for (imgPath of awards; track imgPath) {
-        <div class="bg-transparent flex items-center justify-center">
+        <div class="flex items-center justify-center h-[250px] bg-transparent">
           <img
             [src]="imgPath"
             alt="Pista"
-            class="w-full h-auto rounded-lg object-contain hover:scale-105 transition-transform duration-200"
+            class="max-h-full max-w-full object-contain transition-transform duration-200 hover:scale-105"
           />
         </div>
       }
