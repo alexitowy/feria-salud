@@ -26,6 +26,7 @@ export class DashboardComponent implements AfterViewInit {
   playersRemaining = 0
   loadingNextStage = false
   currentStage = 1
+  showRestartModal = false
 
   constructor(
     private storageService: StorageService,
@@ -84,5 +85,27 @@ export class DashboardComponent implements AfterViewInit {
     await this.authService.launchNextStage()
     await this.authService.resetNextStageReady()
     this.loadingNextStage = false
+  }
+
+  openRestartModal(): void {
+    this.showRestartModal = true
+  }
+
+  closeRestartModal(): void {
+    this.showRestartModal = false
+  }
+
+  async confirmRestartGame(): Promise<void> {
+    this.showRestartModal = false
+    try {
+      await this.authService.clearParticipants()
+      await this.authService.updateEventState({
+        active: false,
+        introVideoCompleted: false,
+      })
+      this.participants = []
+    } catch (error) {
+      console.error('Error al reiniciar el juego:', error)
+    }
   }
 }

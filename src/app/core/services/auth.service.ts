@@ -261,4 +261,22 @@ export class AuthService {
       console.error('Error actualizando múltiples participantes:', error)
     }
   }
+
+  async clearParticipants(): Promise<void> {
+    const participantsRef = collection(this.firestore, 'participantes')
+    const querySnapshot = await getDocs(participantsRef)
+
+    const deletePromises = querySnapshot.docs.map((docSnap) =>
+      deleteDoc(doc(this.firestore, 'participantes', docSnap.id))
+    )
+
+    await Promise.all(deletePromises)
+  }
+
+  async updateEventState(
+    update: Partial<{ active: boolean; introVideoCompleted: boolean }>
+  ): Promise<void> {
+    const eventRef = doc(this.firestore, 'event', 'feriaSalud')
+    await updateDoc(eventRef, update)
+  }
 }
