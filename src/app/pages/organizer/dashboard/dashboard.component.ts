@@ -104,6 +104,7 @@ export class DashboardComponent implements AfterViewInit {
         introVideoCompleted: false,
       })
       this.participants = []
+      this.router.navigate(['/organizer/await'])
     } catch (error) {
       console.error('Error al reiniciar el juego:', error)
     }
