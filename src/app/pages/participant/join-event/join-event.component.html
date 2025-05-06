@@ -1,16 +1,19 @@
-<div class="min-h-screen flex items-center justify-center bg-stone-800 px-4">
+<div
+  class="min-h-screen flex items-center justify-center bg-[url('/assets/images/pergamino-textura.png')] bg-cover bg-center px-4 font-medieval"
+>
   <div
-    class="bg-stone-700 rounded-2xl shadow-xl p-8 w-full max-w-md text-center border border-stone-600"
+    class="bg-black/60 rounded-2xl shadow-xl p-8 w-full max-w-md text-center border border-yellow-700 text-white"
   >
-    <h1 class="text-2xl font-bold text-stone-100 mb-4">Enigma Microbiota</h1>
-    <p class="text-stone-300 mb-6">Ingresa el código que te dio el organizador</p>
+    <h1 class="text-2xl font-bold text-yellow-100 mb-4">Enigma Microbiota</h1>
+    <p class="text-white/90 mb-6">Ingresa el código que te dio el organizador</p>
+
     <form (ngSubmit)="joinEvent()" [formGroup]="form">
       <div class="mb-4">
         <input
           formControlName="eventCode"
           type="text"
           placeholder="Ej. 345679"
-          class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-stone-400 bg-stone-600 text-stone-100 placeholder-stone-400"
+          class="w-full px-4 py-2 border-b-2 border-white bg-transparent text-white placeholder-white/70 focus:outline-none focus:border-yellow-400 text-center"
         />
         <div
           *ngIf="form.get('eventCode')?.touched && form.get('eventCode')?.errors"
@@ -27,7 +30,7 @@
           formControlName="name"
           type="text"
           placeholder="Nombre"
-          class="w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-stone-400 bg-stone-600 text-stone-100 placeholder-stone-400"
+          class="w-full px-4 py-2 border-b-2 border-white bg-transparent text-white placeholder-white/70 focus:outline-none focus:border-yellow-400 text-center"
         />
         <div
           *ngIf="form.get('name')?.touched && form.get('name')?.errors"
@@ -39,7 +42,7 @@
 
       <button
         type="submit"
-        class="w-full bg-stone-900 hover:bg-stone-950 text-stone-100 py-2 rounded-xl transition"
+        class="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded-xl transition"
       >
         Unirse
       </button>
