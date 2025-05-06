@@ -346,7 +346,10 @@ export const StagesData: Record<number, StageData> = {
         'Antes de caer preso del dolor, el curandero del bosque me entregó este pergamino, diciendo que sería de utilidad para quien lograse devolverme el paso. No comprendí sus palabras… hasta hoy.” Con manos aún débiles, extiende un papel arrugado. Al desplegarlo, brillando con luz propia, aparece escrita en tinta seca una sola letra:',
       buttonText: 'Obtener pista',
     },
-    dashboard: {},
+    dashboard: {
+      audio: 'assets/audio/enigma_2.mp3',
+      video: 'assets/video/pie_maldito.mp4',
+    },
   },
   6: {
     background: 'assets/images/fondo_enigma.png',
