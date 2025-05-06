@@ -16,8 +16,9 @@
       <div
         class="rounded-2xl p-4 mb-4 shadow-md w-full max-w-md mx-auto transition-colors duration-300"
         [ngClass]="{
-          'bg-[#2e2e2e]/70': !isCardComplete($index),
-          'bg-blue-200/30': isCardComplete($index),
+          'bg-[#2e2e2e]/70': getCardStatus($index) === 'incomplete',
+          'bg-green-300/40': getCardStatus($index) === 'correct',
+          'bg-red-300/40': getCardStatus($index) === 'incorrect',
         }"
       >
         <!-- Nombre del antibiótico centrado -->

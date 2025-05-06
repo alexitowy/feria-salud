@@ -121,8 +121,18 @@ export class AntibioticSelectorComponent {
     }
   }
 
-  isCardComplete(index: number): boolean {
+  getCardStatus(index: number): 'incomplete' | 'correct' | 'incorrect' {
     const sel = this.selections[index]
-    return !!(sel?.stability && sel?.administration && sel?.note)
+    if (!sel || !sel.stability || !sel.administration || !sel.note) {
+      return 'incomplete'
+    }
+
+    const antibiotic = this.stageData.antibioticChallenge.antibiotics[index]
+    const isCorrect =
+      sel.stability === antibiotic.correct.stability &&
+      sel.administration === antibiotic.correct.administration &&
+      sel.note === antibiotic.correct.note
+
+    return isCorrect ? 'correct' : 'incorrect'
   }
 }
