@@ -210,16 +210,15 @@
                   <div class="flex justify-between mt-4">
                     <!-- Botón anterior -->
                     <button
-                      class="text-xl font-bold"
+                      class="text-xl font-bold px-4 py-2 rounded-lg transition bg-yellow-800 text-white disabled:opacity-50 disabled:cursor-not-allowed"
                       (click)="prevSlide(stageKey)"
                       [disabled]="currentSlide[stageKey] === 0"
                     >
                       ←
                     </button>
 
-                    <!-- Botón siguiente -->
                     <button
-                      class="text-xl font-bold"
+                      class="text-xl font-bold px-4 py-2 rounded-lg transition bg-yellow-800 text-white disabled:opacity-50 disabled:cursor-not-allowed"
                       (click)="nextSlide(stageKey, stagesData[stageKey].questions?.length || 0)"
                       [disabled]="
                         currentSlide[stageKey] === (stagesData[stageKey].questions?.length || 0) - 1
