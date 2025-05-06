@@ -12,6 +12,7 @@ import { ImageComponent } from '../../participant/event-editor/components/stage-
 import { TextComponent } from '../../participant/event-editor/components/stage-clinical-cases/components/text/text.component'
 import { MultipleChoiceComponent } from '../../participant/event-editor/components/stage-clinical-cases/components/multiple-choice/multiple-choice.component'
 import { SingleSelectionComponent } from '../../participant/event-editor/components/stage-clinical-cases/components/single-selection/single-selection.component'
+import { AntibioticSelectorComponent } from '../../participant/event-editor/components/antibiotic-selector/antibiotic-selector.component'
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +22,7 @@ import { SingleSelectionComponent } from '../../participant/event-editor/compone
     MultipleChoiceComponent,
     TextComponent,
     ImageComponent,
+    AntibioticSelectorComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',

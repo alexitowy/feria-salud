@@ -160,7 +160,9 @@
                     class="w-full rounded"
                   ></video>
                 </div>
-
+                <div *ngIf="stagesData[stageKey]?.antibioticChallenge">
+                  <app-antibiotic-selector [stageData]="stagesData[stageKey]" />
+                </div>
                 <!-- Preguntas (slide simple) -->
                 <div
                   *ngIf="stagesData[stageKey].questions?.length"
