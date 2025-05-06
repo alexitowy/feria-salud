@@ -4,7 +4,11 @@
   (timeUpdate)="updateTime($event)"
 ></app-count-down>
 <!-- Question Title -->
-<h2 class="text-2xl font-bold mb-6">{{ question.question }}</h2>
+@if (question.description) {
+  <h2 class="text-base mb-2">{{ question.description }}</h2>
+}
+<!-- Question Title -->
+<h2 class="text-1xl font-bold mb-6">{{ question.question }}</h2>
 
 <!-- Radio Options -->
 <div class="space-y-4">

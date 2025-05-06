@@ -56,6 +56,10 @@ export class EventEditorComponent {
   async ngOnInit(): Promise<void> {
     const stage = await this.authService.getCurrentStage()
     console.log(stage)
+    if (stage === 8) {
+      this.router.navigate(['/participant/final-stage'])
+      return
+    }
     this.currentStage = stage
     this.stageData = StagesData[this.currentStage]
     console.log(this.stageData)

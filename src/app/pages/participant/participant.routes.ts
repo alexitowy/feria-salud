@@ -28,6 +28,13 @@ export const participantRoutes: Routes = [
         loadComponent: () =>
           import('./stage-waiting/stage-waiting.component').then((m) => m.StageWaitingComponent),
       },
+      {
+        path: 'final-stage',
+        loadComponent: () =>
+          import('./stage-final-enigma/stage-final-enigma.component').then(
+            (m) => m.StageFinalEnigmaComponent
+          ),
+      },
       { path: '**', redirectTo: 'join', pathMatch: 'full' },
     ],
   },

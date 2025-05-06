@@ -40,6 +40,8 @@ export const StagesData: Record<number, StageData> = {
     questions: [
       {
         type: 'single-select',
+        description:
+          '“Cuando el invasor regresa una y otra vez, no basta con limpiar… hay que restaurar.” “Solo uno de estos merece el barro sagrado (trasplante fecal), Elige con sabiduría”. Elegir el único caso donde está indicado el trasplante fecal',
         question:
           'Solo uno de estos merece el barro sagrado (trasplante fecal). Elige con sabiduría.',
         answers: [
@@ -426,6 +428,8 @@ export const StagesData: Record<number, StageData> = {
     questions: [
       {
         type: 'single-select',
+        description:
+          '¡No todos los elixires valen para esta peste! Los nuevos brebajes de los alquimistas no le afectan... ¿Cuál de estas elecciones sanará sin errar?',
         question:
           'Elige con sabiduría cuál sería el tratamiento más certero para una infección grave causada por Pseudomonas aeruginosa productora de VIM',
         answers: [
@@ -457,6 +461,8 @@ export const StagesData: Record<number, StageData> = {
       },
       {
         type: 'single-select',
+        desciption:
+          'Existe un viejo polvo, la colistina, que puede tornarse en vapores y ser llevado directo a sus pulmones. No os asustéis por su fama: si va por el aire, no daña los riñones… ¿Acaso me equivoco?',
         question:
           '¿Es seguro administrar colistina por la vía de los vapores (nebulización) en un paciente de riñones cansados?',
         answers: [
@@ -476,6 +482,8 @@ export const StagesData: Record<number, StageData> = {
       },
       {
         type: 'single-select',
+        description:
+          'El joven mejora tras varios días de tratamiento con los vapores del aprendiz del curandero. Respira mejor, tose menos… pero los mocos verdes y asquerosos persisten. Una anciana que ha viajado desde las Tierras del Norte ofrece una solución más poderosa: dos pociones raras —ceftazidima-avibactam y cefiderocol— que, dice, pueden infundirse directo a la sangre una vez al día, justo al amanecer. —Así lo hacen en los valles del norte —explica—, y les dura toda la jornada.',
         question: '¿Crees que será efectivo durante todo el día con una sola dosis diaria?',
         answers: [
           {
@@ -494,6 +502,8 @@ export const StagesData: Record<number, StageData> = {
       },
       {
         type: 'single-select',
+        description:
+          'La anciana asiente. Pero hay un problema: solo puede volver cada cuatro días lunares. Tiene demasiados enfermos que visitar en las tierras lejanas. —Puedo enseñar a un familiar a preparar y administrar el remedio —dice—. Pero ¿será eso seguro?',
         question:
           '¿Podrá un familiar o vecino aprender a administrar la cura una vez al día durante cuatro días?',
         answers: [
@@ -513,6 +523,8 @@ export const StagesData: Record<number, StageData> = {
       },
       {
         type: 'single-select',
+        description:
+          'El paciente, tumbado bajo la sombra de un olivo, con el infusor atado a su brazo, preguntó con voz débil: —¿Y si no lo hace el hechicero? ¿Y si lo hace ella sola, como le habéis enseñado… me puede hacer daño? Uno de los sanitarios, que había leído las escrituras del gremio del siglo XXI (conocido como IDSA), sonrió. —A veces, en otros reinos, incluso los cuidadores han sido instruidos para hacerlo. Y los resultados… han sido buenos.',
         question:
           '¿Está relacionada la autoadministración por parte del paciente o sus cuidadores con más complicaciones o reingresos?',
         answers: [
@@ -532,6 +544,8 @@ export const StagesData: Record<number, StageData> = {
       },
       {
         type: 'text',
+        description:
+          'Los días pasaron y el joven campesino mejoraba. La fiebre cedía, los mocos verdes se iban volviendo menos asquerosos y su aliento volvía con más fuerza al pecho. La anciana del norte partió, y fue una mujer del pueblo quien quedó a cargo del tratamiento. Antes de marcharse, la anciana dejó un manuscrito con advertencias y recomendaciones para conservar las pócimas en buenas condiciones, pues dijo: —Estos nuevos remedios son poderosos, pero su fuerza puede disiparse si no se guardan bien. No todos los conjuros duran lo mismo, y hay quienes olvidan que el calor, el frío o la luz pueden descomponer su esencia.',
         question:
           '¿La educación sanitaria es importante para garantizar la estabilidad de un antimicrobiano que se administre en una bomba o infusor?',
         answers: [
@@ -546,6 +560,8 @@ export const StagesData: Record<number, StageData> = {
       },
       {
         type: 'single-select',
+        description:
+          'Uno de los sanitarios, inquieto, revisó las fórmulas. En los márgenes de los textos, escritos con letra apurada,\n encontró una advertencia:\n “Los nuevos elixires combaten a los bacilos oscuros… pero hasta el mejor de ellos puede fallar si no se arranca el mal de raíz.”',
         question:
           '¿Cuál de estas afirmaciones es cierta según los códices actuales en la lucha contra bacilos gramnegativos multirresistentes?',
         answers: [

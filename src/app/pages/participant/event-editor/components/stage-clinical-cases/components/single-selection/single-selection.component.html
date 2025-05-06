@@ -3,6 +3,9 @@
   (timeUp)="timeUp()"
   (timeUpdate)="updateTime($event)"
 ></app-count-down>
+@if (question.description) {
+  <h2 class="text-base mb-2">{{ question.description }}</h2>
+}
 <!-- Question Title -->
 <h2 class="text-1xl font-bold mb-6">{{ question.question }}</h2>
 

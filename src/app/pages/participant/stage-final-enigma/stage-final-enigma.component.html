@@ -1,0 +1,68 @@
+<div
+  class="min-h-screen bg-[url('/assets/images/pergamino-textura.png')] bg-cover bg-center bg-no-repeat"
+>
+  <!-- Introducción -->
+  <div class="max-w-4xl mx-auto px-4 py-8 text-center">
+    <h2 class="text-2xl md:text-3xl font-bold text-[#3e2f1c] mb-4">
+      Último Reto: “¿Dónde se oculta el curandero?”
+    </h2>
+    <p class="text-base md:text-lg text-[#5a4324] leading-relaxed">
+      Tres verdades os han sido entregadas:<br />
+      Una letra, un número… y el camino dibujado por sabios antiguos.
+    </p>
+  </div>
+
+  <!-- Mapa con coordenadas -->
+  <div class="relative w-full">
+    <img src="assets/images/map.jpg" class="w-full object-contain" />
+    @for (cell of grid; track cell.coord) {
+      <button
+        class="absolute"
+        [ngClass]="{
+          'bg-red-500/40': wrongCells.includes(cell.coord),
+          'bg-transparent': !wrongCells.includes(cell.coord),
+        }"
+        [style.top]="cell.top"
+        [style.left]="cell.left"
+        [style.width]="cell.width"
+        [style.height]="cell.height"
+        (click)="checkCell(cell.coord)"
+        [attr.title]="cell.coord"
+      ></button>
+    }
+  </div>
+
+  <!-- Pistas -->
+  <div class="mt-8 w-full max-w-3xl mx-auto px-4">
+    <h2 class="text-2xl font-bold text-center text-[#3e2f1c] mb-6">Pistas recolectadas</h2>
+    <div class="grid grid-cols-2 gap-6">
+      @for (imgPath of awards; track imgPath) {
+        <div class="bg-transparent flex items-center justify-center">
+          <img
+            [src]="imgPath"
+            alt="Pista"
+            class="w-full h-auto rounded-lg object-contain hover:scale-105 transition-transform duration-200"
+          />
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+<!-- Modal final (fuera para que flote correctamente) -->
+@if (isCorrect) {
+  <div class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center px-4">
+    <div
+      class="bg-[#f5e7c1] text-[#4b3b1f] rounded-2xl shadow-xl max-w-xl w-full p-8 text-center border border-[#b89f76]"
+    >
+      <h1 class="text-3xl md:text-4xl font-medieval mb-4">¡Has encontrado al curandero!</h1>
+      <p class="text-lg mb-6">{{ playerName }}, vuestra sabiduría os ha guiado bien.</p>
+
+      <button
+        class="bg-[#3f6b33] hover:bg-[#2f5525] text-white font-semibold py-2 px-6 rounded shadow-md transition"
+      >
+        Ver final
+      </button>
+    </div>
+  </div>
+}
