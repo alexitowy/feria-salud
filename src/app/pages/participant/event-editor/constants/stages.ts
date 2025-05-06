@@ -420,4 +420,167 @@ export const StagesData: Record<number, StageData> = {
       buttonText: 'Continuar',
     },
   },
+  7: {
+    description:
+      '¡No todos los elixires valen para esta peste! Los nuevos brebajes de los alquimistas no le afectan... ¿Cuál de estas elecciones sanará sin errar?',
+    questions: [
+      {
+        type: 'single-select',
+        question:
+          'Elige con sabiduría cuál sería el tratamiento más certero para una infección grave causada por Pseudomonas aeruginosa productora de VIM',
+        answers: [
+          {
+            id: 1,
+            text: 'Meropenem-vaborbactam o ceftazidima-avibactam, que destruyen todo β-lactámico enemigo.',
+            correct: false,
+          },
+          {
+            id: 2,
+            text: 'Colistina o amikacina, pues pocos elixires resisten a tan vil criatura.',
+            correct: true,
+          },
+          {
+            id: 3,
+            text: 'Imipenem-relebactam, que es fuerte contra toda metalo-magia.',
+            correct: false,
+          },
+          {
+            id: 4,
+            text: 'Linezolid, extraído de las montañas contra males pulmonares.',
+            correct: false,
+          },
+        ],
+        points: 30,
+        timeLeft: 120,
+        feedback:
+          'Contra las metalo-bestias como VIM, solo los antiguos venenos —como colistina o la lanza de amikacina— muestran eficacia. Los nuevos compuestos, si bien potentes, nada pueden hacer ante su armadura invisible.',
+      },
+      {
+        type: 'single-select',
+        question:
+          '¿Es seguro administrar colistina por la vía de los vapores (nebulización) en un paciente de riñones cansados?',
+        answers: [
+          {
+            id: 1,
+            text: 'Sí, pues al convertirla en vapores, su camino se queda en el pulmón, y los riñones quedan indemnes.',
+            correct: true,
+          },
+          {
+            id: 2,
+            text: 'No, la colistina daña los riñones, siempre y sin remedio.',
+            correct: false,
+          },
+        ],
+        points: 30,
+        timeLeft: 120,
+      },
+      {
+        type: 'single-select',
+        question: '¿Crees que será efectivo durante todo el día con una sola dosis diaria?',
+        answers: [
+          {
+            id: 1,
+            text: 'Sí, porque ha visto en otros campesinos del valle que, poniéndoselo al amanecer o al anochecer, se curan con una sola dosis al día.',
+            correct: true,
+          },
+          {
+            id: 2,
+            text: 'No, porque necesitan que se les ponga más de una vez al día.',
+            correct: false,
+          },
+        ],
+        points: 30,
+        timeLeft: 120,
+      },
+      {
+        type: 'single-select',
+        question:
+          '¿Podrá un familiar o vecino aprender a administrar la cura una vez al día durante cuatro días?',
+        answers: [
+          {
+            id: 1,
+            text: 'Sí, porque lo ha visto en otros enfermos. No hay más problemas que si lo hiciera el curandero cada día.',
+            correct: true,
+          },
+          {
+            id: 2,
+            text: 'No, solo lo puede hacer el curandero o sus aprendices.',
+            correct: false,
+          },
+        ],
+        points: 30,
+        timeLeft: 120,
+      },
+      {
+        type: 'single-select',
+        question:
+          '¿Está relacionada la autoadministración por parte del paciente o sus cuidadores con más complicaciones o reingresos?',
+        answers: [
+          {
+            id: 1,
+            text: 'Sí, hay más eventos adversos cuando no lo hace un sanador profesional',
+            correct: false,
+          },
+          {
+            id: 2,
+            text: 'No, hay tasas de complicaciones similares entre ambas formas de administración',
+            correct: true,
+          },
+        ],
+        points: 30,
+        timeLeft: 120,
+      },
+      {
+        type: 'text',
+        question:
+          '¿La educación sanitaria es importante para garantizar la estabilidad de un antimicrobiano que se administre en una bomba o infusor?',
+        answers: [
+          {
+            id: 1,
+            text: 'si',
+            correct: true,
+          },
+        ],
+        points: 30,
+        timeLeft: 120,
+      },
+      {
+        type: 'single-select',
+        question:
+          '¿Cuál de estas afirmaciones es cierta según los códices actuales en la lucha contra bacilos gramnegativos multirresistentes?',
+        answers: [
+          {
+            id: 1,
+            text: 'La colistina y los aminoglucósidos curan tan bien como los nuevos betalactámicos.',
+            correct: false,
+          },
+          {
+            id: 2,
+            text: 'Si usas ceftazidima-avibactam contra OXA-48, siempre debes añadir colistina o amikacina.',
+            correct: false,
+          },
+          {
+            id: 3,
+            text: 'Si tienes un buen antibiótico, no importa tanto eliminar el foco de la infección.',
+            correct: false,
+          },
+          {
+            id: 4,
+            text: 'Todos los nuevos betalactámicos ya han mostrado resistencias en bacilos multirresistentes; y sin control del foco, ni el mejor elixir bastará.',
+            correct: true,
+          },
+        ],
+        points: 30,
+        timeLeft: 120,
+        feedback:
+          'Sabía fue vuestra elección. Los elixires son poderosos, sí… pero sin limpiar el foco, la peste siempre vuelve. Y hasta el mejor conjuro ya ha sido burlado por las sombras.',
+      },
+    ],
+    viewResults: {
+      award: 'assets/images/4.png',
+      title: 'Felicidades, has completado la etapa 3',
+      description: '',
+      buttonText: 'Obtener pista',
+    },
+  },
 }

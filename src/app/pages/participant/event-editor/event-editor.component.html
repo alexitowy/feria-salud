@@ -39,6 +39,12 @@
           [currentStage]="currentStage"
         ></app-antibiotic-selector>
       }
+      @case (7) {
+        <app-stage-clinical-cases
+          [stageData]="stageData"
+          [currentStage]="currentStage"
+        ></app-stage-clinical-cases>
+      }
 
       @default {
         <div class="text-center text-white p-10">Cargando etapa...</div>

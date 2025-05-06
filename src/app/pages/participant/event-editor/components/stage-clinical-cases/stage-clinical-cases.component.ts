@@ -57,7 +57,7 @@ export class StageClinicalCasesComponent implements OnInit {
       this.showAwardModal = true
       const awards = this.localStorageService.getData('award') || []
       awards.push(award)
-      this.localStorageService.setData('award', award)
+      this.localStorageService.setData('award', awards)
     }
   }
 
