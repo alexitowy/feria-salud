@@ -8,4 +8,8 @@ export interface StageData {
   award?: string
   viewResults?: any
   antibioticChallenge?: any
+  dashboard: {
+    audio?: string
+    video?: string
+  }
 }

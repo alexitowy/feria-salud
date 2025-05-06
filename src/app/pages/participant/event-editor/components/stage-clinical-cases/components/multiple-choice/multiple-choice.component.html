@@ -1,8 +1,10 @@
-<app-count-down
-  [seconds]="100"
-  (timeUp)="timeUp()"
-  (timeUpdate)="updateTime($event)"
-></app-count-down>
+@if (timer) {
+  <app-count-down
+    [seconds]="100"
+    (timeUp)="timeUp()"
+    (timeUpdate)="updateTime($event)"
+  ></app-count-down>
+}
 <!-- Question Title -->
 @if (question.description) {
   <h2 class="text-base mb-2">{{ question.description }}</h2>
@@ -30,13 +32,14 @@
   }
 </div>
 
-<button
-  class="mt-6 px-6 py-4 shadow-sm shadow-white bg-[url('/assets/images/boton.png')] bg-cover text-stone-100 block mx-auto"
-  (click)="checkAnswer()"
->
-  Comprobar Respuesta
-</button>
-
+@if (!automaticResponse) {
+  <button
+    class="mt-6 px-6 py-4 shadow-sm shadow-white bg-[url('/assets/images/boton.png')] bg-cover text-stone-100 block mx-auto"
+    (click)="checkAnswer()"
+  >
+    Comprobar Respuesta
+  </button>
+}
 @if (showFeedback) {
   <div
     class="absolute top-28 left-1/2 transform -translate-x-1/2 bg-white/90 p-4 rounded-lg shadow-lg text-center z-40 max-w-xs text-black font-semibold"

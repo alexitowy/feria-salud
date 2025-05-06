@@ -11,6 +11,8 @@ import { CountDownComponent } from '../../../../../../../shared/count-down/count
 export class SingleSelectionComponent {
   @ViewChild(CountDownComponent) countDownComponent!: CountDownComponent
   @Input() question: any
+  @Input() timer = true
+  @Input() automaticResponse: boolean = false
 
   @Output() timeUp$ = new EventEmitter<boolean>()
   @Output() correctSelected$ = new EventEmitter<number>()
@@ -44,7 +46,9 @@ export class SingleSelectionComponent {
     if (this.selectedAnswer.correct) {
       // this.utilsService.showToast(`Respuesta correcta. ${this.question.feedback}`, 'success')
       this.showFeedback = true
-      this.countDownComponent.stop()
+      if (this.timer) {
+        this.countDownComponent.stop()
+      }
       setTimeout(() => {
         this.correctSelected$.emit(this.totalTimeLeft)
         this.showFeedback = false

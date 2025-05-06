@@ -19,6 +19,9 @@ export const StagesData: Record<number, StageData> = {
         silenciosos?
       `,
     answer: 'microbiota',
+    dashboard: {
+      audio: 'assets/audio/enigma_1.mp3',
+    },
   },
   2: {
     background: 'assets/images/fondo_enigma.png',
@@ -33,6 +36,7 @@ export const StagesData: Record<number, StageData> = {
         ¡Cuidado con los objetos engañosos!
       `,
     answer: 'balanza',
+    dashboard: {},
   },
   3: {
     background: 'assets/images/fondo_enigma.png',
@@ -43,7 +47,7 @@ export const StagesData: Record<number, StageData> = {
         description:
           '“Cuando el invasor regresa una y otra vez, no basta con limpiar… hay que restaurar.” “Solo uno de estos merece el barro sagrado (trasplante fecal), Elige con sabiduría”. Elegir el único caso donde está indicado el trasplante fecal',
         question:
-          'Solo uno de estos merece el barro sagrado (trasplante fecal). Elige con sabiduría.',
+          '1- Solo uno de estos merece el barro sagrado (trasplante fecal). Elige con sabiduría.',
         answers: [
           {
             id: 1,
@@ -77,6 +81,7 @@ export const StagesData: Record<number, StageData> = {
       description: '',
       buttonText: 'Obtener pista',
     },
+    dashboard: {},
   },
   4: {
     background: 'assets/images/fondo_enigma.png',
@@ -86,7 +91,7 @@ export const StagesData: Record<number, StageData> = {
       {
         type: 'image',
         question:
-          'Solo uno de estos merece el barro sagrado (trasplante fecal). Elige con sabiduría.',
+          '1- Solo uno de estos merece el barro sagrado (trasplante fecal). Elige con sabiduría.',
         answers: [
           {
             id: 1,
@@ -122,6 +127,7 @@ export const StagesData: Record<number, StageData> = {
       description: 'muy bien, habéis conseguido avanzar, ahora escuchar atentos...',
       buttonText: 'Continuar',
     },
+    dashboard: {},
   },
   5: {
     background: 'assets/images/fondo_enigma.png',
@@ -129,7 +135,7 @@ export const StagesData: Record<number, StageData> = {
       {
         type: 'multiple-select',
         question:
-          'Selecciona cuales son los criterios que deben estar presentes para declarar una infección clínica en una úlcera de pie.',
+          '1- Selecciona cuales son los criterios que deben estar presentes para declarar una infección clínica en una úlcera de pie.',
         description:
           '¿Acaso esta úlcera presenta los signos de una infección clínica, según dictan los códices de Avicena y los pergaminos de Galeno?',
         answers: [
@@ -172,7 +178,7 @@ export const StagesData: Record<number, StageData> = {
       {
         type: 'single-select',
         question:
-          '¿Cuál de estas opciones representa la forma adecuada de recoger una muestra para cultivo microbiológico en una herida con sospecha de infección profunda en el pie diabético?',
+          '2- ¿Cuál de estas opciones representa la forma adecuada de recoger una muestra para cultivo microbiológico en una herida con sospecha de infección profunda en el pie diabético?',
         description:
           'No todo lo que mana es verdad. El pus puede engañar, y la sangre confundir. Si deseáis conocer al         enemigo que se oculta bajo la piel del peregrino, deberéis tomar la muestra con ciencia y arte.',
         answers: [
@@ -202,7 +208,7 @@ export const StagesData: Record<number, StageData> = {
       },
       {
         type: 'single-select',
-        question: '¿Cómo deberéis conservarla y transportarla Si llegan en menos de 2 horas?',
+        question: '3- ¿Cómo deberéis conservarla y transportarla Si llegan en menos de 2 horas?',
         description:
           'La muestra ha sido recolectada con destreza. Ahora debe llegar al alquimista del castillo. Pero cuidado… si el modo de envío no es el adecuado, el enemigo podría escapar antes de ser revelado.',
         answers: [
@@ -224,7 +230,7 @@ export const StagesData: Record<number, StageData> = {
       },
       {
         type: 'single-select',
-        question: '¿Cómo deberéis conservarla y transportarla si llegan en más de 2 horas?',
+        question: '4- ¿Cómo deberéis conservarla y transportarla si llegan en más de 2 horas?',
         description:
           'La muestra ha sido recolectada con destreza. Ahora debe llegar al alquimista del castillo. Pero cuidado… si el modo de envío no es el adecuado, el enemigo podría escapar antes de ser revelado.',
         answers: [
@@ -246,7 +252,7 @@ export const StagesData: Record<number, StageData> = {
       },
       {
         type: 'single-select',
-        question: '¿Cómo deberéis conservarla y transportarla protegidas de la luz?',
+        question: '5- ¿Cómo deberéis conservarla y transportarla protegidas de la luz?',
         description:
           'La muestra ha sido recolectada con destreza. Ahora debe llegar al alquimista del castillo. Pero cuidado… si el modo de envío no es el adecuado, el enemigo podría escapar antes de ser revelado.',
         answers: [
@@ -268,7 +274,7 @@ export const StagesData: Record<number, StageData> = {
       {
         type: 'single-select',
         question:
-          '¿Además de en infección intensa, ¿Cuándo se desaconseja el tratamiento con terapia presión negativa en una UPD?',
+          '6- ¿Además de en infección intensa, ¿Cuándo se desaconseja el tratamiento con terapia presión negativa en una UPD?',
         description:
           'El alquimista ha oído hablar de una terapia moderna que succiona el mal y acelera la curación (terapia de presión negativa). Pero también ha sido advertido: usada en el momento equivocado, puede empeorar el daño.',
         answers: [
@@ -298,7 +304,7 @@ export const StagesData: Record<number, StageData> = {
       },
       {
         type: 'single-select',
-        question: '¿Es adecuado administrar Piperacilina/Tazobactam mediante PICC/Midline?',
+        question: '7- ¿Es adecuado administrar Piperacilina/Tazobactam mediante PICC/Midline?',
         description:
           'El clérigo farmacéutico señala que para administrar el elixir Piperacilina/Tazobactam, debe usarse una vía segura, que no dañe al portador ni se extravíe en la piel del peregrino.',
         answers: [
@@ -319,7 +325,7 @@ export const StagesData: Record<number, StageData> = {
       {
         type: 'text',
         question:
-          'Según la estabilidad de este antibiótico, una vez diluido, es posible administrarlo mediante bomba de infusión intermitente en el domicilio durante periodos de',
+          '8- Según la estabilidad de este antibiótico, una vez diluido, es posible administrarlo mediante bomba de infusión intermitente en el domicilio durante periodos de',
         description:
           'El alquimista de la torre os pregunta: ‘¿Este antibiótico puede resistir la jornada completa sin corromperse?',
         answers: [
@@ -340,6 +346,7 @@ export const StagesData: Record<number, StageData> = {
         'Antes de caer preso del dolor, el curandero del bosque me entregó este pergamino, diciendo que sería de utilidad para quien lograse devolverme el paso. No comprendí sus palabras… hasta hoy.” Con manos aún débiles, extiende un papel arrugado. Al desplegarlo, brillando con luz propia, aparece escrita en tinta seca una sola letra:',
       buttonText: 'Obtener pista',
     },
+    dashboard: {},
   },
   6: {
     background: 'assets/images/fondo_enigma.png',
@@ -421,6 +428,7 @@ export const StagesData: Record<number, StageData> = {
       description: 'La sabiduría os guía, y el pergamino revela su próximo misterio...',
       buttonText: 'Continuar',
     },
+    dashboard: {},
   },
   7: {
     description:
@@ -431,7 +439,7 @@ export const StagesData: Record<number, StageData> = {
         description:
           '¡No todos los elixires valen para esta peste! Los nuevos brebajes de los alquimistas no le afectan... ¿Cuál de estas elecciones sanará sin errar?',
         question:
-          'Elige con sabiduría cuál sería el tratamiento más certero para una infección grave causada por Pseudomonas aeruginosa productora de VIM',
+          '1- Elige con sabiduría cuál sería el tratamiento más certero para una infección grave causada por Pseudomonas aeruginosa productora de VIM',
         answers: [
           {
             id: 1,
@@ -464,7 +472,7 @@ export const StagesData: Record<number, StageData> = {
         desciption:
           'Existe un viejo polvo, la colistina, que puede tornarse en vapores y ser llevado directo a sus pulmones. No os asustéis por su fama: si va por el aire, no daña los riñones… ¿Acaso me equivoco?',
         question:
-          '¿Es seguro administrar colistina por la vía de los vapores (nebulización) en un paciente de riñones cansados?',
+          '2- ¿Es seguro administrar colistina por la vía de los vapores (nebulización) en un paciente de riñones cansados?',
         answers: [
           {
             id: 1,
@@ -484,7 +492,7 @@ export const StagesData: Record<number, StageData> = {
         type: 'single-select',
         description:
           'El joven mejora tras varios días de tratamiento con los vapores del aprendiz del curandero. Respira mejor, tose menos… pero los mocos verdes y asquerosos persisten. Una anciana que ha viajado desde las Tierras del Norte ofrece una solución más poderosa: dos pociones raras —ceftazidima-avibactam y cefiderocol— que, dice, pueden infundirse directo a la sangre una vez al día, justo al amanecer. —Así lo hacen en los valles del norte —explica—, y les dura toda la jornada.',
-        question: '¿Crees que será efectivo durante todo el día con una sola dosis diaria?',
+        question: '3- ¿Crees que será efectivo durante todo el día con una sola dosis diaria?',
         answers: [
           {
             id: 1,
@@ -505,7 +513,7 @@ export const StagesData: Record<number, StageData> = {
         description:
           'La anciana asiente. Pero hay un problema: solo puede volver cada cuatro días lunares. Tiene demasiados enfermos que visitar en las tierras lejanas. —Puedo enseñar a un familiar a preparar y administrar el remedio —dice—. Pero ¿será eso seguro?',
         question:
-          '¿Podrá un familiar o vecino aprender a administrar la cura una vez al día durante cuatro días?',
+          '4- ¿Podrá un familiar o vecino aprender a administrar la cura una vez al día durante cuatro días?',
         answers: [
           {
             id: 1,
@@ -526,7 +534,7 @@ export const StagesData: Record<number, StageData> = {
         description:
           'El paciente, tumbado bajo la sombra de un olivo, con el infusor atado a su brazo, preguntó con voz débil: —¿Y si no lo hace el hechicero? ¿Y si lo hace ella sola, como le habéis enseñado… me puede hacer daño? Uno de los sanitarios, que había leído las escrituras del gremio del siglo XXI (conocido como IDSA), sonrió. —A veces, en otros reinos, incluso los cuidadores han sido instruidos para hacerlo. Y los resultados… han sido buenos.',
         question:
-          '¿Está relacionada la autoadministración por parte del paciente o sus cuidadores con más complicaciones o reingresos?',
+          '5- ¿Está relacionada la autoadministración por parte del paciente o sus cuidadores con más complicaciones o reingresos?',
         answers: [
           {
             id: 1,
@@ -547,7 +555,7 @@ export const StagesData: Record<number, StageData> = {
         description:
           'Los días pasaron y el joven campesino mejoraba. La fiebre cedía, los mocos verdes se iban volviendo menos asquerosos y su aliento volvía con más fuerza al pecho. La anciana del norte partió, y fue una mujer del pueblo quien quedó a cargo del tratamiento. Antes de marcharse, la anciana dejó un manuscrito con advertencias y recomendaciones para conservar las pócimas en buenas condiciones, pues dijo: —Estos nuevos remedios son poderosos, pero su fuerza puede disiparse si no se guardan bien. No todos los conjuros duran lo mismo, y hay quienes olvidan que el calor, el frío o la luz pueden descomponer su esencia.',
         question:
-          '¿La educación sanitaria es importante para garantizar la estabilidad de un antimicrobiano que se administre en una bomba o infusor?',
+          '6- ¿La educación sanitaria es importante para garantizar la estabilidad de un antimicrobiano que se administre en una bomba o infusor?',
         answers: [
           {
             id: 1,
@@ -563,7 +571,7 @@ export const StagesData: Record<number, StageData> = {
         description:
           'Uno de los sanitarios, inquieto, revisó las fórmulas. En los márgenes de los textos, escritos con letra apurada,\n encontró una advertencia:\n “Los nuevos elixires combaten a los bacilos oscuros… pero hasta el mejor de ellos puede fallar si no se arranca el mal de raíz.”',
         question:
-          '¿Cuál de estas afirmaciones es cierta según los códices actuales en la lucha contra bacilos gramnegativos multirresistentes?',
+          '7- ¿Cuál de estas afirmaciones es cierta según los códices actuales en la lucha contra bacilos gramnegativos multirresistentes?',
         answers: [
           {
             id: 1,
@@ -598,5 +606,6 @@ export const StagesData: Record<number, StageData> = {
       description: '',
       buttonText: 'Obtener pista',
     },
+    dashboard: {},
   },
 }

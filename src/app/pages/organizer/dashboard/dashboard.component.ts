@@ -1,16 +1,27 @@
+import { CommonModule } from '@angular/common'
 import { AfterViewInit, Component } from '@angular/core'
-import { User } from '../../../core/models/user.model'
 import { Router } from '@angular/router'
+import { filter } from 'rxjs'
 import { StorageEnum } from '../../../core/models/emuns/storage.emun'
+import { Event } from '../../../core/models/event.model'
+import { User } from '../../../core/models/user.model'
 import { AuthService } from '../../../core/services/auth.service'
 import { StorageService } from '../../../core/services/storage.service'
-import { Event } from '../../../core/models/event.model'
-import { NgFor, NgIf } from '@angular/common'
-import { filter } from 'rxjs'
+import { StagesData } from '../../participant/event-editor/constants/stages'
+import { ImageComponent } from '../../participant/event-editor/components/stage-clinical-cases/components/image/image.component'
+import { TextComponent } from '../../participant/event-editor/components/stage-clinical-cases/components/text/text.component'
+import { MultipleChoiceComponent } from '../../participant/event-editor/components/stage-clinical-cases/components/multiple-choice/multiple-choice.component'
+import { SingleSelectionComponent } from '../../participant/event-editor/components/stage-clinical-cases/components/single-selection/single-selection.component'
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NgIf, NgFor],
+  imports: [
+    CommonModule,
+    SingleSelectionComponent,
+    MultipleChoiceComponent,
+    TextComponent,
+    ImageComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
@@ -27,6 +38,11 @@ export class DashboardComponent implements AfterViewInit {
   loadingNextStage = false
   currentStage = 1
   showRestartModal = false
+
+  stagesData = StagesData
+
+  accordionOpen: Record<number, boolean> = {}
+  currentSlide: Record<number, number> = {}
 
   constructor(
     private storageService: StorageService,
@@ -108,5 +124,27 @@ export class DashboardComponent implements AfterViewInit {
     } catch (error) {
       console.error('Error al reiniciar el juego:', error)
     }
+  }
+
+  getStageKeys(): number[] {
+    return Object.keys(this.stagesData).map(Number)
+  }
+
+  toggleAccordion(stageKey: number): void {
+    this.accordionOpen[stageKey] = !this.accordionOpen[stageKey]
+    // inicializa slide si no existe
+    if (!(stageKey in this.currentSlide)) this.currentSlide[stageKey] = 0
+  }
+
+  isAccordionOpen(stageKey: number): boolean {
+    return this.accordionOpen[stageKey] || false
+  }
+
+  nextSlide(stageKey: number, total: number): void {
+    if (this.currentSlide[stageKey] < total - 1) this.currentSlide[stageKey]++
+  }
+
+  prevSlide(stageKey: number): void {
+    if (this.currentSlide[stageKey] > 0) this.currentSlide[stageKey]--
   }
 }

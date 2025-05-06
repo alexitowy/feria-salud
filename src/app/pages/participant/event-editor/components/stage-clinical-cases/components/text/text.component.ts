@@ -12,6 +12,8 @@ import { FormsModule } from '@angular/forms'
 export class TextComponent {
   @ViewChild(CountDownComponent) countDownComponent!: CountDownComponent
   @Input() question: any
+  @Input() timer = true
+  @Input() automaticResponse: boolean = false
 
   @Output() timeUp$ = new EventEmitter<boolean>()
   @Output() correctSelected$ = new EventEmitter<number>()
@@ -32,7 +34,9 @@ export class TextComponent {
     }
     if (this.response.toLowerCase() === this.question.answers[0].text.toLowerCase()) {
       this.showFeedback = true
-      this.countDownComponent.stop()
+      if (this.timer) {
+        this.countDownComponent.stop()
+      }
       setTimeout(() => {
         this.correctSelected$.emit(this.totalTimeLeft)
       }, 3000)

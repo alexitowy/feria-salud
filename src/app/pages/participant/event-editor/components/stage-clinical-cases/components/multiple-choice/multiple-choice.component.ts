@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core'
+import { Component, EventEmitter, inject, input, Input, Output, ViewChild } from '@angular/core'
 import { CountDownComponent } from '../../../../../../../shared/count-down/count-down.component'
 import { UtilsService } from '../../../../../../../core/services/utils.service'
 
@@ -12,6 +12,8 @@ export class MultipleChoiceComponent {
   @ViewChild(CountDownComponent) countDownComponent!: CountDownComponent
 
   @Input() question: any
+  @Input() timer = true
+  @Input() automaticResponse: boolean = false
 
   @Output() timeUp$ = new EventEmitter<boolean>()
   @Output() correctSelected$ = new EventEmitter<number>()
@@ -47,7 +49,9 @@ export class MultipleChoiceComponent {
       if (allCorrect) {
         // this.utilsService.showToast('¡Correcto!', 'success')
         this.showFeedback = true
-        this.countDownComponent.stop()
+        if (this.timer) {
+          this.countDownComponent.stop()
+        }
         setTimeout(() => {
           this.correctSelected$.emit(this.totalTimeLeft)
         }, 3000)

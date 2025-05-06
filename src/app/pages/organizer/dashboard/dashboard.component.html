@@ -114,16 +114,122 @@
 
           <h2 class="text-2xl font-bold mb-4 text-white text-center">Pistas de audio</h2>
           <div class="space-y-4">
-            <div class="bg-white rounded-lg shadow-lg p-6 text-black">
-              <h4 class="font-semibold">Primer enigma</h4>
-              <p class="text-gray-600">Escucha atentamente para encontrar las claves ocultas</p>
-              <audio src="assets/audio/enigma_1.mp3" controls class="mt-2 w-full"></audio>
-            </div>
+            <div
+              *ngFor="let stageKey of getStageKeys()"
+              class="border border-yellow-700 rounded-2xl overflow-hidden bg-yellow-100 text-black"
+            >
+              <button
+                (click)="toggleAccordion(stageKey)"
+                class="w-full text-left p-4 font-bold text-lg bg-yellow-200 hover:bg-yellow-300 transition flex justify-between items-center"
+              >
+                <span>Etapa {{ stageKey }}</span>
+                <svg
+                  [ngClass]="{ 'rotate-180': isAccordionOpen(stageKey) }"
+                  class="w-5 h-5 transform transition-transform"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
 
-            <div class="bg-white rounded-lg shadow-lg p-6 text-black">
-              <h4 class="font-semibold">Segundo enigma enigma</h4>
-              <p class="text-gray-600">Escucha atentamente para encontrar las claves ocultas</p>
-              <audio src="assets/audio/clue.mp3" controls class="mt-2 w-full"></audio>
+              <div *ngIf="isAccordionOpen(stageKey)" class="p-4 space-y-4">
+                <!-- Audio -->
+                <div *ngIf="stagesData[stageKey].dashboard?.audio">
+                  <h4 class="font-semibold">Audio</h4>
+                  <audio
+                    [src]="stagesData[stageKey].dashboard.audio"
+                    controls
+                    class="w-full rounded"
+                  ></audio>
+                </div>
+
+                <!-- Video -->
+                <div *ngIf="stagesData[stageKey].dashboard?.video">
+                  <h4 class="font-semibold">Video</h4>
+                  <video
+                    [src]="stagesData[stageKey].dashboard.video"
+                    controls
+                    class="w-full rounded"
+                  ></video>
+                </div>
+
+                <!-- Preguntas (slide simple) -->
+                <div
+                  *ngIf="stagesData[stageKey].questions?.length"
+                  class="relative bg-white rounded-lg p-4 shadow-md text-black"
+                >
+                  <div class="text-center font-bold mb-2">
+                    Pregunta {{ currentSlide[stageKey] + 1 }}
+                  </div>
+
+                  <div
+                    *ngIf="
+                      stagesData[stageKey]?.questions?.[currentSlide[stageKey]] as currentQuestion
+                    "
+                  >
+                    @switch (currentQuestion.type) {
+                      @case ('multiple-select') {
+                        <app-multiple-choice
+                          [question]="currentQuestion"
+                          [timer]="false"
+                          [automaticResponse]="true"
+                        />
+                      }
+                      @case ('single-select') {
+                        <app-single-selection
+                          [question]="currentQuestion"
+                          [timer]="false"
+                          [automaticResponse]="true"
+                        />
+                      }
+                      @case ('text') {
+                        <app-text
+                          [question]="currentQuestion"
+                          [timer]="false"
+                          [automaticResponse]="true"
+                        />
+                      }
+                      @case ('image') {
+                        <app-image
+                          [question]="currentQuestion"
+                          [timer]="false"
+                          [automaticResponse]="true"
+                        />
+                      }
+                    }
+                  </div>
+
+                  <div class="flex justify-between mt-4">
+                    <!-- Botón anterior -->
+                    <button
+                      class="text-xl font-bold"
+                      (click)="prevSlide(stageKey)"
+                      [disabled]="currentSlide[stageKey] === 0"
+                    >
+                      ←
+                    </button>
+
+                    <!-- Botón siguiente -->
+                    <button
+                      class="text-xl font-bold"
+                      (click)="nextSlide(stageKey, stagesData[stageKey].questions?.length || 0)"
+                      [disabled]="
+                        currentSlide[stageKey] === (stagesData[stageKey].questions?.length || 0) - 1
+                      "
+                    >
+                      →
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
