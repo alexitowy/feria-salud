@@ -41,7 +41,8 @@ export class DashboardComponent implements AfterViewInit {
 
   stagesData = StagesData
 
-  accordionOpen: Record<number, boolean> = {}
+  openStageKey: number | null = null
+
   currentSlide: Record<number, number> = {}
 
   constructor(
@@ -131,13 +132,12 @@ export class DashboardComponent implements AfterViewInit {
   }
 
   toggleAccordion(stageKey: number): void {
-    this.accordionOpen[stageKey] = !this.accordionOpen[stageKey]
-    // inicializa slide si no existe
+    this.openStageKey = this.openStageKey === stageKey ? null : stageKey
     if (!(stageKey in this.currentSlide)) this.currentSlide[stageKey] = 0
   }
 
   isAccordionOpen(stageKey: number): boolean {
-    return this.accordionOpen[stageKey] || false
+    return this.openStageKey === stageKey
   }
 
   nextSlide(stageKey: number, total: number): void {
