@@ -5,19 +5,19 @@ export const StagesData: Record<number, StageData> = {
     background: 'assets/images/fondo_enigma.png',
     image: 'assets/images/cofre.png',
     description: `
-        Mientras inspeccionáis la consulta del curandero, descubrís una estantería inclinada con
-        libros desordenados, frascos rotos y un cofre sellado con un mensaje grabado:
-        <span class="italic">«Solo quienes conozcan los secretos del cuerpo podrán abrirlo.»</span>
+        Vuestra misión es clara: abrid el cofre, desentrañad el enigma que guarda en su interior y continuad
+        vuestro camino hacia la verdad. Pero cuidado… solo una mente afilada y un espíritu atento podrán
+        comprender lo que yace oculto tras sus cerraduras.
       `,
     riddle: `
-  En el interior del cuerpo humano, más allá de huesos y sangre,
-  mora un vasto reino sin reyes ni castillos,
-  pero lleno de vida diminuta, invisible al ojo del monje.
-  No es uno, sino miles, y no están solos:
-  interactúan entre sí, y contigo también.
-  Te ayudan a digerir, a defenderte y a sanar,
-  como un consejo secreto que mantiene el equilibrio del reino interior.
-  No son enfermedad, sino parte de ti.
+        En el interior del cuerpo humano, más allá de huesos y sangre,
+        mora un vasto reino sin reyes ni castillos,
+        pero lleno de vida diminuta, invisible al ojo del monje.
+        No es uno, sino miles, y no están solos:
+        interactúan entre sí, y contigo también.
+        Te ayudan a digerir, a defenderte y a sanar,
+        como un consejo secreto que mantiene el equilibrio del reino interior.
+        No son enfermedad, sino parte de ti.
 `,
     answer: 'microbiota',
     dashboard: {

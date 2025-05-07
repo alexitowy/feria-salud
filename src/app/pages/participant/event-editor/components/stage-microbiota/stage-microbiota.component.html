@@ -17,7 +17,7 @@
   <!-- Texto descriptivo -->
   <div class="absolute inset-0 flex items-baseline justify-center p-4 text-center z-20">
     <p
-      class="text-white text-sm md:text-base backdrop-blur-sm bg-black/40 p-4 rounded max-w-xl leading-relaxed"
+      class="text-white text-base md:text-base backdrop-blur-sm bg-black/40 p-4 rounded max-w-xl leading-relaxed"
       [innerHTML]="stageData?.description"
     ></p>
   </div>
@@ -30,47 +30,60 @@
       <div
         class="flex flex-col items-center justify-center h-full w-[75%] md:w-[50%] mx-auto space-y-4"
       >
-        <p
-          class="text-sm md:text-lg text-white text-center leading-relaxed font-medieval drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]"
-          [innerHTML]="stageData?.riddle"
-        ></p>
-        <p
-          class="text-black font-bold text-center text-sm md:text-lg mt-2 drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)]"
-        >
-          Dime, sabio viajero, ¿Cómo se llama este conjunto de seres microscópicos que residen e
-          interactúan en tu cuerpo como aliados silenciosos?
-        </p>
-
-        <div class="flex items-center gap-2">
-          <input
-            type="text"
-            class="w-64 p-2 border-b-2 border-white bg-transparent text-white text-center placeholder-white/80 focus:outline-none focus:border-white"
-            [(ngModel)]="answer"
-            (keyup.enter)="checkAnswer()"
-            placeholder="Tu respuesta aquí"
-          />
-          <button
-            (click)="checkAnswer()"
-            class="bg-green-900/70 p-2 rounded-md hover:bg-green-900 border-2 border-gray-400/50"
+        @if (!hasAnswered) {
+          <p
+            class="text-sm md:text-lg text-white text-center leading-relaxed font-medieval drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]"
+            [innerHTML]="stageData?.riddle"
+          ></p>
+          <p
+            class="text-black font-bold text-center text-sm md:text-lg mt-2 drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)]"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="white"
-              class="size-6"
+            Dime, sabio viajero, ¿Cómo se llama este conjunto de seres microscópicos que residen e
+            interactúan en tu cuerpo como aliados silenciosos?
+          </p>
+          <div class="flex items-center gap-2">
+            <input
+              type="text"
+              class="w-64 p-2 border-b-2 border-white bg-transparent text-white text-center placeholder-white/80 focus:outline-none focus:border-white"
+              [(ngModel)]="answer"
+              (keyup.enter)="checkAnswer()"
+              placeholder="Tu respuesta aquí"
+            />
+            <button
+              (click)="checkAnswer()"
+              class="bg-green-900/70 p-2 rounded-md hover:bg-green-900 border-2 border-gray-400/50"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-            </svg>
-          </button>
-        </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="white"
+                class="size-6"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+              </svg>
+            </button>
+          </div>
 
-        <app-count-down
-          [seconds]="60"
-          (timeUp)="onTimeUp()"
-          (timeUpdate)="updateTime($event)"
-        ></app-count-down>
+          <app-count-down
+            [seconds]="60"
+            (timeUp)="onTimeUp()"
+            (timeUpdate)="updateTime($event)"
+          ></app-count-down>
+        } @else {
+          <p
+            class="text-white font-bold text-center text-base md:text-lg mt-2 drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]"
+          >
+            {{ msg }}
+          </p>
+          <button
+            class="mt-6 w-full py-4 bg-[url('/assets/images/boton.png')] bg-cover text-stone-100"
+            (click)="close()"
+          >
+            Continuar
+          </button>
+        }
       </div>
     </div>
   </div>

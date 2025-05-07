@@ -26,6 +26,7 @@ export class StageMicrobiotaComponent {
   hasAnswered: boolean = false
   points: number = 0
   totalTimeLeft: number = 0
+  msg = ''
 
   constructor(
     private router: Router,
@@ -35,8 +36,8 @@ export class StageMicrobiotaComponent {
 
   async close() {
     this.isOpen = false
-    await this.authService.finishStage(this.currentStage.toString(), this.points)
     this.router.navigate(['/participant/stage-waiting'])
+    await this.authService.finishStage(this.currentStage.toString(), this.points)
   }
 
   showModal() {
@@ -49,31 +50,29 @@ export class StageMicrobiotaComponent {
     if (this.hasAnswered) {
       return
     }
-    this.hasAnswered = true
 
     const normalizedAnswer = this.answer.trim().toLowerCase()
 
     if (normalizedAnswer === this.stageData.answer.toLowerCase()) {
       this.countDownComponent.stop()
       this.points = this.utils.calculateScore(2, 10, 60, this.totalTimeLeft)
-      this.utils.showToast(
-        `¡Correcto! Has descubierto el reino invisible. Puntos: ${this.points}`,
-        'success'
-      )
-      this.close()
+      this.utils.showToast(`¡Correcto! puntos: ${this.points}`, 'success')
+      this.msg = `El enigma del cofre ha sido resuelto, y su secreto, desvelado. Pero el descanso dura poco... Justo al lado,
+      descubrís una antigua balanza, a su alrededor se disponen varios elementos...`
     } else {
-      this.utils.showToast('Respuesta incorrecta. No has podido superar la etapa.', 'danger')
+      this.msg = `El enigma del cofre no ha sido resuelto...`
+      this.utils.showToast('Respuesta incorrecta. 0 puntos', 'danger')
       this.points = 0
-      this.close()
     }
+    this.hasAnswered = true
   }
 
   onTimeUp() {
     if (!this.hasAnswered) {
       this.utils.showToast('¡Se acabó el tiempo! No respondiste a tiempo.', 'warning')
       this.points = 0
+      this.msg = `El enigma del cofre no ha sido resuelto...`
       this.hasAnswered = true
-      this.close()
     }
   }
 
