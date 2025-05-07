@@ -71,6 +71,7 @@ export class JoinEventComponent implements OnInit {
         username: name,
         organizer: false,
         currentStage: 1,
+        avatar: `assets/images/avatars_${Math.floor(Math.random() * 9) + 1}.png`,
       }
       await this.authService.saveUser(userData)
       this.storageService.setData(StorageEnum.USER_DATA, userData)

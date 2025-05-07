@@ -38,7 +38,6 @@ export class DashboardComponent implements AfterViewInit {
   allPlayersReady = false
   playersRemaining = 0
   loadingNextStage = false
-  currentStage = 1
   showRestartModal = false
 
   stagesData = StagesData
@@ -60,18 +59,11 @@ export class DashboardComponent implements AfterViewInit {
     this.authService.eventListener$.subscribe((event) => {
       this.event = event
     })
-    this.authService.participantsListener$.pipe(filter(Boolean)).subscribe((participants) => {
-      this.participants = participants.map((p: any) => ({
-        ...p,
-        avatar: `assets/images/avatars_${Math.floor(Math.random() * 9) + 1}.png`,
-      }))
-
-      const stages = participants
-        .filter((p: any) => !p.organizer && p.currentStage)
-        .map((p: any) => p.currentStage)
-
-      this.currentStage = stages.length > 0 ? Math.max(...stages) : 1 // 🚀
-    })
+    this.authService.participantsListener$
+      .pipe(filter(Boolean))
+      .subscribe((participants: any[]) => {
+        this.participants = participants.sort((a, b) => (b.points || 0) - (a.points || 0))
+      })
 
     this.authService.getEvent()
     this.authService.getParticipants()
@@ -102,8 +94,10 @@ export class DashboardComponent implements AfterViewInit {
   async continueToNextStage(): Promise<void> {
     this.loadingNextStage = true
     await this.authService.launchNextStage()
-    await this.authService.resetNextStageReady()
-    this.loadingNextStage = false
+    setTimeout(async () => {
+      await this.authService.resetNextStageReady()
+      this.loadingNextStage = false
+    }, 1000)
   }
 
   openRestartModal(): void {
