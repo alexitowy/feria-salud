@@ -1,10 +1,11 @@
 import { Component, EventEmitter, inject, input, Input, Output, ViewChild } from '@angular/core'
 import { CountDownComponent } from '../../../../../../../shared/count-down/count-down.component'
 import { UtilsService } from '../../../../../../../core/services/utils.service'
+import { ModalFeedbackComponent } from '../modal-feedback/modal-feedback.component'
 
 @Component({
   selector: 'app-multiple-choice',
-  imports: [CountDownComponent],
+  imports: [CountDownComponent, ModalFeedbackComponent],
   templateUrl: './multiple-choice.component.html',
   styleUrl: './multiple-choice.component.scss',
 })
@@ -47,20 +48,24 @@ export class MultipleChoiceComponent {
     ) {
       const allCorrect = this.answersSelect.every((ans: any) => ans.correct)
       if (allCorrect) {
-        // this.utilsService.showToast('¡Correcto!', 'success')
-        this.showFeedback = true
         if (this.timer) {
           this.countDownComponent.stop()
         }
-        setTimeout(() => {
-          this.correctSelected$.emit(this.totalTimeLeft)
-        }, 3000)
+        if (this.question.feedback) {
+          this.showFeedback = true
+        } else {
+          this.continue()
+        }
       } else {
         this.utilsService.showToast('Respuestas incorrectas, intentalo de nuevo', 'danger')
       }
     } else {
       this.utilsService.showToast('Respuestas incorrectas, intentalo de nuevo', 'danger')
     }
+  }
+
+  continue() {
+    this.correctSelected$.emit(this.totalTimeLeft)
   }
 
   updateTime(time: number): void {

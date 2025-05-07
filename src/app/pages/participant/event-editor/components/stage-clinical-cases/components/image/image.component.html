@@ -46,11 +46,8 @@
   </button>
 }
 
-@if (showFeedback) {
-  <div
-    class="absolute top-28 left-1/2 transform -translate-x-1/2 bg-white/90 p-4 rounded-lg shadow-lg text-center z-40 max-w-xs text-black font-semibold"
-  >
-    <p>Respuesta correcta.</p>
-    {{ question.feedback }}
-  </div>
-}
+<app-modal-feedback
+  [isOpen]="showFeedback"
+  [feedbackHtml]="question.feedback"
+  (continue)="continue()"
+></app-modal-feedback>

@@ -1,10 +1,11 @@
 import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angular/core'
 import { UtilsService } from '../../../../../../../core/services/utils.service'
 import { CountDownComponent } from '../../../../../../../shared/count-down/count-down.component'
+import { ModalFeedbackComponent } from '../modal-feedback/modal-feedback.component'
 
 @Component({
   selector: 'app-single-selection',
-  imports: [CountDownComponent],
+  imports: [CountDownComponent, ModalFeedbackComponent],
   templateUrl: './single-selection.component.html',
   styleUrl: './single-selection.component.scss',
 })
@@ -44,15 +45,14 @@ export class SingleSelectionComponent {
       return
     }
     if (this.selectedAnswer.correct) {
-      // this.utilsService.showToast(`Respuesta correcta. ${this.question.feedback}`, 'success')
-      this.showFeedback = true
       if (this.timer) {
         this.countDownComponent.stop()
       }
-      setTimeout(() => {
-        this.correctSelected$.emit(this.totalTimeLeft)
-        this.showFeedback = false
-      }, 3000)
+      if (this.question.feedback) {
+        this.showFeedback = true
+      } else {
+        this.continue()
+      }
     } else {
       this.utilsService.showToast('Respuesta incorrecta, intentalo de nuevo', 'danger')
     }
@@ -60,5 +60,9 @@ export class SingleSelectionComponent {
 
   updateTime(time: number): void {
     this.totalTimeLeft = time
+  }
+
+  continue() {
+    this.correctSelected$.emit(this.totalTimeLeft)
   }
 }

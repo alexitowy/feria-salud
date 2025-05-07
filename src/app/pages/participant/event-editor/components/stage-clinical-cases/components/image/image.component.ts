@@ -2,10 +2,11 @@ import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angu
 import { UtilsService } from '../../../../../../../core/services/utils.service'
 import { CountDownComponent } from '../../../../../../../shared/count-down/count-down.component'
 import { CommonModule } from '@angular/common'
+import { ModalFeedbackComponent } from '../modal-feedback/modal-feedback.component'
 
 @Component({
   selector: 'app-image',
-  imports: [CountDownComponent, CommonModule],
+  imports: [CountDownComponent, CommonModule, ModalFeedbackComponent],
   templateUrl: './image.component.html',
   styleUrl: './image.component.scss',
 })
@@ -46,13 +47,14 @@ export class ImageComponent {
 
   checkAnswer(): void {
     if (this.selectedAnswer.correct) {
-      this.showFeedback = true
       if (this.timer) {
         this.countDownComponent.stop()
       }
-      setTimeout(() => {
-        this.selected$.emit(this.totalTimeLeft)
-      }, 3000)
+      if (this.question.feedback) {
+        this.showFeedback = true
+      } else {
+        this.continue()
+      }
     } else {
       this.utilsService.showToast('Respuesta incorrecta, intentalo de nuevo', 'danger')
     }
@@ -60,5 +62,9 @@ export class ImageComponent {
 
   updateTime(time: number): void {
     this.totalTimeLeft = time
+  }
+
+  continue() {
+    this.selected$.emit(this.totalTimeLeft)
   }
 }

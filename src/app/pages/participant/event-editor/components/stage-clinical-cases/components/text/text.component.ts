@@ -2,10 +2,11 @@ import { Component, EventEmitter, inject, Input, Output, ViewChild } from '@angu
 import { UtilsService } from '../../../../../../../core/services/utils.service'
 import { CountDownComponent } from '../../../../../../../shared/count-down/count-down.component'
 import { FormsModule } from '@angular/forms'
+import { ModalFeedbackComponent } from '../modal-feedback/modal-feedback.component'
 
 @Component({
   selector: 'app-text',
-  imports: [CountDownComponent, FormsModule],
+  imports: [CountDownComponent, FormsModule, ModalFeedbackComponent],
   templateUrl: './text.component.html',
   styleUrl: './text.component.scss',
 })
@@ -33,14 +34,14 @@ export class TextComponent {
       return
     }
     if (this.response.toLowerCase() === this.question.answers[0].text.toLowerCase()) {
-      this.showFeedback = true
       if (this.timer) {
         this.countDownComponent.stop()
       }
-      setTimeout(() => {
-        this.correctSelected$.emit(this.totalTimeLeft)
-      }, 3000)
-      // this.utilsService.showToast('Respuesta correcta.', 'success')
+      if (this.question.feedback) {
+        this.showFeedback = true
+      } else {
+        this.continue()
+      }
     } else {
       this.utilsService.showToast('Respuesta incorrecta, intentalo de nuevo', 'danger')
     }
@@ -48,5 +49,9 @@ export class TextComponent {
 
   updateTime(time: number): void {
     this.totalTimeLeft = time
+  }
+
+  continue() {
+    this.correctSelected$.emit(this.totalTimeLeft)
   }
 }
