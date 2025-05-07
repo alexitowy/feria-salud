@@ -54,8 +54,8 @@ export class StageBalanceComponent {
         this.winnerAlreadyNotified = true
 
         if (completed.name === currentUserName) {
-          this.feedbackHtml = `Habéis logrado el equilibrio… más la calma no ha de durar... (Fondo: papel medieval)
-                                Entre los pergaminos del curandero, una nueva revelación se deja leer:
+          this.feedbackHtml = `Habéis logrado el equilibrio… más la calma no ha de durar...<br>
+                                Entre los pergaminos del curandero, una nueva revelación se deja leer:<br>
                                 “Cuando el invasor regresa una y otra vez, no basta con limpiar… hay que restaurar.”`
         } else {
           this.feedbackHtml = `${completed.name} ha desbloqueado el cajón de los casos clínicos`

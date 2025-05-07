@@ -45,10 +45,8 @@ export const StagesData: Record<number, StageData> = {
     questions: [
       {
         type: 'single-select',
-        description:
-          '“Cuando el invasor regresa una y otra vez, no basta con limpiar… hay que restaurar.” “Solo uno de estos merece el barro sagrado (trasplante fecal), Elige con sabiduría”. Elegir el único caso donde está indicado el trasplante fecal',
         question:
-          '1- Solo uno de estos merece el barro sagrado (trasplante fecal). Elige con sabiduría.',
+          '1- Solo uno de estos merece el barro sagrado. Escoge con sabiduría entre los siguientes:',
         answers: [
           {
             id: 1,
@@ -73,7 +71,6 @@ export const StagesData: Record<number, StageData> = {
         ],
         points: 30,
         timeLeft: 120,
-        feedback: 'La cura no siempre es destruir… a veces es sembrar de nuevo.',
       },
     ],
     viewResults: {
@@ -131,9 +128,7 @@ export const StagesData: Record<number, StageData> = {
       {
         type: 'multiple-select',
         question:
-          '1- Selecciona cuales son los criterios que deben estar presentes para declarar una infección clínica en una úlcera de pie.',
-        description:
-          '¿Acaso esta úlcera presenta los signos de una infección clínica, según dictan los códices de Avicena y los pergaminos de Galeno?',
+          '1- Posad vuestra mirada y marcad con sabiduría, aquellos signos que, junto al exudado purulento, declaran una infección clínica de Ulcera de pie diabética.',
         answers: [
           {
             id: 1,
@@ -173,10 +168,8 @@ export const StagesData: Record<number, StageData> = {
       },
       {
         type: 'single-select',
-        question:
-          '2- ¿Cuál de estas opciones representa la forma adecuada de recoger una muestra para cultivo microbiológico en una herida con sospecha de infección profunda en el pie diabético?',
-        description:
-          'No todo lo que mana es verdad. El pus puede engañar, y la sangre confundir. Si deseáis conocer al         enemigo que se oculta bajo la piel del peregrino, deberéis tomar la muestra con ciencia y arte.',
+        question: `Elegid, ¿cuál de estas opciones representa la forma adecuada de recoger una muestra para cultivo
+microbiológico en una herida con sospecha de infección profunda en el pie diabético?`,
         answers: [
           {
             id: 1,
@@ -274,9 +267,7 @@ export const StagesData: Record<number, StageData> = {
       {
         type: 'single-select',
         question:
-          '6- ¿en cuál de estos escenarios no debe usarse esta terapia, además de en una infección activa?',
-        description:
-          'El alquimista ha oído hablar de una terapia moderna que succiona el mal y acelera la curación (terapia de presión negativa). Pero también ha sido advertido: usada en el momento equivocado, puede empeorar el daño.',
+          '6- Decid entonces: ¿en cuál de estos escenarios no debe usarse esta terapia, además de en una infección activa?',
         answers: [
           {
             id: 1,
