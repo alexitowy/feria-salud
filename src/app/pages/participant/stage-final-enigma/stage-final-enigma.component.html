@@ -49,17 +49,6 @@
   </div>
 </div>
 
-<!-- Modal final (fuera para que flote correctamente) -->
-<!-- @if (isCorrect) {
-  <div class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center px-4">
-    <div
-      class="bg-[#f5e7c1] text-[#4b3b1f] rounded-2xl shadow-xl max-w-xl w-full p-8 text-center border border-[#b89f76]"
-    >
-      <h1 class="text-3xl md:text-4xl font-medieval mb-4">¡Has encontrado al curandero!</h1>
-      <p class="text-lg mb-6">{{ playerName }}, vuestra sabiduría os ha guiado bien.</p>
-    </div>
-  </div>
-} -->
 <app-modal-feedback
   [isOpen]="winnerAlreadyNotified"
   [feedbackHtml]="msg"

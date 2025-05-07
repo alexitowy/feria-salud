@@ -18,8 +18,6 @@ export class StageFinalEnigmaComponent implements OnInit {
   readonly cols = ['A', 'B', 'C', 'D', 'E', 'F']
   wrongCells: string[] = []
 
-  playerName: string = ''
-
   grid!: any[]
 
   awards: any[] = []
@@ -38,8 +36,7 @@ export class StageFinalEnigmaComponent implements OnInit {
     this.authService.participantsListener$.subscribe(async (participants: any[]) => {
       const userData = this.storageService.getData(StorageEnum.USER_DATA)
       const currentUserName = userData?.username
-
-      const completed = participants.find((p) => p['8'] === true)
+      const completed = participants?.find((p) => p['8'] === true)
 
       if (completed && !this.winnerAlreadyNotified) {
         if (completed.name === currentUserName) {
@@ -51,8 +48,6 @@ export class StageFinalEnigmaComponent implements OnInit {
         await this.authService.finishStageForAll('8')
       }
     })
-    const userData = this.storageService.getData(StorageEnum.USER_DATA)
-    this.playerName = userData?.username
 
     this.awards = this.storageService.getData('award') || []
     this.awards = this.awards.filter((award) => award !== 'assets/images/map.jpg')
@@ -82,7 +77,7 @@ export class StageFinalEnigmaComponent implements OnInit {
 
         try {
           await this.authService.finishStage('8', 10)
-          await this.authService.completeFinalStage()
+          // await this.authService.completeFinalStage()
         } catch (err) {
           console.error('Error al finalizar la etapa 3', err)
         }
