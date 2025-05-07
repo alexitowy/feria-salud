@@ -3,4 +3,5 @@ export interface User {
   organizer: boolean
   points?: number
   profileImage?: string
+  avatar?: string
 }

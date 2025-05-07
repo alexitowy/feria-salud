@@ -75,6 +75,7 @@ export class AuthService {
     await addDoc(participantsRef, {
       name: user.username,
       organizer: user.organizer,
+      avatar: user.avatar,
     })
   }
 
