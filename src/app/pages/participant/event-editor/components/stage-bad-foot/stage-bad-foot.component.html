@@ -21,3 +21,9 @@
     </div>
   </div>
 </div>
+
+<app-modal-feedback
+  [isOpen]="winnerAlreadyNotified"
+  [feedbackHtml]="feedbackHTML"
+  (continue)="continue()"
+></app-modal-feedback>

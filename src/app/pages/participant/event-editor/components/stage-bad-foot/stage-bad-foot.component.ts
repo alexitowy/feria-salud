@@ -7,10 +7,11 @@ import { UtilsService } from '../../../../../core/services/utils.service'
 import { ToastService } from '../../../../../core/services/toast.service'
 import { StorageService } from '../../../../../core/services/storage.service'
 import { StorageEnum } from '../../../../../core/models/emuns/storage.emun'
+import { ModalFeedbackComponent } from '../stage-clinical-cases/components/modal-feedback/modal-feedback.component'
 
 @Component({
   selector: 'app-stage-bad-foot',
-  imports: [ImageComponent],
+  imports: [ImageComponent, ModalFeedbackComponent],
   templateUrl: './stage-bad-foot.component.html',
   styleUrl: './stage-bad-foot.component.scss',
 })
@@ -22,6 +23,7 @@ export class StageBadFootComponent implements OnInit {
   points: number = 0
   winner: string | null = null
   winnerAlreadyNotified = false
+  feedbackHTML: string = ''
 
   constructor(
     private authService: AuthService,
@@ -47,13 +49,16 @@ export class StageBadFootComponent implements OnInit {
 
         if (completed.name === currentUserName) {
           this.toast.show('¡Correcto!: Staphylococcus aureus (coco gram + en racimos)', 'success')
+          this.feedbackHTML = `<strong>¡Muy bien, valientes sanadores!<br>
+                                Habéis superado la prueba con sabiduría.</strong><br>
+                                Vuestra mente ha vencido al engaño del curandero, y por ello, el camino se abre ante vosotros.<br>
+                                <strong>Ahora, escuchad con atención…</strong><br><br>
+                                Los detalles del caso que se os revelarán a continuación`
         } else {
           this.toast.show(`${completed.name} ha desbloqueado`, 'success')
+          this.feedbackHTML = `${completed.name} ha desbloqueado`
         }
         await this.authService.finishStageForAll('4')
-        setTimeout(() => {
-          this.router.navigate(['/participant/stage-waiting'])
-        }, 2500)
       }
     })
   }
@@ -102,5 +107,9 @@ export class StageBadFootComponent implements OnInit {
         console.error('Error al finalizar la etapa 4', err)
       }
     }
+  }
+
+  continue() {
+    this.router.navigate(['/participant/stage-waiting'])
   }
 }

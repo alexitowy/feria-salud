@@ -78,8 +78,9 @@ export const StagesData: Record<number, StageData> = {
     ],
     viewResults: {
       award: 'assets/images/map.jpg',
-      title: 'Felicidades, has completado la etapa 1',
-      description: '',
+      title: 'Vuestra elección ha sido justa',
+      description:
+        'El curandero os ha dejado esta pista (mapa antiguo) ... Guardadlo bien. Lo necesitaréis pronto.',
       buttonText: 'Obtener pista',
     },
     dashboard: {},
@@ -87,34 +88,33 @@ export const StagesData: Record<number, StageData> = {
   4: {
     background: 'assets/images/fondo_enigma.png',
     description:
-      'Ni ungüento ni bisturí servirán si el enemigo no es bien nombrado. Decidme, médicos del porvenir, ¿cuál es el mal más frecuente que infecta el pie maldito?',
+      'Ni ungüento ni bisturí servirán si el enemigo no es bien nombrado. Señaladme, médicos del porvenir',
     questions: [
       {
         type: 'image',
-        question:
-          '1- Solo uno de estos merece el barro sagrado (trasplante fecal). Elige con sabiduría.',
+        question: '1- ¿qué germen mora con mayor frecuencia en las heridas del pie diabético?',
         answers: [
           {
             id: 1,
-            img: 'https://placehold.co/150x150',
+            img: 'assets/images/bacilo_negativo.jpg',
             label: 'Bacilo Gram -.',
             correct: false,
           },
           {
             id: 2,
-            img: 'https://placehold.co/150x150',
+            img: 'assets/images/coco_cadena.jpg',
             label: 'Cocos Gram + en cadenas',
             correct: false,
           },
           {
             id: 3,
-            img: 'https://placehold.co/150x150',
+            img: 'assets/images/coco_racimos.jpg',
             label: 'Cocos Gram + en racimos',
             correct: true,
           },
           {
             id: 4,
-            img: 'https://placehold.co/150x150',
+            img: 'assets/images/bacilo.jpg',
             label: 'Bacilo Gram +.',
             correct: false,
           },
@@ -123,11 +123,6 @@ export const StagesData: Record<number, StageData> = {
         timeLeft: 120,
       },
     ],
-    viewResults: {
-      title: 'El hechizo del pergamino se rompe, revelando el siguiente paso del camino…',
-      description: 'muy bien, habéis conseguido avanzar, ahora escuchar atentos...',
-      buttonText: 'Continuar',
-    },
     dashboard: {},
   },
   5: {

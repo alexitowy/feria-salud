@@ -10,7 +10,7 @@
   <h2 class="text-base mb-2">{{ question.description }}</h2>
 }
 <!-- Question Title -->
-<h2 class="text-1xl font-bold mb-6">{{ question.question }}</h2>
+<h2 class="text-xl font-bold mb-6">{{ question.question }}</h2>
 
 <!-- Radio Options -->
 <div class="grid grid-cols-2 gap-4">
@@ -25,14 +25,14 @@
       <input type="radio" [value]="answer" name="answer" class="hidden" />
 
       <!-- Imagen -->
-      <img [src]="answer.img" alt="Opción" class="w-full h-28 object-cover" />
+      <img [src]="answer.img" alt="Opción" class="w-full h-[14rem] object-cover" />
 
       <!-- Texto fijo abajo -->
-      <div class="bg-yellow-200 text-center flex items-center justify-center px-2 py-1 h-full">
+      <!-- <div class="bg-yellow-200 text-center flex items-center justify-center px-2 py-1 h-full">
         <span class="text-sm font-semibold text-orange-800 leading-tight line-clamp-2 break-words">
           {{ answer.label }}
         </span>
-      </div>
+      </div> -->
     </label>
   }
 </div>
