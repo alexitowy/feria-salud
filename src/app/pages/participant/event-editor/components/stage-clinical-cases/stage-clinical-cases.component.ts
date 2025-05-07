@@ -7,10 +7,17 @@ import { StorageService } from '../../../../../core/services/storage.service'
 import { AuthService } from '../../../../../core/services/auth.service'
 import { Router } from '@angular/router'
 import { UtilsService } from '../../../../../core/services/utils.service'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-stage-clinical-cases',
-  imports: [SingleSelectionComponent, MultipleChoiceComponent, TextComponent, ImageComponent],
+  imports: [
+    SingleSelectionComponent,
+    MultipleChoiceComponent,
+    TextComponent,
+    ImageComponent,
+    CommonModule,
+  ],
   templateUrl: './stage-clinical-cases.component.html',
   styleUrl: './stage-clinical-cases.component.scss',
 })

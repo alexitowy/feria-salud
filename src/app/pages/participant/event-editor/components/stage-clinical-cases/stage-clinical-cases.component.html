@@ -5,7 +5,8 @@
   <div class="inset-0 p-[16px]">
     <!-- Content Container -->
     <div
-      class="relative z-10 max-w-2xl mx-auto p-6 text-white shadow-sm shadow-white rounded-[25px]"
+      class="relative z-10 max-w-2xl mx-auto p-6 text-white"
+      [ngClass]="{ 'rounded-[25px] shadow-sm shadow-white': !(isEnd && stageData.viewResults) }"
     >
       @if (!isEnd) {
         @if (currentQuestion) {
@@ -50,14 +51,22 @@
           </div>
         }
       } @else if (isEnd && stageData.viewResults) {
-        <p class="text-lg font-bold text-center">{{ stageData.viewResults.title }}</p>
-        <p class="text-lg font-bold text-center">{{ stageData.viewResults.description }}</p>
-        <button
-          class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 block mx-auto"
-          (click)="submit()"
+        <div
+          class="bg-[url('/assets/images/pergamino-textura.png')] bg-cover bg-center bg-no-repeat rounded-xl p-6 shadow-inner border border-[#2b1e0e]/80"
         >
-          {{ stageData.viewResults.buttonText }}
-        </button>
+          <p class="text-lg font-bold text-center text-black font-medieval drop-shadow-sm">
+            {{ stageData.viewResults.title }}
+          </p>
+          <p class="text-base md:text-lg text-center text-black mt-2 leading-relaxed">
+            {{ stageData.viewResults.description }}
+          </p>
+          <button
+            class="mt-6 px-6 py-2 text-white rounded-md block mx-auto bg-[url('/assets/images/boton.png')] bg-cover bg-center bg-no-repeat hover:opacity-90 transition"
+            (click)="submit()"
+          >
+            {{ stageData.viewResults.buttonText }}
+          </button>
+        </div>
       } @else {
         <p class="text-lg font-bold text-center">¡Has completado todas las preguntas!</p>
         <p class="text-lg font-bold text-center">¡Felicidades!</p>
@@ -78,13 +87,15 @@
     <div class="relative w-full max-w-md rounded-xl shadow-xl overflow-hidden">
       <button
         (click)="closeAwardModal()"
-        class="absolute top-3 right-3 text-gray-100 text-3xl leading-none hover:text-red-400 z-10"
+        class="absolute top-3 right-3 text-[#2b1e0e] text-3xl leading-none hover:text-red-800 z-10"
         aria-label="Cerrar"
       >
         &times;
       </button>
 
-      <div class="bg-white rounded-xl p-2">
+      <div
+        class="bg-[url('/assets/images/pergamino-textura.png')] bg-cover bg-center bg-no-repeat rounded-xl p-2 shadow-inner"
+      >
         <img
           [src]="stageData.viewResults.award"
           alt="Premio"
