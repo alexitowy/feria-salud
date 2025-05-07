@@ -115,6 +115,7 @@ export class DashboardComponent implements AfterViewInit {
       await this.authService.updateEventState({
         active: false,
         introVideoCompleted: false,
+        finish: false,
       })
       this.participants = []
       this.router.navigate(['/organizer/await'])

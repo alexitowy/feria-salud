@@ -275,7 +275,7 @@ export class AuthService {
   }
 
   async updateEventState(
-    update: Partial<{ active: boolean; introVideoCompleted: boolean }>
+    update: Partial<{ active: boolean; introVideoCompleted: boolean; finish: boolean }>
   ): Promise<void> {
     const eventRef = doc(this.firestore, 'event', 'feriaSalud')
     await updateDoc(eventRef, update)
