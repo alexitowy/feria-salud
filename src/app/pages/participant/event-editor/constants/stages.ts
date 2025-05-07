@@ -169,7 +169,7 @@ export const StagesData: Record<number, StageData> = {
         points: 30,
         timeLeft: 120,
         feedback:
-          'Habéis leído bien los signos del fuego corporal.Cuando haya pus, y dos signos del fuego corporal —dolor, calor, eritema o edema— ,entonces podrá nombrarse infección con voz firme y gesto sabio.',
+          '<strong>Habéis leído bien los signos del fuego corporal.</strong><br>Mas sabed esto: no todo lo que mana es verdad.<br>Si deseáis nombrarlo por su nombre y combatirlo con ciencia, deberéis <strong>tomar la muestra con arte y precisión.</strong>',
       },
       {
         type: 'single-select',
@@ -201,12 +201,17 @@ export const StagesData: Record<number, StageData> = {
         ],
         points: 30,
         timeLeft: 120,
+        feedback: `<strong>La muestra ha sido tomada con destreza, como dictan las artes del buen sanador.</strong><br>
+                  La punción-aspiración ha revelado su fidelidad, si usáis torunda, que sea con limpieza, presión y ciencia.<br><br>
+                  <strong>Mas aún queda un paso crucial…</strong><br>
+                  La muestra debe llegar a su destino.<br>
+                  Pero si el envío es torpe, el enemigo podría escapar antes de ser revelado.`,
       },
       {
         type: 'single-select',
-        question: '3- ¿Cómo deberéis conservarla y transportarla Si llegan en menos de 2 horas?',
+        question: '3- ¿Debe ir la muestra al frío?',
         description:
-          'La muestra ha sido recolectada con destreza. Ahora debe llegar al alquimista del castillo. Pero cuidado… si el modo de envío no es el adecuado, el enemigo podría escapar antes de ser revelado.',
+          'Sabios viajeros, decir SI o NO en cada supuesto de las condiciones para transportar la muestra si el trayecto dura menos de 2 horas…',
         answers: [
           {
             id: 1,
@@ -221,14 +226,12 @@ export const StagesData: Record<number, StageData> = {
         ],
         points: 30,
         timeLeft: 120,
-        feedback:
-          'No refrigerar, pues los gérmenes si llegan al laboratorio en menos de 2h no necesitan ser transportados en frio',
       },
       {
         type: 'single-select',
-        question: '4- ¿Cómo deberéis conservarla y transportarla si llegan en más de 2 horas?',
+        question: '4- ¿Debe ir la muestra al frío?',
         description:
-          'La muestra ha sido recolectada con destreza. Ahora debe llegar al alquimista del castillo. Pero cuidado… si el modo de envío no es el adecuado, el enemigo podría escapar antes de ser revelado.',
+          'Sabios viajeros, decir SI o NO en cada supuesto de las condiciones para transportar la muestra si el camino supera las 2 horas…',
         answers: [
           {
             id: 1,
@@ -243,14 +246,12 @@ export const StagesData: Record<number, StageData> = {
         ],
         points: 30,
         timeLeft: 120,
-        feedback:
-          'Refrigerar si el tiempo de traslado al laboratorio es mayor a 2h, pues los gérmenes no toleran el calor y el frío los mantiene en su prisión',
       },
       {
         type: 'single-select',
-        question: '5- ¿Cómo deberéis conservarla y transportarla protegidas de la luz?',
+        question: '5- ¿Debéis proteger la muestra de sus rayos?',
         description:
-          'La muestra ha sido recolectada con destreza. Ahora debe llegar al alquimista del castillo. Pero cuidado… si el modo de envío no es el adecuado, el enemigo podría escapar antes de ser revelado.',
+          'Sabios viajeros, decir SI o NO en cada supuesto de las condiciones para transportar la muestra, sobre la luz del día...',
         answers: [
           {
             id: 1,
@@ -265,12 +266,15 @@ export const StagesData: Record<number, StageData> = {
         ],
         points: 30,
         timeLeft: 120,
-        feedback: 'Sabio habéis sido, pues los gérmenes no toleran la luz',
+        feedback: `<strong>El alquimista revelara al enemigo.</strong><br>
+                  Ahora, sanador, <strong>debéis actuar.</strong><br><br>
+                  Se dice que la presión negativa cura…<br>
+                  <strong>Pero usada sin juicio, puede herir más que sanar.<strong><br>`,
       },
       {
         type: 'single-select',
         question:
-          '6- ¿Además de en infección intensa, ¿Cuándo se desaconseja el tratamiento con terapia presión negativa en una UPD?',
+          '6- ¿en cuál de estos escenarios no debe usarse esta terapia, además de en una infección activa?',
         description:
           'El alquimista ha oído hablar de una terapia moderna que succiona el mal y acelera la curación (terapia de presión negativa). Pero también ha sido advertido: usada en el momento equivocado, puede empeorar el daño.',
         answers: [
@@ -297,12 +301,13 @@ export const StagesData: Record<number, StageData> = {
         ],
         points: 30,
         timeLeft: 120,
+        feedback: `<strong>El alquimista ha revelado al enemigo. Ahora, el clérigo farmacéutico os entrega el remedio.</strong><br>
+                  Pero advierte: “No basta con tener el elixir… ha de entregarse por la vía justa.”`,
       },
       {
         type: 'single-select',
-        question: '7- ¿Es adecuado administrar Piperacilina/Tazobactam mediante PICC/Midline?',
-        description:
-          'El clérigo farmacéutico señala que para administrar el elixir Piperacilina/Tazobactam, debe usarse una vía segura, que no dañe al portador ni se extravíe en la piel del peregrino.',
+        question: '7- ¿Es correcto usar un PICC o Midline para ello?',
+        description: 'Se os encomienda administrar Piperacilina/Tazobactam.',
         answers: [
           {
             id: 1,
@@ -317,18 +322,38 @@ export const StagesData: Record<number, StageData> = {
         ],
         points: 30,
         timeLeft: 120,
+        feedback: `<strong>Habéis elegido la vía con sabiduría, y el elixir ya recorre las venas del peregrino.</strong><br>
+                    Mas el alquimista de la torre lanza una nueva pregunta, mientras observa el brebaje burbujear`,
       },
       {
-        type: 'text',
+        type: 'image',
         question:
-          '8- Según la estabilidad de este antibiótico, una vez diluido, es posible administrarlo mediante bomba de infusión intermitente en el domicilio durante periodos de',
-        description:
-          'El alquimista de la torre os pregunta: ‘¿Este antibiótico puede resistir la jornada completa sin corromperse?',
+          '8- Una vez diluido, ¿cuántas horas puede administrarse Piperacilina/Tazobactam mediante bomba de infusión en el hogar?',
+        description: 'Escoged bien… el tiempo es vida.',
         answers: [
           {
             id: 1,
-            text: '24',
+            img: 'assets/images/24.jpg',
+            label: '24',
             correct: true,
+          },
+          {
+            id: 2,
+            img: 'assets/images/12.jpg',
+            label: '12',
+            correct: false,
+          },
+          {
+            id: 3,
+            img: 'assets/images/03.jpg',
+            label: '03',
+            correct: false,
+          },
+          {
+            id: 4,
+            img: 'assets/images/15.jpg',
+            label: '15',
+            correct: false,
           },
         ],
         points: 30,
@@ -337,9 +362,11 @@ export const StagesData: Record<number, StageData> = {
     ],
     viewResults: {
       award: 'assets/images/D.png',
-      title: 'Felicidades, has completado la etapa 2',
-      description:
-        'Antes de caer preso del dolor, el curandero del bosque me entregó este pergamino, diciendo que sería de utilidad para quien lograse devolverme el paso. No comprendí sus palabras… hasta hoy.” Con manos aún débiles, extiende un papel arrugado. Al desplegarlo, brillando con luz propia, aparece escrita en tinta seca una sola letra:',
+      title: 'Habéis obrado con sabiduría.',
+      description: `El germen ha sido vencido, y el peregrino comienza a sanar.<br>
+                    Con voz débil, os llama:<br>
+                    “El curandero del bosque me dio esto…<br>
+                    Dijo que sería útil para quien me devolviese el paso.”`,
       buttonText: 'Obtener pista',
     },
     dashboard: {
