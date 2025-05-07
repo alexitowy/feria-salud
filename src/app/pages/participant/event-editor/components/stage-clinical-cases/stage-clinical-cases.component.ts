@@ -70,11 +70,9 @@ export class StageClinicalCasesComponent implements OnInit {
 
   async closeAwardModal(): Promise<void> {
     this.showAwardModal = false
-    console.log('currentStage', this.currentStage)
-    console.log('points', this.points)
 
-    await this.authService.finishStage(this.currentStage.toString(), this.points)
     this.router.navigate(['/participant/stage-waiting'])
+    await this.authService.finishStage(this.currentStage.toString(), this.points)
   }
 
   timeUp(): void {
