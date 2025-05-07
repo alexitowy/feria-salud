@@ -1,6 +1,6 @@
 @if (timer) {
   <app-count-down
-    [seconds]="100"
+    [seconds]="question.timeLeft || 120"
     (timeUp)="timeUp()"
     (timeUpdate)="updateTime($event)"
   ></app-count-down>
