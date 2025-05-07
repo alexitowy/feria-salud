@@ -10,14 +10,15 @@ export const StagesData: Record<number, StageData> = {
         <span class="italic">«Solo quienes conozcan los secretos del cuerpo podrán abrirlo.»</span>
       `,
     riddle: `
-        En el interior del cuerpo humano, más allá de huesos y sangre, mora un vasto reino sin
-        reyes ni castillos, pero lleno de vida diminuta, invisible al ojo del monje. No es uno,
-        sino miles, y no están solos: interactúan entre sí, y contigo también. Te ayudan a
-        digerir, a defenderte y a sanar, como un consejo secreto que mantiene el equilibrio del
-        reino interior. No son enfermedad, sino parte de ti. Dime, sabio viajero. <br/>¿Cómo se llama
-        este conjunto de seres microscópicos que residen e interactúan en tu cuerpo como aliados
-        silenciosos?
-      `,
+  En el interior del cuerpo humano, más allá de huesos y sangre,
+  mora un vasto reino sin reyes ni castillos,
+  pero lleno de vida diminuta, invisible al ojo del monje.
+  No es uno, sino miles, y no están solos:
+  interactúan entre sí, y contigo también.
+  Te ayudan a digerir, a defenderte y a sanar,
+  como un consejo secreto que mantiene el equilibrio del reino interior.
+  No son enfermedad, sino parte de ti.
+`,
     answer: 'microbiota',
     dashboard: {
       audio: 'assets/audio/enigma_1.mp3',
