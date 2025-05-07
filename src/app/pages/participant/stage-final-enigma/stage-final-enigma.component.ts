@@ -5,10 +5,11 @@ import { StorageService } from '../../../core/services/storage.service'
 import { StorageEnum } from '../../../core/models/emuns/storage.emun'
 import { AuthService } from '../../../core/services/auth.service'
 import { Router } from '@angular/router'
+import { ModalFeedbackComponent } from '../event-editor/components/stage-clinical-cases/components/modal-feedback/modal-feedback.component'
 
 @Component({
   selector: 'app-stage-final-enigma',
-  imports: [CommonModule],
+  imports: [CommonModule, ModalFeedbackComponent],
   templateUrl: './stage-final-enigma.component.html',
   styleUrl: './stage-final-enigma.component.scss',
 })
@@ -18,13 +19,14 @@ export class StageFinalEnigmaComponent implements OnInit {
   wrongCells: string[] = []
 
   playerName: string = ''
-  isCorrect = false
 
   grid!: any[]
 
   awards: any[] = []
   winner: string | null = null
   winnerAlreadyNotified = false
+
+  msg = ''
   constructor(
     private readonly utilsService: UtilsService,
     private readonly storageService: StorageService,
@@ -40,23 +42,13 @@ export class StageFinalEnigmaComponent implements OnInit {
       const completed = participants.find((p) => p['8'] === true)
 
       if (completed && !this.winnerAlreadyNotified) {
-        this.winnerAlreadyNotified = true
-
         if (completed.name === currentUserName) {
-          this.utilsService.showToast(
-            '¡Has desbloqueado el cajón de los casos clínicos!',
-            'success'
-          )
+          this.msg = '¡Has desbloqueado el cajón de los casos clínicos!'
         } else {
-          this.utilsService.showToast(
-            `${completed.name} ha desbloqueado el cajón de los casos clínicos`,
-            'success'
-          )
+          this.msg = `${completed.name} ha desbloqueado el cajón de los casos clínicos`
         }
+        this.winnerAlreadyNotified = true
         await this.authService.finishStageForAll('8')
-        setTimeout(() => {
-          this.router.navigate(['/participant/thanks'])
-        }, 2500)
       }
     })
     const userData = this.storageService.getData(StorageEnum.USER_DATA)
@@ -82,7 +74,6 @@ export class StageFinalEnigmaComponent implements OnInit {
 
   async checkCell(coord: string) {
     if (coord === 'D4') {
-      this.isCorrect = true
       if (!this.winner) {
         const userData = this.storageService.getData(StorageEnum.USER_DATA)
         const playerName = userData?.username || 'Jugador desconocido'
@@ -91,6 +82,7 @@ export class StageFinalEnigmaComponent implements OnInit {
 
         try {
           await this.authService.finishStage('8', 10)
+          await this.authService.completeFinalStage()
         } catch (err) {
           console.error('Error al finalizar la etapa 3', err)
         }
@@ -101,5 +93,9 @@ export class StageFinalEnigmaComponent implements OnInit {
       }
       this.utilsService.showToast('Incorrecto, intenta de nuevo', 'danger')
     }
+  }
+
+  continue() {
+    this.router.navigate(['/participant/thanks'])
   }
 }

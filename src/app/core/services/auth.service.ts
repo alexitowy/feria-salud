@@ -292,4 +292,11 @@ export class AuthService {
       }
     })
   }
+
+  async completeFinalStage(): Promise<void> {
+    const eventRef = doc(this.firestore, 'event', 'feriaSalud')
+    await updateDoc(eventRef, {
+      finish: true,
+    })
+  }
 }
