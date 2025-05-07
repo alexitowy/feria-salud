@@ -374,7 +374,6 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
           name: 'Ceftriaxona',
           correct: {
             stability: 'Estable 24h',
-            administration: 'Acceso venoso periférico',
             note: 'Puede usarse en bolo lento',
           },
         },
@@ -382,7 +381,6 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
           name: 'Meropenem',
           correct: {
             stability: 'Inestable, debe refrigerarse',
-            administration: 'PICC o Midline',
             note: 'Necesita reconstitución inmediata antes de usar',
           },
         },
@@ -390,7 +388,6 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
           name: 'Ertapenem',
           correct: {
             stability: 'Estable 24h',
-            administration: 'PICC o Midline',
             note: 'No mezclar con bicarbonato',
           },
         },
@@ -398,7 +395,6 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
           name: 'Vancomicina',
           correct: {
             stability: 'Estable 24h',
-            administration: 'PICC o Midline',
             note: 'No estable en perfusión continua',
           },
         },
@@ -406,7 +402,6 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
           name: 'Daptomicina',
           correct: {
             stability: 'Estable 12h',
-            administration: 'PICC o Midline',
             note: 'Riesgo de miopatía, diluir bien',
           },
         },
@@ -414,12 +409,10 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
           name: 'Amoxicilina clavulanico',
           correct: {
             stability: 'Estable 6-8 horas',
-            administration: 'Vía oral',
             note: 'Compatible con administración oral',
           },
         },
       ],
-      // Opcional si quieres hacerlo configurable desde aquí también
       options: {
         stability: [
           'Estable 24h',
@@ -427,7 +420,6 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
           'Estable 12h',
           'Estable 6-8 horas',
         ],
-        administration: ['Acceso venoso periférico', 'PICC o Midline', 'Vía oral'],
         note: [
           'Puede usarse en bolo lento',
           'Necesita reconstitución inmediata antes de usar',

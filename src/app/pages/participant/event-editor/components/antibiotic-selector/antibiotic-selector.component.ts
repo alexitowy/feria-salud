@@ -58,29 +58,19 @@ export class AntibioticSelectorComponent {
   selections: {
     [index: number]: {
       stability: string
-      administration: string
       note: string
     }
   } = {}
 
-  onSelectChange(
-    event: Event,
-    index: number,
-    field: 'stability' | 'administration' | 'note'
-  ): void {
+  onSelectChange(event: Event, index: number, field: 'stability' | 'note'): void {
     const value = (event.target as HTMLSelectElement).value
     this.updateSelection(index, field, value)
   }
 
-  async updateSelection(
-    index: number,
-    field: 'stability' | 'administration' | 'note',
-    value: string
-  ): Promise<void> {
+  async updateSelection(index: number, field: 'stability' | 'note', value: string): Promise<void> {
     if (!this.selections[index]) {
       this.selections[index] = {
         stability: '',
-        administration: '',
         note: '',
       }
     }
@@ -91,7 +81,7 @@ export class AntibioticSelectorComponent {
 
     const allComplete =
       Object.keys(this.selections).length === antibiotics.length &&
-      Object.values(this.selections).every((sel) => sel.stability && sel.administration && sel.note)
+      Object.values(this.selections).every((sel) => sel.stability && sel.note)
 
     const allCorrect =
       allComplete &&
@@ -99,7 +89,6 @@ export class AntibioticSelectorComponent {
         const selection = this.selections[i]
         return (
           selection.stability === antibiotic.correct.stability &&
-          selection.administration === antibiotic.correct.administration &&
           selection.note === antibiotic.correct.note
         )
       })
@@ -123,15 +112,13 @@ export class AntibioticSelectorComponent {
 
   getCardStatus(index: number): 'incomplete' | 'correct' | 'incorrect' {
     const sel = this.selections[index]
-    if (!sel || !sel.stability || !sel.administration || !sel.note) {
+    if (!sel || !sel.stability || !sel.note) {
       return 'incomplete'
     }
 
     const antibiotic = this.stageData.antibioticChallenge.antibiotics[index]
     const isCorrect =
-      sel.stability === antibiotic.correct.stability &&
-      sel.administration === antibiotic.correct.administration &&
-      sel.note === antibiotic.correct.note
+      sel.stability === antibiotic.correct.stability && sel.note === antibiotic.correct.note
 
     return isCorrect ? 'correct' : 'incorrect'
   }
