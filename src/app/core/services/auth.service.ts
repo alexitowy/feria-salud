@@ -280,4 +280,16 @@ export class AuthService {
     const eventRef = doc(this.firestore, 'event', 'feriaSalud')
     await updateDoc(eventRef, update)
   }
+
+  listenIfUserDeleted(username: string, onDelete: () => void): void {
+    const participantsRef = collection(this.firestore, 'participantes')
+    const q = query(participantsRef, where('name', '==', username))
+
+    onSnapshot(q, (snapshot) => {
+      if (snapshot.empty) {
+        this.storageService.clearAll()
+        onDelete()
+      }
+    })
+  }
 }

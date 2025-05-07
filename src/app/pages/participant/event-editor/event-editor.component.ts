@@ -56,6 +56,10 @@ export class EventEditorComponent {
   async ngOnInit(): Promise<void> {
     const stage = await this.authService.getCurrentStage()
     console.log(stage)
+    this.authService.listenIfUserDeleted(this.user.username, () => {
+      this.storageService.clearAll()
+      this.router.navigate(['/participant/join-event'])
+    })
     if (stage === 8) {
       this.router.navigate(['/participant/final-stage'])
       return

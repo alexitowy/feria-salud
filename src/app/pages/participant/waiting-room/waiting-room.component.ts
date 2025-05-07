@@ -25,10 +25,12 @@ export class WaitingRoomComponent {
       this.router.navigate(['/participant/join-event'])
       return
     }
-    this.authService.canContinue$.pipe(filter(Boolean)).subscribe((canContinue) => {
-      if (canContinue) {
-        this.router.navigate(['/participant/event'])
-      }
+    this.authService.listenIfUserDeleted(userData.username, () => {
+      this.router.navigate(['/participant/join'])
+    })
+
+    this.authService.canContinue$.pipe(filter(Boolean)).subscribe(() => {
+      this.router.navigate(['/participant/event'])
     })
   }
 }

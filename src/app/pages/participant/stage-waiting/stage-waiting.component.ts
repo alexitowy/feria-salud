@@ -31,10 +31,14 @@ export class StageWaitingComponent {
     }
 
     // Escuchar evento
+    this.authService.listenIfUserDeleted(userData.username, () => {
+      this.router.navigate(['/participant/join'])
+    })
+
+    // Escuchar evento solo si el usuario existe
     this.authService.eventListener$.pipe(filter(Boolean)).subscribe((event) => {
       this.eventData = event
 
-      // 🚀 Si el organizador lanzó la siguiente etapa
       if (event.nextStageReady) {
         this.router.navigate(['/participant/event'])
       }
