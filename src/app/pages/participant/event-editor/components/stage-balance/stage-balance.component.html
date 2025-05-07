@@ -26,7 +26,7 @@
         <img
           [src]="option.image"
           [alt]="option.name"
-          class="w-full h-full object-contain bg-[#614505] rounded-lg"
+          class="w-full h-full object-contain bg-black/50 rounded-lg"
         />
       </div>
     </div>
@@ -62,3 +62,9 @@
     {{ feedbackMessage }}
   </div>
 </div>
+
+<app-modal-feedback
+  [isOpen]="winnerAlreadyNotified"
+  [feedbackHtml]="feedbackHtml"
+  (continue)="continue()"
+></app-modal-feedback>

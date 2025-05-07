@@ -7,10 +7,11 @@ import { AuthService } from '../../../../../core/services/auth.service'
 import { StorageService } from '../../../../../core/services/storage.service'
 import { StorageEnum } from '../../../../../core/models/emuns/storage.emun'
 import { Router } from '@angular/router'
+import { ModalFeedbackComponent } from '../stage-clinical-cases/components/modal-feedback/modal-feedback.component'
 
 @Component({
   selector: 'app-stage-balance',
-  imports: [CommonModule, DragDropModule],
+  imports: [CommonModule, DragDropModule, ModalFeedbackComponent],
   templateUrl: './stage-balance.component.html',
   styleUrls: ['./stage-balance.component.scss'],
 })
@@ -18,13 +19,13 @@ export class StageBalanceComponent {
   @Input() stageData!: StageData
 
   options = [
-    { name: 'Frutas', image: '/assets/images/frutas.png', type: 'fruta' },
-    { name: 'Verduras', image: '/assets/images/verduras.png', type: 'verdura' },
-    { name: 'Legumbres', image: '/assets/images/legumbres.png', type: 'legumbre' },
-    { name: 'Fermentados', image: '/assets/images/fermentados.png', type: 'fermentado' },
-    { name: 'Carnes', image: '/assets/images/carne.png', type: 'carne' },
-    { name: 'Pescados', image: '/assets/images/pescado.png', type: 'pescado' },
-    { name: 'Antidotus Universalis', image: '/assets/images/distractor.png', type: 'distractor' },
+    { name: 'Frutas', image: '/assets/images/frutas.jpg', type: 'fruta' },
+    { name: 'Vitaminas', image: '/assets/images/vitaminas.jpg', type: 'distractor' },
+    { name: 'Verduras', image: '/assets/images/verduras.jpg', type: 'verdura' },
+    { name: 'Antibioticos', image: '/assets/images/antibioticos.jpg', type: 'distractor' },
+    { name: 'Fermentados', image: '/assets/images/fermentados.jpg', type: 'legumbre' },
+    { name: 'Carnes', image: '/assets/images/carne.jpg', type: 'carne' },
+    { name: 'Probioticos', image: '/assets/images/probioticos.jpg', type: 'distractor' },
   ]
 
   droppedItems: { image: string; x: number; y: number; type: string }[] = []
@@ -32,6 +33,8 @@ export class StageBalanceComponent {
   feedbackMessage = ''
   winner: string | null = null
   winnerAlreadyNotified = false
+
+  feedbackHtml = ''
 
   constructor(
     private toast: ToastService,
@@ -51,17 +54,13 @@ export class StageBalanceComponent {
         this.winnerAlreadyNotified = true
 
         if (completed.name === currentUserName) {
-          this.toast.show('¡Has desbloqueado el cajón de los casos clínicos!', 'success')
+          this.feedbackHtml = `Habéis logrado el equilibrio… más la calma no ha de durar... (Fondo: papel medieval)
+                                Entre los pergaminos del curandero, una nueva revelación se deja leer:
+                                “Cuando el invasor regresa una y otra vez, no basta con limpiar… hay que restaurar.”`
         } else {
-          this.toast.show(
-            `${completed.name} ha desbloqueado el cajón de los casos clínicos`,
-            'success'
-          )
+          this.feedbackHtml = `${completed.name} ha desbloqueado el cajón de los casos clínicos`
         }
         await this.authService.finishStageForAll('2')
-        setTimeout(() => {
-          this.router.navigate(['/participant/stage-waiting'])
-        }, 2500)
         this.options = []
       }
     })
@@ -91,7 +90,7 @@ export class StageBalanceComponent {
 
   async validateBalance() {
     const typesPlaced = this.droppedItems.map((item) => item.type)
-    const requiredTypes = ['fruta', 'verdura', 'legumbre', 'fermentado', 'carne', 'pescado']
+    const requiredTypes = ['fruta', 'verdura', 'legumbre', 'carne']
     const isComplete = requiredTypes.every((type) => typesPlaced.includes(type))
 
     if (isComplete && !this.winner) {
@@ -111,4 +110,8 @@ export class StageBalanceComponent {
   }
 
   preventDrop(event: CdkDragDrop<any>) {}
+
+  continue() {
+    this.router.navigate(['/participant/stage-waiting'])
+  }
 }
