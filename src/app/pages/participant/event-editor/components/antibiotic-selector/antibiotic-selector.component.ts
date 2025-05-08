@@ -1,11 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { ToastService } from '../../../../../core/services/toast.service'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { Router } from '@angular/router'
+import { Subscription } from 'rxjs'
+import { StorageEnum } from '../../../../../core/models/emuns/storage.emun'
 import { AuthService } from '../../../../../core/services/auth.service'
 import { StorageService } from '../../../../../core/services/storage.service'
-import { Router } from '@angular/router'
-import { StorageEnum } from '../../../../../core/models/emuns/storage.emun'
-import { Subscription } from 'rxjs'
 import { ModalFeedbackComponent } from '../stage-clinical-cases/components/modal-feedback/modal-feedback.component'
 
 @Component({
@@ -29,7 +28,6 @@ export class AntibioticSelectorComponent {
   feedbackHtml: string = ''
 
   constructor(
-    private toast: ToastService,
     private authService: AuthService,
     private storageService: StorageService,
     private router: Router

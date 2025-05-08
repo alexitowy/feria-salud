@@ -1,14 +1,13 @@
-import { Component, Input } from '@angular/core'
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop'
 import { CommonModule } from '@angular/common'
-import { DragDropModule, CdkDragDrop } from '@angular/cdk/drag-drop'
-import { StageData } from '../../interfaces/stage.interface'
-import { ToastService } from '../../../../../core/services/toast.service'
+import { Component, Input } from '@angular/core'
+import { Router } from '@angular/router'
+import { Subscription } from 'rxjs'
+import { StorageEnum } from '../../../../../core/models/emuns/storage.emun'
 import { AuthService } from '../../../../../core/services/auth.service'
 import { StorageService } from '../../../../../core/services/storage.service'
-import { StorageEnum } from '../../../../../core/models/emuns/storage.emun'
-import { Router } from '@angular/router'
+import { StageData } from '../../interfaces/stage.interface'
 import { ModalFeedbackComponent } from '../stage-clinical-cases/components/modal-feedback/modal-feedback.component'
-import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-stage-balance',
@@ -39,7 +38,6 @@ export class StageBalanceComponent {
   private participantsSub!: Subscription
 
   constructor(
-    private toast: ToastService,
     private authService: AuthService,
     private storageService: StorageService,
     private router: Router
