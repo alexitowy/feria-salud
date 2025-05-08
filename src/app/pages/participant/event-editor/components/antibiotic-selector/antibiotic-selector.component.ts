@@ -6,11 +6,12 @@ import { StorageService } from '../../../../../core/services/storage.service'
 import { Router } from '@angular/router'
 import { StorageEnum } from '../../../../../core/models/emuns/storage.emun'
 import { Subscription } from 'rxjs'
+import { ModalFeedbackComponent } from '../stage-clinical-cases/components/modal-feedback/modal-feedback.component'
 
 @Component({
   selector: 'app-antibiotic-selector',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ModalFeedbackComponent],
   templateUrl: './antibiotic-selector.component.html',
   styleUrls: ['./antibiotic-selector.component.scss'],
 })
@@ -24,6 +25,8 @@ export class AntibioticSelectorComponent {
   winnerAlreadyNotified = false
 
   private participantsSub!: Subscription
+
+  feedbackHtml: string = ''
 
   constructor(
     private toast: ToastService,
@@ -44,17 +47,11 @@ export class AntibioticSelectorComponent {
           this.winnerAlreadyNotified = true
 
           if (completed.name === currentUserName) {
-            this.toast.show('¡Has desbloqueado el cajón de los casos clínicos!', 'success')
+            this.feedbackHtml = `<strong>¡¡Has desbloqueado el cajón de los casos clínicos!</strong><br>`
           } else {
-            this.toast.show(
-              `${completed.name} ha desbloqueado el cajón de los casos clínicos`,
-              'success'
-            )
+            this.feedbackHtml = `<strong>¡${completed.name} ha desbloqueado!</strong><br>`
           }
           await this.authService.finishStageForAll(this.currentStage.toString())
-          setTimeout(() => {
-            this.router.navigate(['/participant/stage-waiting'])
-          }, 2500)
         }
       }
     )
@@ -130,5 +127,9 @@ export class AntibioticSelectorComponent {
 
   ngOnDestroy(): void {
     this.participantsSub?.unsubscribe()
+  }
+
+  continue() {
+    this.router.navigate(['/participant/stage-waiting'])
   }
 }

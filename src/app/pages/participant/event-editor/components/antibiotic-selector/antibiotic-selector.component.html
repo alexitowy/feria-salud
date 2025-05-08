@@ -74,3 +74,8 @@
     }
   </div>
 }
+<app-modal-feedback
+  [isOpen]="winnerAlreadyNotified"
+  [feedbackHtml]="feedbackHtml"
+  (continue)="continue()"
+></app-modal-feedback>
