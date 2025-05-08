@@ -5,6 +5,7 @@ import { AuthService } from '../../../core/services/auth.service'
 import { StorageService } from '../../../core/services/storage.service'
 import { StorageEnum } from '../../../core/models/emuns/storage.emun'
 import { filter } from 'rxjs'
+import { UtilsService } from '../../../core/services/utils.service'
 
 @Component({
   selector: 'app-stage-waiting',
@@ -20,10 +21,12 @@ export class StageWaitingComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {
+    this.utilsService.clearToast()
     const userData = this.storageService.getData(StorageEnum.USER_DATA)
     if (!userData) {
       this.router.navigate(['/participant/join-event'])

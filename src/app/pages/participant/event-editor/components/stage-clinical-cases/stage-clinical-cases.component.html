@@ -80,10 +80,19 @@
     <div class="relative w-full max-w-md rounded-xl shadow-xl overflow-hidden">
       <button
         (click)="closeAwardModal()"
-        class="absolute top-3 right-3 text-[#2b1e0e] text-3xl leading-none hover:text-red-800 z-10"
+        class="absolute top-3 right-3 w-10 h-10 flex items-center justify-center rounded-full bg-white/50 shadow-lg z-50"
         aria-label="Cerrar"
       >
-        &times;
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-6 h-6 text-[#2b1e0e]"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="3"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
       </button>
 
       <div
