@@ -25,12 +25,7 @@
       <input type="radio" [value]="answer" name="answer" class="hidden" />
 
       <!-- Imagen -->
-      <img
-        [src]="answer.img"
-        alt="Opción"
-        class="w-full object-cover"
-        [ngClass]="{ 'h-[15rem]': answer.height !== false }"
-      />
+      <img [src]="answer.img" alt="Opción" class="w-ful object-contain" />
 
       <!-- Texto fijo abajo -->
       <!-- <div class="bg-yellow-200 text-center flex items-center justify-center px-2 py-1 h-full">
