@@ -29,8 +29,6 @@ export class ImageComponent {
   }
 
   setSelectedAnswer(answer: any): void {
-    console.log('answer', answer)
-
     this.question.answers.forEach((ans: any) => {
       if (ans.id === answer.id) {
         ans.selected = true
