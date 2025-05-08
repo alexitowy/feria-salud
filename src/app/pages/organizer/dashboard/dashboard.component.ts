@@ -75,7 +75,7 @@ export class DashboardComponent implements AfterViewInit {
     this.stageWinnerSub = this.authService.participantsListener$
       .pipe(filter(Boolean))
       .subscribe(async (participants: any[]) => {
-        const completed = participants.find((p) => p['8'] === true)
+        const completed = participants.find((p) => p['8'] === true && p['winner'] === true)
         const topScorer = participants.reduce((max, p) => {
           return (p.points || 0) > (max.points || 0) ? p : max
         }, participants[0])

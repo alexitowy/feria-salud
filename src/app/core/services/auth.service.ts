@@ -147,7 +147,7 @@ export class AuthService {
     })
   }
 
-  async finishStage(stage: string, newPoints?: number): Promise<void> {
+  async finishStage(stage: string, newPoints?: number, final = false): Promise<void> {
     const userData = this.storageService.getData(StorageEnum.USER_DATA)
     const username = userData?.username
 
@@ -178,6 +178,10 @@ export class AuthService {
       }
 
       updateData.currentStage = Number(stage) + 1
+
+      if (final) {
+        updateData.winner = true
+      }
 
       await updateDoc(participantRef, updateData)
     } catch (error) {

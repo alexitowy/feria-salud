@@ -40,7 +40,7 @@ export class StageFinalEnigmaComponent implements OnInit {
       async (participants: any[]) => {
         const userData = this.storageService.getData(StorageEnum.USER_DATA)
         const currentUserName = userData?.username
-        const completed = participants?.find((p) => p['8'] === true)
+        const completed = participants?.find((p) => p['8'] === true && p['winner'] === true)
 
         if (completed && !this.winnerAlreadyNotified) {
           if (completed.name === currentUserName) {
@@ -81,7 +81,7 @@ export class StageFinalEnigmaComponent implements OnInit {
         this.winner = playerName
 
         try {
-          await this.authService.finishStage('8', 10)
+          await this.authService.finishStage('8', 10, true)
         } catch (err) {
           console.error('Error al finalizar la etapa 3', err)
         }
