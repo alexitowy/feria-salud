@@ -38,9 +38,7 @@ export class StageClinicalCasesComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private utils: UtilsService
-  ) {
-    console.log(this.stageData)
-  }
+  ) {}
   ngOnInit(): void {
     this.currentQuestion = this.stageData.questions[0]
   }
