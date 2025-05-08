@@ -434,12 +434,6 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
         ],
       },
     },
-    viewResults: {
-      award: 'assets/images/scroll4.png',
-      title: 'Felicidades, has logrado identificar correctamente los secretos de cada elixir.',
-      description: 'La sabiduría os guía, y el pergamino revela su próximo misterio...',
-      buttonText: 'Continuar',
-    },
     dashboard: {},
   },
   7: {
