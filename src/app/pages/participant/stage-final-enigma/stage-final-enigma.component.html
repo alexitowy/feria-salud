@@ -15,6 +15,18 @@
   <!-- Mapa con coordenadas -->
   <div class="relative w-full">
     <img src="assets/images/map.jpg" class="w-full object-contain" />
+    <div
+      class="absolute top-0 left-[5%] right-[5%] flex justify-between px-4 text-[#3e2f1c] font-bold text-sm md:text-base z-40"
+    >
+      <span *ngFor="let col of cols">{{ col }}</span>
+    </div>
+
+    <div
+      class="absolute top-[5%] bottom-[5%] left-0 flex flex-col justify-between py-4 text-[#3e2f1c] font-bold text-sm md:text-base z-40"
+    >
+      <span *ngFor="let row of rows">{{ row }}</span>
+    </div>
+
     @for (cell of grid; track cell.coord) {
       <button
         class="absolute"
