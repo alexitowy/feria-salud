@@ -380,36 +380,36 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
         {
           name: 'Meropenem',
           correct: {
-            stability: 'Inestable, debe refrigerarse',
+            stability: 'Estable 30h según estudios recientes',
             note: 'Necesita reconstitución inmediata antes de usar',
-          },
-        },
-        {
-          name: 'Ertapenem',
-          correct: {
-            stability: 'Estable 24h',
-            note: 'No mezclar con bicarbonato',
           },
         },
         {
           name: 'Vancomicina',
           correct: {
             stability: 'Estable 24h',
-            note: 'No estable en perfusión continua',
+            note: 'Ojo al síndrome del hombre rojo',
           },
         },
         {
           name: 'Daptomicina',
           correct: {
             stability: 'Estable 12h',
-            note: 'Riesgo de miopatía, diluir bien',
+            note: 'Riesgo de miopatía si se asocia a estatinas',
           },
         },
         {
-          name: 'Amoxicilina clavulanico',
+          name: 'Amoxicilina/Clavulánico',
           correct: {
             stability: 'Estable 6-8 horas',
             note: 'Compatible con administración oral',
+          },
+        },
+        {
+          name: 'Ceftazidima/Avibactam',
+          correct: {
+            stability: 'Estable 24h a temperatura ambiente (últimos estudios)',
+            note: 'Ojo con diarreas por Clostridium difficile',
           },
         },
       ],
@@ -419,15 +419,18 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
           'Inestable, debe refrigerarse',
           'Estable 12h',
           'Estable 6-8 horas',
+          'Estable 30h según estudios recientes',
+          'Estable 24h a temperatura ambiente (últimos estudios)',
         ],
         note: [
           'Puede usarse en bolo lento',
           'Necesita reconstitución inmediata antes de usar',
-          'No mezclar con bicarbonato',
+          'Ojo con diarreas por Clostridium difficile',
           'No estable en perfusión continua',
-          'Riesgo de miopatía, diluir bien',
+          'Riesgo de miopatía si se asocia a estatinas',
           'Compatible con administración oral',
           'No mezclar con otros antibióticos',
+          'Ojo al síndrome del hombre rojo',
         ],
       },
     },
