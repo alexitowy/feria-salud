@@ -96,7 +96,7 @@ export class DashboardComponent implements AfterViewInit {
       8: {
         name: 'Final',
         dashboard: {
-          video: 'assets/videos/final.mov',
+          video: 'assets/video/final.mov',
         },
       },
     }
