@@ -1,26 +1,22 @@
 <div class="fixed inset-0 bg-black/80 flex items-center justify-center z-50" *ngIf="isOpen">
   <div
-    class="bg-[url('/assets/images/pergamino-textura.png')] bg-cover bg-center bg-no-repeat w-[95%] md:w-[80%] lg:w-[70%] xl:w-[60%] p-9 rounded-xl shadow-lg relative max-h-[90vh] overflow-y-auto"
+    class="bg-[url('/assets/images/pergamino.png')] bg-cover bg-center bg-no-repeat w-full h-screen md:h-[90vh] flex items-center justify-center relative"
   >
-    <!-- Imagen opcional -->
-    @if (imageUrl) {
-      <img
-        [src]="imageUrl"
-        alt="Feedback image"
-        class="max-h-60 mx-auto mb-4 rounded shadow-md object-contain"
-      />
-    }
+    <div class="flex flex-col items-center justify-center max-w-xl px-6 text-center">
+      <div
+        class="text-white text-base md:text-lg font-semibold leading-relaxed"
+        [ngStyle]="{
+          textShadow: '2px 2px 4px #000000',
+        }"
+        [innerHTML]="feedbackHtml"
+      ></div>
 
-    <div
-      class="bg-black/60 text-white text-sm md:text-base font-semibold leading-relaxed p-4 rounded-lg shadow-inner"
-      [innerHTML]="feedbackHtml"
-    ></div>
-
-    <button
-      (click)="emitContinue()"
-      class="mt-6 block mx-auto px-6 py-3 text-stone-100 font-bold rounded-lg shadow-md bg-[url('/assets/images/boton.png')] bg-cover bg-center hover:opacity-90"
-    >
-      Continuar
-    </button>
+      <button
+        (click)="emitContinue()"
+        class="mt-6 px-6 py-3 text-stone-100 font-bold rounded-lg shadow-md bg-[url('/assets/images/boton.png')] bg-cover bg-center hover:opacity-90"
+      >
+        Continuar
+      </button>
+    </div>
   </div>
 </div>
