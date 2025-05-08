@@ -3,95 +3,73 @@
 >
   <!-- Overlay -->
   <div class="inset-0 p-[16px]">
-    <!-- Content Container -->
-    <div
-      class="relative z-10 max-w-2xl mx-auto p-6 text-white"
-      [ngClass]="{ 'rounded-[25px] shadow-sm shadow-white': !(isEnd && stageData.viewResults) }"
-    >
-      @if (!isEnd) {
-        @if (currentQuestion) {
-          @switch (currentQuestion.type) {
-            @case ('multiple-select') {
-              <app-multiple-choice
-                [question]="currentQuestion"
-                (timeUp$)="timeUp()"
-                (correctSelected$)="nextQuestion($event)"
-              ></app-multiple-choice>
-            }
-            @case ('single-select') {
-              <app-single-selection
-                [question]="currentQuestion"
-                (timeUp$)="timeUp()"
-                (correctSelected$)="nextQuestion($event)"
-              ></app-single-selection>
-            }
-            @case ('text') {
-              <app-text
-                [question]="currentQuestion"
-                (timeUp$)="timeUp()"
-                (correctSelected$)="nextQuestion($event)"
-              ></app-text>
-            }
-            @case ('image') {
-              <app-image
-                [question]="currentQuestion"
-                (timeUp$)="timeUp()"
-                (selected$)="nextQuestion($event)"
-              ></app-image>
-            }
-            @default {
-              <p class="text-lg font-bold text-center">Tipo de pregunta no soportado</p>
-            }
-          }
-        } @else {
-          <div class="w-full flex items-center justify-center z-40">
-            <div class="text-white text-lg font-semibold px-6 py-3 rounded-xl shadow-md">
-              Cargando...
-            </div>
-          </div>
-        }
-      } @else if (isEnd && stageData.viewResults) {
-        <app-modal-feedback
-          [isOpen]="true"
-          [feedbackHtml]="stageData.viewResults.description"
-          (continue)="submit()"
-          [title]="stageData.viewResults.title"
-        ></app-modal-feedback>
-      } @else {
-        <p class="text-lg font-bold text-center">¡Has completado todas las preguntas!</p>
-        <p class="text-lg font-bold text-center">¡Felicidades!</p>
-        <button
-          class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 block mx-auto"
-          (click)="submit()"
-        >
-          Terminar
-        </button>
-      }
-      <!-- Check Button -->
-    </div>
-  </div>
-</div>
-<!-- Modal de premio -->
-@if (showAwardModal) {
-  <div class="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
-    <div class="relative w-full max-w-md rounded-xl shadow-xl overflow-hidden">
-      <button
-        (click)="closeAwardModal()"
-        class="absolute top-3 right-3 text-[#2b1e0e] text-3xl leading-none hover:text-red-800 z-10"
-        aria-label="Cerrar"
-      >
-        &times;
-      </button>
+    <!-- Content Container con overlay -->
+    <div class="relative z-10 max-w-2xl mx-auto text-white rounded-[25px] overflow-hidden">
+      <!-- Capa de fondo oscura (overlay solo en el contenido) -->
+      <div class="absolute inset-0 bg-black/50 z-0 pointer-events-none"></div>
 
-      <div
-        class="bg-[url('/assets/images/pergamino-textura.png')] bg-cover bg-center bg-no-repeat rounded-xl p-2 shadow-inner"
-      >
-        <img
-          [src]="stageData.viewResults.award"
-          alt="Premio"
-          class="w-full h-auto object-contain max-h-[80vh] mx-auto"
-        />
+      <!-- Contenido encima del overlay -->
+      <div class="relative z-10 p-6">
+        @if (!isEnd) {
+          @if (currentQuestion) {
+            @switch (currentQuestion.type) {
+              @case ('multiple-select') {
+                <app-multiple-choice
+                  [question]="currentQuestion"
+                  (timeUp$)="timeUp()"
+                  (correctSelected$)="nextQuestion($event)"
+                ></app-multiple-choice>
+              }
+              @case ('single-select') {
+                <app-single-selection
+                  [question]="currentQuestion"
+                  (timeUp$)="timeUp()"
+                  (correctSelected$)="nextQuestion($event)"
+                ></app-single-selection>
+              }
+              @case ('text') {
+                <app-text
+                  [question]="currentQuestion"
+                  (timeUp$)="timeUp()"
+                  (correctSelected$)="nextQuestion($event)"
+                ></app-text>
+              }
+              @case ('image') {
+                <app-image
+                  [question]="currentQuestion"
+                  (timeUp$)="timeUp()"
+                  (selected$)="nextQuestion($event)"
+                ></app-image>
+              }
+              @default {
+                <p class="text-lg font-bold text-center">Tipo de pregunta no soportado</p>
+              }
+            }
+          } @else {
+            <div class="w-full flex items-center justify-center z-40">
+              <div class="text-white text-lg font-semibold px-6 py-3 rounded-xl shadow-md">
+                Cargando...
+              </div>
+            </div>
+          }
+        } @else if (isEnd && stageData.viewResults) {
+          <app-modal-feedback
+            [isOpen]="true"
+            [feedbackHtml]="stageData.viewResults.description"
+            [title]="stageData.viewResults.title"
+            (continue)="submit()"
+          ></app-modal-feedback>
+        } @else {
+          <p class="text-lg font-bold text-center">¡Has completado todas las preguntas!</p>
+          <p class="text-lg font-bold text-center">¡Felicidades!</p>
+          <button
+            class="mt-6 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 block mx-auto"
+            (click)="submit()"
+          >
+            Terminar
+          </button>
+        }
       </div>
     </div>
   </div>
-}
+</div>
