@@ -33,7 +33,7 @@ export class TextComponent {
       this.utilsService.showToast('Debes escribir una respuesta', 'danger')
       return
     }
-    if (this.response.toLowerCase() === this.question.answers[0].text.toLowerCase()) {
+    if (this.response.toLowerCase().trim() === this.question.answers[0].text.toLowerCase()) {
       if (this.timer) {
         this.countDownComponent.stop()
       }
