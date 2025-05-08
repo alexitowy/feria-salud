@@ -1,4 +1,5 @@
 export interface StageData {
+  name: string
   background?: string
   image?: string
   description?: string

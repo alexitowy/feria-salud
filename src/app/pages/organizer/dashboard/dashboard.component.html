@@ -125,7 +125,7 @@
                 (click)="toggleAccordion(stageKey)"
                 class="w-full text-left p-4 font-bold text-lg bg-yellow-200 hover:bg-yellow-300 transition flex justify-between items-center"
               >
-                <span>Etapa {{ stageKey }}</span>
+                <span>{{ stagesData[stageKey].name }}</span>
                 <svg
                   [ngClass]="{ 'rotate-180': isAccordionOpen(stageKey) }"
                   class="w-5 h-5 transform transition-transform"
@@ -268,5 +268,34 @@
         Sí, reiniciar
       </button>
     </div>
+  </div>
+</div>
+<!-- Modal de Ganador -->
+<div
+  class="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+  *ngIf="showWinnerModal"
+>
+  <div
+    class="bg-[#f5e7c1] text-[#4b3b1f] rounded-2xl shadow-xl max-w-lg w-[90%] p-6 text-center font-medieval border border-[#b89f76]"
+  >
+    <h2 class="text-3xl md:text-4xl font-bold mb-4">🏆 ¡Victoria lograda!</h2>
+    <p class="text-lg mb-6 leading-relaxed">
+      El sabio <strong>{{ winnerPlayer?.name }}</strong> ha obtenido la mayor cantidad de puntos.<br />
+      <strong>{{ winnerPlayer?.points || 0 }}</strong> puntos.
+    </p>
+
+    <img
+      *ngIf="winnerPlayer?.avatar"
+      [src]="winnerPlayer.avatar"
+      alt="Avatar del ganador"
+      class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-yellow-800 shadow-md bg-stone-300"
+    />
+
+    <button
+      class="mt-4 bg-green-800 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg"
+      (click)="closeWinnerModal()"
+    >
+      Cerrar
+    </button>
   </div>
 </div>

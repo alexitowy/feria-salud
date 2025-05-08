@@ -40,14 +40,18 @@ export class DashboardComponent implements AfterViewInit {
   loadingNextStage = false
   showRestartModal = false
 
-  stagesData = StagesData
+  stagesData = structuredClone(StagesData)
 
   openStageKey: number | null = null
 
   currentSlide: Record<number, number> = {}
 
+  showWinnerModal = false
+  winnerPlayer: any = null
+
   private participantsSub!: Subscription
   private eventSub!: Subscription
+  private stageWinnerSub!: Subscription
 
   constructor(
     private storageService: StorageService,
@@ -68,8 +72,33 @@ export class DashboardComponent implements AfterViewInit {
         this.participants = participants.sort((a, b) => (b.points || 0) - (a.points || 0))
       })
 
+    this.stageWinnerSub = this.authService.participantsListener$
+      .pipe(filter(Boolean))
+      .subscribe(async (participants: any[]) => {
+        const completed = participants.find((p) => p['8'] === true)
+        const topScorer = participants.reduce((max, p) => {
+          return (p.points || 0) > (max.points || 0) ? p : max
+        }, participants[0])
+        if (completed && !this.winnerPlayer) {
+          this.showWinnerModal = true
+          this.winnerPlayer = {
+            name: topScorer.name,
+            points: topScorer.points,
+          }
+        }
+      })
+
     this.authService.getEvent()
     this.authService.getParticipants()
+    this.stagesData = {
+      ...this.stagesData,
+      8: {
+        name: 'Final',
+        dashboard: {
+          video: 'assets/videos/final.mov',
+        },
+      },
+    }
   }
 
   ngAfterViewInit() {
@@ -151,5 +180,10 @@ export class DashboardComponent implements AfterViewInit {
   ngOnDestroy(): void {
     this.participantsSub?.unsubscribe()
     this.eventSub?.unsubscribe()
+    this.stageWinnerSub?.unsubscribe()
+  }
+
+  closeWinnerModal() {
+    this.showWinnerModal = false
   }
 }

@@ -2,6 +2,7 @@ import { StageData } from '../interfaces/stage.interface'
 
 export const StagesData: Record<number, StageData> = {
   1: {
+    name: ' El enigma del cofre',
     background: 'assets/images/fondo_enigma.png',
     image: 'assets/images/cofre.png',
     description: `
@@ -25,6 +26,7 @@ export const StagesData: Record<number, StageData> = {
     },
   },
   2: {
+    name: ' El enigma del equilibrio',
     background: 'assets/images/fondo_enigma.png',
     image: 'assets/images/balanza.png',
     description: `
@@ -40,6 +42,7 @@ export const StagesData: Record<number, StageData> = {
     dashboard: {},
   },
   3: {
+    name: 'Preguntas enigma equilibrio',
     background: 'assets/images/fondo_enigma.png',
     image: 'assets/images/casos.png',
     questions: [
@@ -80,9 +83,12 @@ export const StagesData: Record<number, StageData> = {
         'El curandero os ha dejado esta pista (mapa antiguo) ... Guardadlo bien. Lo necesitaréis pronto.',
       buttonText: 'Obtener pista',
     },
-    dashboard: {},
+    dashboard: {
+      audio: 'assets/audio/3.mp3',
+    },
   },
   4: {
+    name: ' El enigma del pie maldito',
     background: 'assets/images/fondo_enigma.png',
     description:
       'Ni ungüento ni bisturí servirán si el enemigo no es bien nombrado. Señaladme, médicos del porvenir',
@@ -123,6 +129,7 @@ export const StagesData: Record<number, StageData> = {
     dashboard: {},
   },
   5: {
+    name: ' Preguntas pie maldito',
     background: 'assets/images/fondo_enigma.png',
     questions: [
       {
@@ -366,6 +373,7 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
     },
   },
   6: {
+    name: ' El enigma de los elixires',
     background: 'assets/images/fondo_enigma.png',
     description: 'Junto a cada uno, tres casillas vacías que exigen ser llenadas con sabiduría.',
     antibioticChallenge: {
@@ -434,9 +442,12 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
         ],
       },
     },
-    dashboard: {},
+    dashboard: {
+      audio: 'assets/audio/6.mp3',
+    },
   },
   7: {
+    name: 'Preguntas de los elixires',
     questions: [
       {
         type: 'image',
