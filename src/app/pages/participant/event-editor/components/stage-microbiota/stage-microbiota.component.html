@@ -1,11 +1,7 @@
-<div class="relative w-full h-full mx-auto">
-  <!-- Imagen de fondo -->
-  <img
-    [src]="stageData?.background"
-    alt="Imagen de fondo"
-    class="w-full h-auto rounded-lg shadow-lg z-10"
-  />
-
+<div
+  class="relative w-full h-full min-h-screen bg-cover bg-center bg-no-repeat mx-auto"
+  [ngStyle]="{ 'background-image': 'url(' + stageData?.background + ')' }"
+>
   <!-- Imagen superpuesta encima -->
   <img
     [src]="stageData?.image"
@@ -78,7 +74,7 @@
             {{ msg }}
           </p>
           <button
-            class="mt-6 w-full py-4 bg-[url('/assets/images/boton.png')] bg-cover text-stone-100"
+            class="mt-6 px-6 py-3 text-stone-100 font-bold rounded-lg shadow-md bg-[url('/assets/images/boton.png')] bg-cover bg-center hover:opacity-90"
             (click)="close()"
           >
             Continuar

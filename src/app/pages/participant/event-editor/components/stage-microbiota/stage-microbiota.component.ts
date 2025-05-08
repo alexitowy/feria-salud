@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common'
+import { CommonModule, NgIf } from '@angular/common'
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { Router } from '@angular/router'
@@ -9,7 +9,7 @@ import { CountDownComponent } from '../../../../../shared/count-down/count-down.
 @Component({
   selector: 'app-stage-microbiota',
   standalone: true,
-  imports: [NgIf, FormsModule, CountDownComponent],
+  imports: [NgIf, FormsModule, CountDownComponent, CommonModule],
   templateUrl: './stage-microbiota.component.html',
   styleUrls: ['./stage-microbiota.component.scss'],
 })
