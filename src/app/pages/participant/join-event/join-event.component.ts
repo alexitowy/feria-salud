@@ -27,6 +27,9 @@ export class JoinEventComponent implements OnInit {
     eventCode: new FormControl(null, Validators.required),
   })
 
+  avatars = Array.from({ length: 9 }, (_, i) => `assets/images/avatars_${i + 1}.png`)
+  selectedAvatar: string | null = null
+  showAvatars = false
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
@@ -71,7 +74,8 @@ export class JoinEventComponent implements OnInit {
         username: name,
         organizer: false,
         currentStage: 1,
-        avatar: `assets/images/avatars_${Math.floor(Math.random() * 9) + 1}.png`,
+        avatar:
+          this.selectedAvatar || `assets/images/avatars_${Math.floor(Math.random() * 9) + 1}.png`,
       }
       await this.authService.saveUser(userData)
       this.storageService.setData(StorageEnum.USER_DATA, userData)
@@ -79,5 +83,14 @@ export class JoinEventComponent implements OnInit {
     } else {
       this.form.markAllAsTouched()
     }
+  }
+
+  selectAvatar(avatar: string) {
+    this.selectedAvatar = avatar
+    this.showAvatars = !this.showAvatars
+  }
+
+  toggleAvatarDropdown() {
+    this.showAvatars = !this.showAvatars
   }
 }

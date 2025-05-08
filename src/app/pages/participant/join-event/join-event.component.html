@@ -40,6 +40,47 @@
         </div>
       </div>
 
+      <div class="mb-4 relative">
+        <!-- Texto tipo botón con flechita -->
+        <label
+          class="block text-white font-bold mb-2 cursor-pointer select-none"
+          (click)="toggleAvatarDropdown()"
+        >
+          Selecciona tu avatar
+          <span
+            class="inline-block transform transition-transform duration-200"
+            [class.rotate-180]="showAvatars"
+          >
+            ⌄
+          </span>
+        </label>
+
+        <!-- Imagen seleccionada -->
+        <div *ngIf="selectedAvatar" class="mb-2 flex justify-center">
+          <img
+            [src]="selectedAvatar"
+            alt="Avatar seleccionado"
+            class="w-20 h-20 rounded-full border-4 border-yellow-400"
+          />
+        </div>
+
+        <!-- Dropdown de avatares -->
+        <div
+          *ngIf="showAvatars"
+          class="absolute p-4 rounded-md shadow-lg w-full z-10 bg-[url('/assets/images/pergamino-textura.png')] bg-cover bg-center"
+        >
+          <div class="grid grid-cols-3 gap-4 justify-items-center">
+            <img
+              *ngFor="let avatar of avatars"
+              [src]="avatar"
+              (click)="selectAvatar(avatar)"
+              [class.border-yellow-400]="selectedAvatar === avatar"
+              class="w-16 h-16 rounded-full cursor-pointer border-4 border-transparent hover:border-yellow-400"
+            />
+          </div>
+        </div>
+      </div>
+
       <button
         type="submit"
         class="mt-6 w-full py-4 shadow-sm shadow-white bg-[url('/assets/images/boton.png')] bg-cover text-stone-100 block mx-auto rounded-md"
