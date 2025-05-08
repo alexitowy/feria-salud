@@ -54,7 +54,7 @@
           }
         } @else if (isEnd && stageData.viewResults) {
           <app-modal-feedback
-            [isOpen]="true"
+            [isOpen]="isEnd && stageData.viewResults"
             [feedbackHtml]="stageData.viewResults.description"
             [title]="stageData.viewResults.title"
             (continue)="submit()"
@@ -73,3 +73,27 @@
     </div>
   </div>
 </div>
+
+@if (showAwardModal) {
+  <div class="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+    <div class="relative w-full max-w-md rounded-xl shadow-xl overflow-hidden">
+      <button
+        (click)="closeAwardModal()"
+        class="absolute top-3 right-3 text-[#2b1e0e] text-3xl leading-none hover:text-red-800 z-10"
+        aria-label="Cerrar"
+      >
+        &times;
+      </button>
+
+      <div
+        class="bg-[url('/assets/images/pergamino-textura.png')] bg-cover bg-center bg-no-repeat rounded-xl p-2 shadow-inner"
+      >
+        <img
+          [src]="stageData.viewResults.award"
+          alt="Premio"
+          class="w-full h-auto object-contain max-h-[80vh] mx-auto"
+        />
+      </div>
+    </div>
+  </div>
+}

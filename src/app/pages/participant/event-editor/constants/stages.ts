@@ -437,48 +437,40 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
     dashboard: {},
   },
   7: {
-    description:
-      '¡No todos los elixires valen para esta peste! Los nuevos brebajes de los alquimistas no le afectan... ¿Cuál de estas elecciones sanará sin errar?',
     questions: [
       {
-        type: 'single-select',
+        type: 'image',
         description:
-          '¡No todos los elixires valen para esta peste! Los nuevos brebajes de los alquimistas no le afectan... ¿Cuál de estas elecciones sanará sin errar?',
-        question:
-          '1- Elige con sabiduría cuál sería el tratamiento más certero para una infección grave causada por Pseudomonas aeruginosa productora de VIM',
+          'Dicen que este elixir —ceftazidima-avibactam— ha vencido otras pestes (KPC y OXA-48) …',
+        question: '1- ¿Será suficiente contra la oscuridad de las metalobetalactamasas (NDM/VIM)?',
         answers: [
           {
             id: 1,
-            text: 'Meropenem-vaborbactam o ceftazidima-avibactam, que destruyen todo β-lactámico enemigo.',
-            correct: false,
+            img: 'assets/images/no.jpg',
+            label: 'No',
+            correct: true,
+            height: false,
           },
           {
             id: 2,
-            text: 'Colistina o amikacina, pues pocos elixires resisten a tan vil criatura.',
-            correct: true,
-          },
-          {
-            id: 3,
-            text: 'Imipenem-relebactam, que es fuerte contra toda metalo-magia.',
+            img: 'assets/images/si.jpg',
+            label: 'Si',
             correct: false,
-          },
-          {
-            id: 4,
-            text: 'Linezolid, extraído de las montañas contra males pulmonares.',
-            correct: false,
+            height: false,
           },
         ],
         points: 30,
         timeLeft: 120,
-        feedback:
-          'Contra las metalo-bestias como VIM, solo los antiguos venenos —como colistina o la lanza de amikacina— muestran eficacia. Los nuevos compuestos, si bien potentes, nada pueden hacer ante su armadura invisible.',
+        feedback: `El elixir no bastó… y pronto notasteis algo más:<br>
+                    <strong>piernas hinchadas, orina escasa, espuma en la vasija.</strong><br>
+                    Los riñones del joven estaban rendidos.<br><br>
+                    El aprendiz del curandero ofrece su ayuda...`,
       },
       {
         type: 'single-select',
-        desciption:
-          'Existe un viejo polvo, la colistina, que puede tornarse en vapores y ser llevado directo a sus pulmones. No os asustéis por su fama: si va por el aire, no daña los riñones… ¿Acaso me equivoco?',
-        question:
-          '2- ¿Es seguro administrar colistina por la vía de los vapores (nebulización) en un paciente de riñones cansados?',
+        description:
+          'Existe un viejo polvo, la colistina, que puede tornarse en vapores y ser llevado directo a sus pulmones. No os asustéis por su fama: si va por el aire, no daña los riñones…',
+        question: '2- ¿Acaso me equivoco?',
         answers: [
           {
             id: 1,
@@ -493,54 +485,65 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
         ],
         points: 30,
         timeLeft: 120,
+        feedback: `El joven respiraba mejor, y la colistina no tocó sus riñones.<br>
+                  Pero la batalla no ha terminado. El sanador del castillo os advierte:<br>
+                  “Si queréis mantener el brebaje constante en la sangre… debéis dar el primer golpe con fuerza.”<br>
+                  “Los elixires de infusión continua no surten efecto sin una dosis inicial.”`,
       },
       {
         type: 'single-select',
-        description:
-          'El joven mejora tras varios días de tratamiento con los vapores del aprendiz del curandero. Respira mejor, tose menos… pero los mocos verdes y asquerosos persisten. Una anciana que ha viajado desde las Tierras del Norte ofrece una solución más poderosa: dos pociones raras —ceftazidima-avibactam y cefiderocol— que, dice, pueden infundirse directo a la sangre una vez al día, justo al amanecer. —Así lo hacen en los valles del norte —explica—, y les dura toda la jornada.',
-        question: '3- ¿Crees que será efectivo durante todo el día con una sola dosis diaria?',
+        question:
+          '3- Para que los betalactámicos o vancomicina actúen desde el inicio en una infusión continua, es necesario…',
         answers: [
           {
             id: 1,
-            text: 'Sí, porque ha visto en otros campesinos del valle que, poniéndoselo al amanecer o al anochecer, se curan con una sola dosis al día.',
-            correct: true,
+            text: '…administrarlo lentamente sin pausa.',
+            correct: false,
           },
           {
             id: 2,
-            text: 'No, porque necesitan que se les ponga más de una vez al día.',
+            text: '…iniciar con una dosis de carga en bolo.',
+            correct: true,
+          },
+          {
+            id: 3,
+            text: '…mezclarlo con otra pócima antibiótica.',
+            correct: false,
+          },
+          {
+            id: 4,
+            text: '…mantenerlo frío durante toda la infusión.',
             correct: false,
           },
         ],
         points: 30,
         timeLeft: 120,
+        feedback: `El infusor cuelga del costado del peregrino. La pócima fluye sin descanso.<br>
+                    Pero el anciano sanador frunce el ceño y os mira con gravedad:<br>
+                    “Un solo descuido... y el elixir puede perder su fuerza.”<br>
+                    “¿Habéis enseñado al paciente cómo cuidar su frasco de vida?”`,
       },
       {
-        type: 'single-select',
-        description:
-          'La anciana asiente. Pero hay un problema: solo puede volver cada cuatro días lunares. Tiene demasiados enfermos que visitar en las tierras lejanas. —Puedo enseñar a un familiar a preparar y administrar el remedio —dice—. Pero ¿será eso seguro?',
+        type: 'text',
         question:
-          '4- ¿Podrá un familiar o vecino aprender a administrar la cura una vez al día durante cuatro días?',
+          '4- ¿Es importante la educación sanitaria para mantener estable un antimicrobiano en bomba o infusor?',
         answers: [
           {
             id: 1,
-            text: 'Sí, porque lo ha visto en otros enfermos. No hay más problemas que si lo hiciera el curandero cada día.',
+            text: 'si',
             correct: true,
-          },
-          {
-            id: 2,
-            text: 'No, solo lo puede hacer el curandero o sus aprendices.',
-            correct: false,
           },
         ],
         points: 30,
         timeLeft: 120,
+        feedback: `El infusor fluye sin falla, pero no siempre será un sanador quien lo administre.<br><br>
+                    Un joven cuidador pregunta:<br>
+                    “¿Y si lo hacemos nosotros? ¿No basta con tener cuidado?”`,
       },
       {
         type: 'single-select',
-        description:
-          'El paciente, tumbado bajo la sombra de un olivo, con el infusor atado a su brazo, preguntó con voz débil: —¿Y si no lo hace el hechicero? ¿Y si lo hace ella sola, como le habéis enseñado… me puede hacer daño? Uno de los sanitarios, que había leído las escrituras del gremio del siglo XXI (conocido como IDSA), sonrió. —A veces, en otros reinos, incluso los cuidadores han sido instruidos para hacerlo. Y los resultados… han sido buenos.',
         question:
-          '5- ¿Está relacionada la autoadministración por parte del paciente o sus cuidadores con más complicaciones o reingresos?',
+          '5- ¿Existe alguna diferencia en cuanto a complicaciones o reingresos si la administración se realiza por paciente/familiares versus personal sanitario?',
         answers: [
           {
             id: 1,
@@ -555,29 +558,16 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
         ],
         points: 30,
         timeLeft: 120,
-      },
-      {
-        type: 'text',
-        description:
-          'Los días pasaron y el joven campesino mejoraba. La fiebre cedía, los mocos verdes se iban volviendo menos asquerosos y su aliento volvía con más fuerza al pecho. La anciana del norte partió, y fue una mujer del pueblo quien quedó a cargo del tratamiento. Antes de marcharse, la anciana dejó un manuscrito con advertencias y recomendaciones para conservar las pócimas en buenas condiciones, pues dijo: —Estos nuevos remedios son poderosos, pero su fuerza puede disiparse si no se guardan bien. No todos los conjuros duran lo mismo, y hay quienes olvidan que el calor, el frío o la luz pueden descomponer su esencia.',
-        question:
-          '6- ¿La educación sanitaria es importante para garantizar la estabilidad de un antimicrobiano que se administre en una bomba o infusor?',
-        answers: [
-          {
-            id: 1,
-            text: 'si',
-            correct: true,
-          },
-        ],
-        points: 30,
-        timeLeft: 120,
+        feedback: `El campesino mejoraba.<br>
+                  La fiebre cedía, los mocos perdían su hedor, y el aliento volvía.<br>
+                  Pero un sanador, curioso, hojeó los textos...<br>
+                  En los márgenes halló una advertencia:<br>
+                  “Hasta el mejor elixir puede fallar… si el mal no se arranca de raíz.”`,
       },
       {
         type: 'single-select',
-        description:
-          'Uno de los sanitarios, inquieto, revisó las fórmulas. En los márgenes de los textos, escritos con letra apurada,\n encontró una advertencia:\n “Los nuevos elixires combaten a los bacilos oscuros… pero hasta el mejor de ellos puede fallar si no se arranca el mal de raíz.”',
         question:
-          '7- ¿Cuál de estas afirmaciones es cierta según los códices actuales en la lucha contra bacilos gramnegativos multirresistentes?',
+          '6- ¿Cuál de estas afirmaciones es cierta según los códices actuales en la lucha contra bacilos gramnegativos multirresistentes?',
         answers: [
           {
             id: 1,
@@ -602,14 +592,14 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
         ],
         points: 30,
         timeLeft: 120,
-        feedback:
-          'Sabía fue vuestra elección. Los elixires son poderosos, sí… pero sin limpiar el foco, la peste siempre vuelve. Y hasta el mejor conjuro ya ha sido burlado por las sombras.',
       },
     ],
     viewResults: {
-      award: 'assets/images/4.png',
-      title: 'Felicidades, has completado la etapa 3',
-      description: '',
+      award: 'assets/images/3.png',
+      title: 'Sabía fue vuestra elección',
+      description: `Los elixires son poderosos, sí… pero sin limpiar el foco, la peste siempre vuelve.
+                    Y hasta el mejor conjuro ya ha sido burlado por las sombras.”<br>
+                    <strong>“El camino continúa. Es hora de unir las pistas… y hallar al curandero.”</strong>`,
       buttonText: 'Obtener pista',
     },
     dashboard: {},
