@@ -3,7 +3,7 @@ import { StageData } from '../interfaces/stage.interface'
 export const StagesData: Record<number, StageData> = {
   1: {
     name: ' El enigma del cofre',
-    background: 'assets/images/fondo_enigma.png',
+    background: 'assets/images/fondo_enigma.webp',
     image: 'assets/images/cofre.png',
     description: `
         Vuestra misión es clara: abrid el cofre, desentrañad el enigma que guarda en su interior y continuad
@@ -27,7 +27,7 @@ export const StagesData: Record<number, StageData> = {
   },
   2: {
     name: ' El enigma del equilibrio',
-    background: 'assets/images/fondo_enigma.png',
+    background: 'assets/images/fondo_enigma.webp',
     image: 'assets/images/balanza.png',
     description: `
         Dentro del cofre encontráis una vieja balanza y varios objetos dispersos. Una nota reza:
@@ -43,7 +43,7 @@ export const StagesData: Record<number, StageData> = {
   },
   3: {
     name: 'Preguntas enigma equilibrio',
-    background: 'assets/images/fondo_enigma.png',
+    background: 'assets/images/fondo_enigma.webp',
     image: 'assets/images/casos.png',
     questions: [
       {
@@ -89,7 +89,7 @@ export const StagesData: Record<number, StageData> = {
   },
   4: {
     name: ' El enigma del pie maldito',
-    background: 'assets/images/fondo_enigma.png',
+    background: 'assets/images/fondo_enigma.webp',
     description:
       'Ni ungüento ni bisturí servirán si el enemigo no es bien nombrado. Señaladme, médicos del porvenir',
     questions: [
@@ -130,7 +130,7 @@ export const StagesData: Record<number, StageData> = {
   },
   5: {
     name: ' Preguntas pie maldito',
-    background: 'assets/images/fondo_enigma.png',
+    background: 'assets/images/fondo_enigma.webp',
     questions: [
       {
         type: 'multiple-select',
@@ -359,7 +359,7 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
       },
     ],
     viewResults: {
-      award: 'assets/images/D.png',
+      award: 'assets/images/D.webp',
       title: 'Habéis obrado con sabiduría.',
       description: `El germen ha sido vencido, y el peregrino comienza a sanar.<br>
                     Con voz débil, os llama:<br>
@@ -374,7 +374,7 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
   },
   6: {
     name: ' El enigma de los elixires',
-    background: 'assets/images/fondo_enigma.png',
+    background: 'assets/images/fondo_enigma.webp',
     description: 'Junto a cada uno, tres casillas vacías que exigen ser llenadas con sabiduría.',
     antibioticChallenge: {
       antibiotics: [
@@ -606,7 +606,7 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
       },
     ],
     viewResults: {
-      award: 'assets/images/3.png',
+      award: 'assets/images/3.webp',
       title: 'Sabía fue vuestra elección',
       description: `Los elixires son poderosos, sí… pero sin limpiar el foco, la peste siempre vuelve.
                     Y hasta el mejor conjuro ya ha sido burlado por las sombras.”<br>
