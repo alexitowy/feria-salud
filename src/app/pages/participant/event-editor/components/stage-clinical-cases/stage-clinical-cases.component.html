@@ -51,22 +51,12 @@
           </div>
         }
       } @else if (isEnd && stageData.viewResults) {
-        <div
-          class="bg-[url('/assets/images/pergamino-textura.png')] bg-cover bg-center bg-no-repeat rounded-xl p-6 shadow-inner border border-[#2b1e0e]/80"
-        >
-          <p class="text-lg font-bold text-center text-black font-medieval drop-shadow-sm">
-            {{ stageData.viewResults.title }}
-          </p>
-          <div class="text-base md:text-lg text-center text-black mt-2 leading-relaxed">
-            <p [innerHTML]="stageData.viewResults.description"></p>
-          </div>
-          <button
-            class="mt-6 px-6 py-2 text-white rounded-md block mx-auto bg-[url('/assets/images/boton.png')] bg-cover bg-center bg-no-repeat hover:opacity-90 transition"
-            (click)="submit()"
-          >
-            {{ stageData.viewResults.buttonText }}
-          </button>
-        </div>
+        <app-modal-feedback
+          [isOpen]="true"
+          [feedbackHtml]="stageData.viewResults.description"
+          (continue)="submit()"
+          [title]="stageData.viewResults.title"
+        ></app-modal-feedback>
       } @else {
         <p class="text-lg font-bold text-center">¡Has completado todas las preguntas!</p>
         <p class="text-lg font-bold text-center">¡Felicidades!</p>

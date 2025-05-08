@@ -8,6 +8,7 @@ import { AuthService } from '../../../../../core/services/auth.service'
 import { Router } from '@angular/router'
 import { UtilsService } from '../../../../../core/services/utils.service'
 import { CommonModule } from '@angular/common'
+import { ModalFeedbackComponent } from './components/modal-feedback/modal-feedback.component'
 
 @Component({
   selector: 'app-stage-clinical-cases',
@@ -17,6 +18,7 @@ import { CommonModule } from '@angular/common'
     TextComponent,
     ImageComponent,
     CommonModule,
+    ModalFeedbackComponent,
   ],
   templateUrl: './stage-clinical-cases.component.html',
   styleUrl: './stage-clinical-cases.component.scss',
