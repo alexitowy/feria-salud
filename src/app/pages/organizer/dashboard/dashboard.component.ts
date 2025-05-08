@@ -84,6 +84,7 @@ export class DashboardComponent implements AfterViewInit {
           this.winnerPlayer = {
             name: topScorer.name,
             points: topScorer.points,
+            avatar: topScorer.avatar,
           }
         }
       })

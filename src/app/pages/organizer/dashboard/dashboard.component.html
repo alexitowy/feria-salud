@@ -276,7 +276,7 @@
   *ngIf="showWinnerModal"
 >
   <div
-    class="bg-[#f5e7c1] text-[#4b3b1f] rounded-2xl shadow-xl max-w-lg w-[90%] p-6 text-center font-medieval border border-[#b89f76]"
+    class="bg-[#f5e7c1] text-[#4b3b1f] rounded-2xl shadow-xl max-w-lg w-[90%] p-6 text-center border border-[#b89f76]"
   >
     <h2 class="text-3xl md:text-4xl font-bold mb-4">🏆 ¡Victoria lograda!</h2>
     <p class="text-lg mb-6 leading-relaxed">
@@ -288,7 +288,7 @@
       *ngIf="winnerPlayer?.avatar"
       [src]="winnerPlayer.avatar"
       alt="Avatar del ganador"
-      class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-yellow-800 shadow-md bg-stone-300"
+      class="w-24 aspect-square object-cover rounded-full mx-auto mb-4 border-4 border-yellow-800 shadow-md bg-stone-300"
     />
 
     <button
