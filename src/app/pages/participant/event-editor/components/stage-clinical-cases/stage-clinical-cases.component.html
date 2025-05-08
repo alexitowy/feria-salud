@@ -57,6 +57,7 @@
             [isOpen]="isEnd && stageData.viewResults"
             [feedbackHtml]="stageData.viewResults.description"
             [title]="stageData.viewResults.title"
+            [textButton]="stageData.viewResults.buttonText"
             (continue)="submit()"
           ></app-modal-feedback>
         } @else {

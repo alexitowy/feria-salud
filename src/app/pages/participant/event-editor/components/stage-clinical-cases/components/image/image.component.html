@@ -29,7 +29,7 @@
         [src]="answer.img"
         alt="Opción"
         class="w-full object-cover"
-        [ngClass]="{ 'h-[14rem]': answer.height }"
+        [ngClass]="{ 'h-[15rem]': answer.height !== false }"
       />
 
       <!-- Texto fijo abajo -->

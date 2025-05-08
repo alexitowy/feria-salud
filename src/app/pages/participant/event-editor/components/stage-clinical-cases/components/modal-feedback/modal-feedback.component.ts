@@ -12,6 +12,7 @@ export class ModalFeedbackComponent {
   @Input() isOpen: boolean = false
   @Input() imageUrl?: string
   @Input() title?: string
+  @Input() textButton?: string = 'Continuar'
 
   @Output() continue = new EventEmitter<void>()
 

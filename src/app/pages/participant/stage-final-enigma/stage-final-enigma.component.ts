@@ -40,9 +40,9 @@ export class StageFinalEnigmaComponent implements OnInit {
 
       if (completed && !this.winnerAlreadyNotified) {
         if (completed.name === currentUserName) {
-          this.msg = '¡Has desbloqueado el cajón de los casos clínicos!'
+          this.msg = '¡Vuestra sabiduría os ha guiado bien. El curandero os espera.!'
         } else {
-          this.msg = `${completed.name} ha desbloqueado el cajón de los casos clínicos`
+          this.msg = `${completed.name} ha desbloqueado.`
         }
         this.winnerAlreadyNotified = true
         await this.authService.finishStageForAll('8')
@@ -68,7 +68,7 @@ export class StageFinalEnigmaComponent implements OnInit {
   }
 
   async checkCell(coord: string) {
-    if (coord === 'D4') {
+    if (coord === 'D3') {
       if (!this.winner) {
         const userData = this.storageService.getData(StorageEnum.USER_DATA)
         const playerName = userData?.username || 'Jugador desconocido'
@@ -77,7 +77,6 @@ export class StageFinalEnigmaComponent implements OnInit {
 
         try {
           await this.authService.finishStage('8', 10)
-          // await this.authService.completeFinalStage()
         } catch (err) {
           console.error('Error al finalizar la etapa 3', err)
         }
