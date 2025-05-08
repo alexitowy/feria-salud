@@ -131,7 +131,6 @@ export class AuthService {
 
     onSnapshot(participantsRef, (snapshot) => {
       const data = snapshot.docs
-      console.log(data)
       const list = data.map((doc) => ({
         id: doc.id,
         ...(doc.data() as Omit<any, 'id'>),
@@ -181,7 +180,6 @@ export class AuthService {
       updateData.currentStage = Number(stage) + 1
 
       await updateDoc(participantRef, updateData)
-      console.log(`Etapa ${stage} y puntos actualizados para ${username}`)
     } catch (error) {
       console.error('Error actualizando la etapa:', error)
     }
@@ -194,7 +192,6 @@ export class AuthService {
       await updateDoc(eventRef, {
         nextStageReady: true,
       })
-      console.log('Siguiente etapa lanzada')
     } catch (error) {
       console.error('Error lanzando la siguiente etapa', error)
     }
@@ -212,7 +209,6 @@ export class AuthService {
 
     if (!snapshot.empty) {
       const doc = snapshot.docs[0]
-      console.log(doc.data())
 
       return doc.data()['currentStage'] || 1
     }
@@ -226,7 +222,6 @@ export class AuthService {
       await updateDoc(eventRef, {
         nextStageReady: false,
       })
-      console.log('nextStageReady reseteado a false')
     } catch (error) {
       console.error('Error reseteando nextStageReady', error)
     }
@@ -257,7 +252,6 @@ export class AuthService {
 
     try {
       await Promise.all(promises)
-      console.log(`Todos los participantes actualizados para la etapa ${stage}`)
     } catch (error) {
       console.error('Error actualizando múltiples participantes:', error)
     }

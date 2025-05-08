@@ -61,8 +61,6 @@ export class WaitingRoomComponent {
   }
 
   deleteParticipant(participantId: string): void {
-    this.authService.deleteParticipant(participantId).then(() => {
-      console.log('Participant deleted successfully')
-    })
+    this.authService.deleteParticipant(participantId).then(() => {})
   }
 }

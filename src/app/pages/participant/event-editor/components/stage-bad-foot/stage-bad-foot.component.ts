@@ -33,9 +33,7 @@ export class StageBadFootComponent implements OnInit {
     private utils: UtilsService,
     private toast: ToastService,
     private storageService: StorageService
-  ) {
-    console.log(this.stageData)
-  }
+  ) {}
 
   ngOnInit() {
     this.currentQuestion = this.stageData.questions[0]

@@ -48,14 +48,12 @@ export class EventEditorComponent {
     }
     this.authService.eventListener$.subscribe((event) => {
       this.event = event
-      console.log(event)
     })
     this.authService.getEvent()
   }
 
   async ngOnInit(): Promise<void> {
     const stage = await this.authService.getCurrentStage()
-    console.log(stage)
     this.authService.listenIfUserDeleted(this.user.username, () => {
       this.storageService.clearAll()
       this.router.navigate(['/participant/join-event'])
@@ -66,6 +64,5 @@ export class EventEditorComponent {
     }
     this.currentStage = stage
     this.stageData = StagesData[this.currentStage]
-    console.log(this.stageData)
   }
 }
