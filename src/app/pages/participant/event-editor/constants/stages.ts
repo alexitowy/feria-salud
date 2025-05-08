@@ -39,10 +39,12 @@ export const StagesData: Record<number, StageData> = {
         ¡Cuidado con los objetos engañosos!
       `,
     answer: 'balanza',
-    dashboard: {},
+    dashboard: {
+      image: 'assets/images/balanza.png',
+    },
   },
   3: {
-    name: 'Preguntas enigma equilibrio',
+    name: 'Barro sagrado',
     background: 'assets/images/fondo_enigma.webp',
     image: 'assets/images/casos.png',
     questions: [
@@ -83,9 +85,7 @@ export const StagesData: Record<number, StageData> = {
         'El curandero os ha dejado esta pista (mapa antiguo) ... Guardadlo bien. Lo necesitaréis pronto.',
       buttonText: 'Obtener pista',
     },
-    dashboard: {
-      audio: 'assets/audio/3.mp3',
-    },
+    dashboard: {},
   },
   4: {
     name: ' El enigma del pie maldito',
@@ -126,7 +126,10 @@ export const StagesData: Record<number, StageData> = {
         timeLeft: 120,
       },
     ],
-    dashboard: {},
+    dashboard: {
+      audio: 'assets/audio/3.mp3',
+      showQuestions: false,
+    },
   },
   5: {
     name: ' Preguntas pie maldito',
@@ -368,8 +371,8 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
       buttonText: 'Obtener pista',
     },
     dashboard: {
-      audio: 'assets/audio/enigma_2.mp3',
-      video: 'assets/video/pie_maldito.mp4',
+      video: 'assets/video/enigma_2.mp4',
+      showQuestions: false,
     },
   },
   6: {
@@ -485,12 +488,12 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
         answers: [
           {
             id: 1,
-            text: 'Sí, pues al convertirla en vapores, su camino se queda en el pulmón, y los riñones quedan indemnes.',
+            text: 'No, pues al convertirla en vapores, su camino se queda en el pulmón, y los riñones quedan indemnes.',
             correct: true,
           },
           {
             id: 2,
-            text: 'No, la colistina daña los riñones, siempre y sin remedio.',
+            text: 'Si, la colistina daña los riñones, siempre y sin remedio.',
             correct: false,
           },
         ],
@@ -563,7 +566,7 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
           },
           {
             id: 2,
-            text: 'No, hay tasas de complicaciones similares entre ambas formas de administración',
+            text: 'No, las tasas de complicaciones son similares entre ambas modalidas de administración',
             correct: true,
           },
         ],
@@ -613,6 +616,9 @@ microbiológico en una herida con sospecha de infección profunda en el pie diab
                     <strong>“El camino continúa. Es hora de unir las pistas… y hallar al curandero.”</strong>`,
       buttonText: 'Obtener pista',
     },
-    dashboard: {},
+    dashboard: {
+      video: 'assets/video/enigma_3.mp4',
+      showQuestions: false,
+    },
   },
 }

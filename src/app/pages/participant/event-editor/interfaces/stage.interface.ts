@@ -12,5 +12,7 @@ export interface StageData {
   dashboard: {
     audio?: string
     video?: string
+    image?: string
+    showQuestions?: boolean
   }
 }
