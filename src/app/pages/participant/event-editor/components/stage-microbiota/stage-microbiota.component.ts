@@ -56,12 +56,12 @@ export class StageMicrobiotaComponent {
     if (normalizedAnswer === this.stageData.answer.toLowerCase()) {
       this.countDownComponent.stop()
       this.points = this.utils.calculateScore(2, 10, 60, this.totalTimeLeft)
-      this.utils.showToast(`¡Correcto! puntos: ${this.points}`, 'success')
+      // this.utils.showToast(`¡Correcto! puntos: ${this.points}`, 'success')
       this.msg = `El enigma del cofre ha sido resuelto, y su secreto, desvelado. Pero el descanso dura poco... Justo al lado,
       descubrís una antigua balanza, a su alrededor se disponen varios elementos...`
     } else {
       this.msg = `El enigma del cofre no ha sido resuelto...`
-      this.utils.showToast('Respuesta incorrecta. 0 puntos', 'danger')
+      // this.utils.showToast('Respuesta incorrecta. 0 puntos', 'danger')
       this.points = 0
     }
     this.hasAnswered = true
