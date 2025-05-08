@@ -30,4 +30,8 @@ export class UtilsService {
 
     return Math.round(pointsEarned)
   }
+
+  clearToast() {
+    this.toast.clearAll()
+  }
 }

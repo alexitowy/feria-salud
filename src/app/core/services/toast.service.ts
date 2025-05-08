@@ -31,4 +31,8 @@ export class ToastService {
   getToasts() {
     return this.toasts$.asObservable()
   }
+
+  clearAll() {
+    this.toasts$.next([])
+  }
 }

@@ -44,6 +44,7 @@ export class StageClinicalCasesComponent implements OnInit {
   }
 
   nextQuestion(totalTimeLeft: number): void {
+    this.utils.clearToast()
     this.updatePoints(totalTimeLeft)
     const currentIndex = this.stageData.questions.indexOf(this.currentQuestion)
     this.currentQuestion = null
