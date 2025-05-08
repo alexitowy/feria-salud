@@ -5,6 +5,7 @@ import { AuthService } from '../../../../../core/services/auth.service'
 import { StorageService } from '../../../../../core/services/storage.service'
 import { Router } from '@angular/router'
 import { StorageEnum } from '../../../../../core/models/emuns/storage.emun'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-antibiotic-selector',
@@ -22,6 +23,8 @@ export class AntibioticSelectorComponent {
   winner: string | null = null
   winnerAlreadyNotified = false
 
+  private participantsSub!: Subscription
+
   constructor(
     private toast: ToastService,
     private authService: AuthService,
@@ -30,29 +33,31 @@ export class AntibioticSelectorComponent {
   ) {}
 
   ngOnInit() {
-    this.authService.participantsListener$.subscribe(async (participants: any[]) => {
-      const userData = this.storageService.getData(StorageEnum.USER_DATA)
-      const currentUserName = userData?.username
+    this.participantsSub = this.authService.participantsListener$.subscribe(
+      async (participants: any[]) => {
+        const userData = this.storageService.getData(StorageEnum.USER_DATA)
+        const currentUserName = userData?.username
 
-      const completed = participants.find((p) => p[this.currentStage] === true)
+        const completed = participants.find((p) => p[this.currentStage] === true)
 
-      if (completed && !this.winnerAlreadyNotified) {
-        this.winnerAlreadyNotified = true
+        if (completed && !this.winnerAlreadyNotified) {
+          this.winnerAlreadyNotified = true
 
-        if (completed.name === currentUserName) {
-          this.toast.show('¡Has desbloqueado el cajón de los casos clínicos!', 'success')
-        } else {
-          this.toast.show(
-            `${completed.name} ha desbloqueado el cajón de los casos clínicos`,
-            'success'
-          )
+          if (completed.name === currentUserName) {
+            this.toast.show('¡Has desbloqueado el cajón de los casos clínicos!', 'success')
+          } else {
+            this.toast.show(
+              `${completed.name} ha desbloqueado el cajón de los casos clínicos`,
+              'success'
+            )
+          }
+          await this.authService.finishStageForAll(this.currentStage.toString())
+          setTimeout(() => {
+            this.router.navigate(['/participant/stage-waiting'])
+          }, 2500)
         }
-        await this.authService.finishStageForAll(this.currentStage.toString())
-        setTimeout(() => {
-          this.router.navigate(['/participant/stage-waiting'])
-        }, 2500)
       }
-    })
+    )
   }
 
   selections: {
@@ -121,5 +126,9 @@ export class AntibioticSelectorComponent {
       sel.stability === antibiotic.correct.stability && sel.note === antibiotic.correct.note
 
     return isCorrect ? 'correct' : 'incorrect'
+  }
+
+  ngOnDestroy(): void {
+    this.participantsSub?.unsubscribe()
   }
 }

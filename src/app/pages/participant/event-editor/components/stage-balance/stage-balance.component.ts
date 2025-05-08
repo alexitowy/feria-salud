@@ -8,6 +8,7 @@ import { StorageService } from '../../../../../core/services/storage.service'
 import { StorageEnum } from '../../../../../core/models/emuns/storage.emun'
 import { Router } from '@angular/router'
 import { ModalFeedbackComponent } from '../stage-clinical-cases/components/modal-feedback/modal-feedback.component'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-stage-balance',
@@ -35,6 +36,7 @@ export class StageBalanceComponent {
   winnerAlreadyNotified = false
 
   feedbackHtml = ''
+  private participantsSub!: Subscription
 
   constructor(
     private toast: ToastService,
@@ -44,26 +46,28 @@ export class StageBalanceComponent {
   ) {}
 
   ngOnInit() {
-    this.authService.participantsListener$.subscribe(async (participants: any[]) => {
-      const userData = this.storageService.getData(StorageEnum.USER_DATA)
-      const currentUserName = userData?.username
+    this.participantsSub = this.authService.participantsListener$.subscribe(
+      async (participants: any[]) => {
+        const userData = this.storageService.getData(StorageEnum.USER_DATA)
+        const currentUserName = userData?.username
 
-      const completed = participants.find((p) => p['2'] === true)
+        const completed = participants.find((p) => p['2'] === true)
 
-      if (completed && !this.winnerAlreadyNotified) {
-        this.winnerAlreadyNotified = true
+        if (completed && !this.winnerAlreadyNotified) {
+          this.winnerAlreadyNotified = true
 
-        if (completed.name === currentUserName) {
-          this.feedbackHtml = `Habéis logrado el equilibrio… más la calma no ha de durar...<br>
+          if (completed.name === currentUserName) {
+            this.feedbackHtml = `Habéis logrado el equilibrio… más la calma no ha de durar...<br>
                                 Entre los pergaminos del curandero, una nueva revelación se deja leer:<br>
                                 “Cuando el invasor regresa una y otra vez, no basta con limpiar… hay que restaurar.”`
-        } else {
-          this.feedbackHtml = `${completed.name} ha desbloqueado el cajón de los casos clínicos`
+          } else {
+            this.feedbackHtml = `${completed.name} ha desbloqueado el cajón de los casos clínicos`
+          }
+          await this.authService.finishStageForAll('2')
+          this.options = []
         }
-        await this.authService.finishStageForAll('2')
-        this.options = []
       }
-    })
+    )
   }
 
   onItemDropped(event: CdkDragDrop<any>) {
@@ -113,5 +117,9 @@ export class StageBalanceComponent {
 
   continue() {
     this.router.navigate(['/participant/stage-waiting'])
+  }
+
+  ngOnDestroy(): void {
+    this.participantsSub?.unsubscribe()
   }
 }

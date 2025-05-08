@@ -8,6 +8,7 @@ import { ToastService } from '../../../../../core/services/toast.service'
 import { StorageService } from '../../../../../core/services/storage.service'
 import { StorageEnum } from '../../../../../core/models/emuns/storage.emun'
 import { ModalFeedbackComponent } from '../stage-clinical-cases/components/modal-feedback/modal-feedback.component'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-stage-bad-foot',
@@ -24,6 +25,7 @@ export class StageBadFootComponent implements OnInit {
   winner: string | null = null
   winnerAlreadyNotified = false
   feedbackHTML: string = ''
+  private participantsSub!: Subscription
 
   constructor(
     private authService: AuthService,
@@ -38,29 +40,31 @@ export class StageBadFootComponent implements OnInit {
   ngOnInit() {
     this.currentQuestion = this.stageData.questions[0]
 
-    this.authService.participantsListener$.subscribe(async (participants: any[]) => {
-      const userData = this.storageService.getData(StorageEnum.USER_DATA)
-      const currentUserName = userData?.username
+    this.participantsSub = this.authService.participantsListener$.subscribe(
+      async (participants: any[]) => {
+        const userData = this.storageService.getData(StorageEnum.USER_DATA)
+        const currentUserName = userData?.username
 
-      const completed = participants.find((p) => p['4'] === true)
+        const completed = participants.find((p) => p['4'] === true)
 
-      if (completed && !this.winnerAlreadyNotified) {
-        this.winnerAlreadyNotified = true
+        if (completed && !this.winnerAlreadyNotified) {
+          this.winnerAlreadyNotified = true
 
-        if (completed.name === currentUserName) {
-          this.toast.show('¡Correcto!: Staphylococcus aureus (coco gram + en racimos)', 'success')
-          this.feedbackHTML = `<strong>¡Muy bien, valientes sanadores!<br>
+          if (completed.name === currentUserName) {
+            this.toast.show('¡Correcto!: Staphylococcus aureus (coco gram + en racimos)', 'success')
+            this.feedbackHTML = `<strong>¡Muy bien, valientes sanadores!<br>
                                 Habéis superado la prueba con sabiduría.</strong><br>
                                 Vuestra mente ha vencido al engaño del curandero, y por ello, el camino se abre ante vosotros.<br>
                                 <strong>Ahora, escuchad con atención…</strong><br><br>
                                 Los detalles del caso que se os revelarán a continuación`
-        } else {
-          this.toast.show(`${completed.name} ha desbloqueado`, 'success')
-          this.feedbackHTML = `${completed.name} ha desbloqueado`
+          } else {
+            this.toast.show(`${completed.name} ha desbloqueado`, 'success')
+            this.feedbackHTML = `${completed.name} ha desbloqueado`
+          }
+          await this.authService.finishStageForAll('4')
         }
-        await this.authService.finishStageForAll('4')
       }
-    })
+    )
   }
 
   nextQuestion(totalTimeLeft: number): void {
@@ -111,5 +115,9 @@ export class StageBadFootComponent implements OnInit {
 
   continue() {
     this.router.navigate(['/participant/stage-waiting'])
+  }
+
+  ngOnDestroy(): void {
+    this.participantsSub?.unsubscribe()
   }
 }

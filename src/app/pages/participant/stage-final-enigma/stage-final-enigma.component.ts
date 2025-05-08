@@ -6,6 +6,7 @@ import { StorageEnum } from '../../../core/models/emuns/storage.emun'
 import { AuthService } from '../../../core/services/auth.service'
 import { Router } from '@angular/router'
 import { ModalFeedbackComponent } from '../event-editor/components/stage-clinical-cases/components/modal-feedback/modal-feedback.component'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-stage-final-enigma',
@@ -25,6 +26,8 @@ export class StageFinalEnigmaComponent implements OnInit {
   winnerAlreadyNotified = false
 
   msg = ''
+  private participantsSub!: Subscription
+
   constructor(
     private readonly utilsService: UtilsService,
     private readonly storageService: StorageService,
@@ -33,21 +36,23 @@ export class StageFinalEnigmaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.participantsListener$.subscribe(async (participants: any[]) => {
-      const userData = this.storageService.getData(StorageEnum.USER_DATA)
-      const currentUserName = userData?.username
-      const completed = participants?.find((p) => p['8'] === true)
+    this.participantsSub = this.authService.participantsListener$.subscribe(
+      async (participants: any[]) => {
+        const userData = this.storageService.getData(StorageEnum.USER_DATA)
+        const currentUserName = userData?.username
+        const completed = participants?.find((p) => p['8'] === true)
 
-      if (completed && !this.winnerAlreadyNotified) {
-        if (completed.name === currentUserName) {
-          this.msg = '¡Vuestra sabiduría os ha guiado bien. El curandero os espera.!'
-        } else {
-          this.msg = `${completed.name} ha desbloqueado.`
+        if (completed && !this.winnerAlreadyNotified) {
+          if (completed.name === currentUserName) {
+            this.msg = '¡Vuestra sabiduría os ha guiado bien. El curandero os espera.!'
+          } else {
+            this.msg = `${completed.name} ha desbloqueado.`
+          }
+          this.winnerAlreadyNotified = true
+          await this.authService.finishStageForAll('8')
         }
-        this.winnerAlreadyNotified = true
-        await this.authService.finishStageForAll('8')
       }
-    })
+    )
 
     this.awards = this.storageService.getData('award') || []
     this.awards = this.awards.filter((award) => award !== 'assets/images/map.jpg')
@@ -91,5 +96,9 @@ export class StageFinalEnigmaComponent implements OnInit {
 
   continue() {
     this.router.navigate(['/participant/thanks'])
+  }
+
+  ngOnDestroy(): void {
+    this.participantsSub?.unsubscribe()
   }
 }

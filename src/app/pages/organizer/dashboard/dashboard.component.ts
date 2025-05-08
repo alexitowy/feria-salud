@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { AfterViewInit, Component } from '@angular/core'
 import { Router } from '@angular/router'
-import { filter } from 'rxjs'
+import { filter, Subscription } from 'rxjs'
 import { StorageEnum } from '../../../core/models/emuns/storage.emun'
 import { Event } from '../../../core/models/event.model'
 import { User } from '../../../core/models/user.model'
@@ -46,6 +46,9 @@ export class DashboardComponent implements AfterViewInit {
 
   currentSlide: Record<number, number> = {}
 
+  private participantsSub!: Subscription
+  private eventSub!: Subscription
+
   constructor(
     private storageService: StorageService,
     private router: Router,
@@ -56,10 +59,10 @@ export class DashboardComponent implements AfterViewInit {
       this.router.navigate(['/organizer/await'])
       return
     }
-    this.authService.eventListener$.subscribe((event) => {
+    this.eventSub = this.authService.eventListener$.subscribe((event) => {
       this.event = event
     })
-    this.authService.participantsListener$
+    this.participantsSub = this.authService.participantsListener$
       .pipe(filter(Boolean))
       .subscribe((participants: any[]) => {
         this.participants = participants.sort((a, b) => (b.points || 0) - (a.points || 0))
@@ -143,5 +146,10 @@ export class DashboardComponent implements AfterViewInit {
 
   prevSlide(stageKey: number): void {
     if (this.currentSlide[stageKey] > 0) this.currentSlide[stageKey]--
+  }
+
+  ngOnDestroy(): void {
+    this.participantsSub?.unsubscribe()
+    this.eventSub?.unsubscribe()
   }
 }
