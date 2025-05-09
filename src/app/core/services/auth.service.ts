@@ -336,4 +336,13 @@ export class AuthService {
       console.error('Error actualizando currentStage automáticamente:', error)
     }
   }
+
+  async shouldRedirectToEvent(): Promise<boolean> {
+    const userData = this.storageService.getData(StorageEnum.USER_DATA)
+    if (!userData) return false
+
+    const eventRef = doc(this.firestore, 'event', 'feriaSalud')
+    const eventSnap = await getDoc(eventRef)
+    return eventSnap.exists() && eventSnap.data()?.['introVideoCompleted'] === true
+  }
 }

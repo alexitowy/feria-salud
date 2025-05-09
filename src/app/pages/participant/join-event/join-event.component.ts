@@ -39,10 +39,14 @@ export class JoinEventComponent implements OnInit {
     private utilsService: UtilsService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     const userData = this.storageService.getData(StorageEnum.USER_DATA)
-    if (userData) {
+    const shouldRedirect = await this.authService.shouldRedirectToEvent()
+    if (userData && shouldRedirect) {
       this.router.navigate(['/participant/event'])
+      return
+    } else if (userData) {
+      this.router.navigate(['/participant/await'])
       return
     }
   }
