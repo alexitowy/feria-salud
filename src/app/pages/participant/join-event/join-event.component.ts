@@ -30,6 +30,7 @@ export class JoinEventComponent implements OnInit {
   avatars = Array.from({ length: 9 }, (_, i) => `assets/images/avatars_${i + 1}.png`)
   selectedAvatar: string | null = null
   showAvatars = false
+  submit: boolean = false
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
@@ -47,9 +48,11 @@ export class JoinEventComponent implements OnInit {
   }
 
   async joinEvent() {
+    this.submit = true
     if (this.form.valid) {
       const { eventCode, name } = this.form.value
       if (!eventCode || !name) {
+        this.submit = false
         this.utilsService.showToast('Por favor, completa todos los campos.', 'danger')
         return
       }
@@ -57,19 +60,23 @@ export class JoinEventComponent implements OnInit {
 
       if (!result.valid) {
         this.utilsService.showToast('El código es incorrecto.', 'danger')
+        this.submit = false
         return
       }
 
       if (result.started) {
         this.utilsService.showToast('El evento ya comenzó. No puedes unirte ahora.', 'danger')
+        this.submit = false
         return
       }
 
       const userExist = await this.authService.checkUser(name)
       if (userExist) {
         this.utilsService.showToast('El nombre ya está en uso. Por favor, elige otro.', 'danger')
+        this.submit = false
         return
       }
+
       const userData = {
         username: name,
         organizer: false,
@@ -83,6 +90,7 @@ export class JoinEventComponent implements OnInit {
     } else {
       this.form.markAllAsTouched()
     }
+    this.submit = false
   }
 
   selectAvatar(avatar: string) {
