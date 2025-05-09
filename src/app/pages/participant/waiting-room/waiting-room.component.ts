@@ -34,6 +34,8 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
     this.canContinueSub = this.authService.canContinue$.pipe(filter(Boolean)).subscribe(() => {
       this.router.navigate(['/participant/event'])
     })
+
+    this.authService.getEvent()
   }
 
   ngOnDestroy(): void {

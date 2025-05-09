@@ -115,14 +115,15 @@ export class AuthService {
   private listenForEvent(): void {
     const eventRef = doc(this.firestore, 'event', 'feriaSalud')
 
+    getDoc(eventRef).then((snapshot) => {
+      const data = snapshot.data()
+      this.canContinueSubject.next(data?.['active'] === true)
+    })
+
     onSnapshot(eventRef, (snapshot) => {
       const data = snapshot.data()
       this.eventListener$.next(data)
-      if (data?.['active'] === true) {
-        this.canContinueSubject.next(true)
-      } else {
-        this.canContinueSubject.next(false)
-      }
+      this.canContinueSubject.next(data?.['active'] === true)
     })
   }
 
