@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { AuthService } from '../../../core/services/auth.service'
 import { Router } from '@angular/router'
-import { filter, Observable, take } from 'rxjs'
+import { filter, Observable, Subscription, take } from 'rxjs'
 import { StorageEnum } from '../../../core/models/emuns/storage.emun'
 import { StorageService } from '../../../core/services/storage.service'
 
@@ -12,7 +12,9 @@ import { StorageService } from '../../../core/services/storage.service'
   templateUrl: './waiting-room.component.html',
   styleUrl: './waiting-room.component.scss',
 })
-export class WaitingRoomComponent {
+export class WaitingRoomComponent implements OnInit, OnDestroy {
+  canContinueSub!: Subscription
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -29,8 +31,12 @@ export class WaitingRoomComponent {
       this.router.navigate(['/participant/join'])
     })
 
-    this.authService.canContinue$.pipe(filter(Boolean)).subscribe(() => {
+    this.canContinueSub = this.authService.canContinue$.pipe(filter(Boolean)).subscribe(() => {
       this.router.navigate(['/participant/event'])
     })
+  }
+
+  ngOnDestroy(): void {
+    this.canContinueSub?.unsubscribe()
   }
 }
