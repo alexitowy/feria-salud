@@ -33,16 +33,15 @@ export class StageWaitingComponent {
       return
     }
 
-    // Escuchar evento
     this.authService.listenIfUserDeleted(userData.username, () => {
       this.router.navigate(['/participant/join'])
     })
 
-    // Escuchar evento solo si el usuario existe
-    this.authService.eventListener$.pipe(filter(Boolean)).subscribe((event) => {
+    this.authService.eventListener$.pipe(filter(Boolean)).subscribe(async (event) => {
       this.eventData = event
 
       if (event.nextStageReady) {
+        await this.authService.updateCurrentStageAuto()
         this.router.navigate(['/participant/event'])
       }
     })

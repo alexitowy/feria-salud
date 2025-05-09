@@ -177,7 +177,7 @@ export class AuthService {
         updateData.points = currentPoints + newPoints
       }
 
-      updateData.currentStage = Number(stage) + 1
+      updateData.currentStage = Number(stage)
 
       if (final) {
         updateData.winner = true
@@ -201,11 +201,11 @@ export class AuthService {
     }
   }
 
-  async getCurrentStage(): Promise<number> {
+  async getCurrentStageData(): Promise<any> {
     const userData = this.storageService.getData(StorageEnum.USER_DATA)
     const username = userData?.username
 
-    if (!username) return 1
+    if (!username) return null
 
     const participantsRef = collection(this.firestore, 'participantes')
     const q = query(participantsRef, where('name', '==', username))
@@ -213,11 +213,13 @@ export class AuthService {
 
     if (!snapshot.empty) {
       const doc = snapshot.docs[0]
-
-      return doc.data()['currentStage'] || 1
+      return {
+        id: doc.id,
+        ...doc.data(),
+      }
     }
 
-    return 1
+    return null
   }
 
   async resetNextStageReady(): Promise<void> {
@@ -296,5 +298,42 @@ export class AuthService {
     await updateDoc(eventRef, {
       finish: true,
     })
+  }
+
+  async updateCurrentStageAuto(): Promise<void> {
+    const userData = this.storageService.getData(StorageEnum.USER_DATA)
+    const username = userData?.username
+
+    if (!username) {
+      console.error('No se encontró nombre de usuario.')
+      return
+    }
+
+    const participantsRef = collection(this.firestore, 'participantes')
+    const q = query(participantsRef, where('name', '==', username))
+    const querySnapshot = await getDocs(q)
+
+    if (querySnapshot.empty) {
+      console.error('No se encontró al participante con ese nombre.')
+      return
+    }
+
+    const participantDoc = querySnapshot.docs[0]
+    const participantRef = doc(this.firestore, `participantes/${participantDoc.id}`)
+
+    const data = participantDoc.data()
+
+    const completedStages = Object.keys(data)
+      .filter((key) => !isNaN(Number(key)) && data[key] === true)
+      .map(Number)
+
+    const maxStage = completedStages.length > 0 ? Math.max(...completedStages) : 0
+    const nextStage = maxStage + 1
+
+    try {
+      await updateDoc(participantRef, { currentStage: nextStage })
+    } catch (error) {
+      console.error('Error actualizando currentStage automáticamente:', error)
+    }
   }
 }
