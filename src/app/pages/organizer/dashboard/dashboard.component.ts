@@ -80,7 +80,6 @@ export class DashboardComponent implements AfterViewInit {
           return (p.points || 0) > (max.points || 0) ? p : max
         }, participants[0])
         if (completed && !this.winnerPlayer) {
-          this.showWinnerModal = true
           this.winnerPlayer = {
             name: topScorer.name,
             points: topScorer.points,
@@ -139,6 +138,10 @@ export class DashboardComponent implements AfterViewInit {
 
   closeRestartModal(): void {
     this.showRestartModal = false
+  }
+
+  openAwardModal() {
+    this.showWinnerModal = true
   }
 
   async confirmRestartGame(): Promise<void> {
